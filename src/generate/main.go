@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	pac "github.com/craterdog/go-model-framework/v2"
+	mod "github.com/craterdog/go-model-framework/v2"
 	osx "os"
 )
 
@@ -29,6 +29,6 @@ func main() {
 	var directory = osx.Args[1]
 
 	// Generate the class files.
-	var generator = pac.Generator().Make()
+	var generator = mod.Generator().Make()
 	generator.GeneratePackage(directory)
 }

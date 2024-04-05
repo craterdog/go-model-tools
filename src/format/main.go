@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	pac "github.com/craterdog/go-model-framework/v2"
+	mod "github.com/craterdog/go-model-framework/v2"
 	osx "os"
 	sts "strings"
 )
@@ -39,11 +39,11 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = pac.Parser().Make()
+	var parser = mod.Parser().Make()
 	var model = parser.ParseSource(source)
 
 	// Reformat the package file.
-	var formatter = pac.Formatter().Make()
+	var formatter = mod.Formatter().Make()
 	source = formatter.FormatModel(model)
 	bytes = []byte(source)
 	err = osx.WriteFile(packageFile, bytes, 0644)

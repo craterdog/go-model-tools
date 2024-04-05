@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	pac "github.com/craterdog/go-model-framework/v2"
+	mod "github.com/craterdog/go-model-framework/v2"
 	osx "os"
 	sts "strings"
 )
@@ -39,8 +39,8 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = pac.Parser().Make()
+	var parser = mod.Parser().Make()
 	var model = parser.ParseSource(source)
-	var validator = pac.Validator().Make()
+	var validator = mod.Validator().Make()
 	validator.ValidateModel(model)
 }
