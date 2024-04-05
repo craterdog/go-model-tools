@@ -1,2 +1,47 @@
-# go-model-tools
-These tools can be used to validate and format Package.go files and generate their corresponding class files.
+<img src="https://craterdog.com/images/CraterDog.png" width="50%">
+
+## Go Class-Based Package Framework Tools
+
+### Overview
+This project provides a set of Go based tools that can validate and format an
+abstract `Package.go` file associated with a class-based package.  It also can
+generate the corresponding concrete class files for each abstract class defined
+in the package file.  For full details on the Go Class-Based Package Framework
+click [here](https://github.com/craterdog/go-model-framework/wiki)
+
+### Getting Started
+To install the class-based package tools do the following from a terminal
+window:
+```
+$ git clone git@github.com:craterdog/go-model-tools.git
+$ cd go-model-tools/
+$ ./etc/build.sh
+$ ls
+LICENSE		bin		go.mod		src
+README.md	etc		go.sum
+
+$ls bin/
+format		generate	validate
+```
+
+### Using the Tools
+The `validate` command reads in a `Package.go` file and ensures that it contains
+only abstract type and interface definitions:
+```
+$ go-model-tools/bin/validate example/Package.go
+```
+
+The `format` command reads in a `Package.go` file and reformats it in its
+canonical format as follows:
+```
+$ go-model-tools/bin/format example/Package.go
+```
+
+The `generate` command reads in a `Package.go` file and generates a separate
+concrete class file—in the same directory—for each abstract class defined in the
+`Package.go` file:
+```
+$ go-model-tools/bin/generate example/Package.go
+```
+
+<H5 align="center"> Copyright © 2009 - 2024  Crater Dog Technologies™. All rights reserved. </H5>
