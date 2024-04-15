@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	mod "github.com/craterdog/go-model-framework/v2"
+	mod "github.com/craterdog/go-model-framework/v3/gcmn"
 	osx "os"
 	sts "strings"
 )
