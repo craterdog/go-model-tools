@@ -30,7 +30,7 @@ func main() {
 	var name = osx.Args[2]
 	var copyright = osx.Args[3]
 
-	// Generate the class files.
+	// Create a new package file.
 	var generator = age.Generator().Make()
 	generator.CreateModel(directory, name, copyright)
 }
