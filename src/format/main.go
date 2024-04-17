@@ -14,9 +14,8 @@ package main
 
 import (
 	fmt "fmt"
-	mod "github.com/craterdog/go-model-framework/v3/gcmn"
+	gcm "github.com/craterdog/go-model-framework/v3/gcmn"
 	osx "os"
-	sts "strings"
 )
 
 // MAIN PROGRAM
@@ -24,26 +23,26 @@ import (
 func main() {
 	// Validate the commandline arguments.
 	if len(osx.Args) < 2 {
-		fmt.Println("Usage: format <package-directory>")
+		fmt.Println("Usage: format <package-file>")
 		return
 	}
-	var directory = osx.Args[1]
+	var packageFile = osx.Args[1]
 
 	// Parse the package file.
-	if !sts.HasSuffix(directory, "/") {
-		directory += "/"
-	}
-	var packageFile = directory + "Package.go"
 	var bytes, err = osx.ReadFile(packageFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = mod.Parser().Make()
+	var parser = gcm.Parser().Make()
 	var model = parser.ParseSource(source)
 
+	// Validate the model.
+	var validator = gcm.Validator().Make()
+	validator.ValidateModel(model)
+
 	// Reformat the package file.
-	var formatter = mod.Formatter().Make()
+	var formatter = gcm.Formatter().Make()
 	source = formatter.FormatModel(model)
 	bytes = []byte(source)
 	err = osx.WriteFile(packageFile, bytes, 0644)

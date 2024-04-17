@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	mod "github.com/craterdog/go-model-framework/v3/agent"
+	age "github.com/craterdog/go-model-framework/v3/agent"
 	osx "os"
 )
 
@@ -31,6 +31,6 @@ func main() {
 	var copyright = osx.Args[3]
 
 	// Generate the class files.
-	var generator = mod.Generator().Make()
+	var generator = age.Generator().Make()
 	generator.CreateModel(directory, name, copyright)
 }
