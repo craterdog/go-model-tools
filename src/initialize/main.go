@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-model-framework/v3/agent"
+	age "github.com/craterdog/go-model-framework/v4/agent"
 	osx "os"
 )
 
