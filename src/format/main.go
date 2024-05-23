@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-model-framework/v4/gcmn/agent"
+	mod "github.com/craterdog/go-model-framework/v4"
 	osx "os"
 )
 
@@ -28,22 +28,19 @@ func main() {
 	}
 	var packageFile = osx.Args[1]
 
-	// Parse the package file.
+	// Parse the model.
 	var bytes, err = osx.ReadFile(packageFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = age.Parser().Make()
-	var model = parser.ParseSource(source)
+	var model = mod.ParseSource(source)
 
 	// Validate the model.
-	var validator = age.Validator().Make()
-	validator.ValidateModel(model)
+	mod.ValidateModel(model)
 
 	// Reformat the package file.
-	var formatter = age.Formatter().Make()
-	source = formatter.FormatModel(model)
+	source = mod.FormatModel(model)
 	bytes = []byte(source)
 	err = osx.WriteFile(packageFile, bytes, 0644)
 	if err != nil {

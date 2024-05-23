@@ -14,8 +14,9 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-model-framework/v4/gcmn/agent"
+	mod "github.com/craterdog/go-model-framework/v4"
 	osx "os"
+	sts "strings"
 )
 
 // MAIN PROGRAM
@@ -27,8 +28,31 @@ func main() {
 		return
 	}
 	var directory = osx.Args[1]
+	if !sts.HasSuffix(directory, "/") {
+		directory += "/"
+	}
+
+	// Parse the class model.
+	var packageFile = directory + "Package.go"
+	var bytes, err = osx.ReadFile(packageFile)
+	if err != nil {
+		panic(err)
+	}
+	var source = string(bytes)
+	var model = mod.ParseSource(source)
 
 	// Generate the class files.
-	var generator = age.Generator().Make()
-	generator.GeneratePackage(directory)
+	var classes = mod.GenerateClasses(model)
+	var iterator = classes.GetIterator()
+	for iterator.HasNext() {
+		var association = iterator.GetNext()
+		var name = association.GetKey()
+		var source = association.GetValue()
+		var filename = directory + name + ".go"
+		var bytes = []byte(source)
+		var err = osx.WriteFile(filename, bytes, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
 }

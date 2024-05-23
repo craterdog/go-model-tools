@@ -14,8 +14,9 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-model-framework/v4/gcmn/agent"
+	mod "github.com/craterdog/go-model-framework/v4"
 	osx "os"
+	sts "strings"
 )
 
 // MAIN PROGRAM
@@ -30,7 +31,27 @@ func main() {
 	var name = osx.Args[2]
 	var copyright = osx.Args[3]
 
-	// Create a new package file.
-	var generator = age.Generator().Make()
-	generator.CreateModel(directory, name, copyright)
+	// Create a new model.
+	var source = mod.CreateModel(name, copyright)
+
+	// Create a new directory for the package.
+	if !sts.HasSuffix(directory, "/") {
+		directory += "/"
+	}
+	var err = osx.MkdirAll(directory, 0755)
+	if err != nil {
+		panic(err)
+	}
+
+	// Save the new model template.
+	var packageFile = directory + "Package.go"
+	fmt.Printf(
+		"The package file %q for the model does not yet exist.\n\tCreating a template for it...\n",
+		packageFile,
+	)
+	var bytes = []byte(source)
+	err = osx.WriteFile(packageFile, bytes, 0644)
+	if err != nil {
+		panic(err)
+	}
 }

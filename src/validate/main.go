@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-model-framework/v4/gcmn/agent"
+	mod "github.com/craterdog/go-model-framework/v4"
 	osx "os"
 )
 
@@ -34,10 +34,8 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = age.Parser().Make()
-	var model = parser.ParseSource(source)
+	var model = mod.ParseSource(source)
 
 	// Validate the model.
-	var validator = age.Validator().Make()
-	validator.ValidateModel(model)
+	mod.ValidateModel(model)
 }
