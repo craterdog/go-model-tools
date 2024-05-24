@@ -39,17 +39,21 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var model = mod.ParseSource(source)
+	var parser = mod.Parser()
+	var model = parser.ParseSource(source)
 
 	// Generate the class files.
-	var classes = mod.GenerateClasses(model)
-	var iterator = classes.GetIterator()
+	var generator = mod.Generator()
+	var iterator = model.GetClasses().GetIterator()
 	for iterator.HasNext() {
-		var association = iterator.GetNext()
-		var name = association.GetKey()
-		var source = association.GetValue()
-		var filename = directory + name + ".go"
+		var class = iterator.GetNext()
+		var name = sts.ToLower(sts.TrimSuffix(
+			class.GetDeclaration().GetIdentifier(),
+			"ClassLike",
+		))
+		var source = generator.GenerateClass(model, name)
 		var bytes = []byte(source)
+		var filename = directory + name + ".go"
 		var err = osx.WriteFile(filename, bytes, 0644)
 		if err != nil {
 			panic(err)

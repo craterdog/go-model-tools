@@ -32,7 +32,8 @@ func main() {
 	var copyright = osx.Args[3]
 
 	// Create a new model.
-	var source = mod.CreateModel(name, copyright)
+	var generator = mod.Generator()
+	var source = generator.CreateModel(name, copyright)
 
 	// Create a new directory for the package.
 	if !sts.HasSuffix(directory, "/") {

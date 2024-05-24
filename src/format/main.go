@@ -34,13 +34,16 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var model = mod.ParseSource(source)
+	var parser = mod.Parser()
+	var model = parser.ParseSource(source)
 
 	// Validate the model.
-	mod.ValidateModel(model)
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
 
 	// Reformat the package file.
-	source = mod.FormatModel(model)
+	var formatter = mod.Formatter()
+	source = formatter.FormatModel(model)
 	bytes = []byte(source)
 	err = osx.WriteFile(packageFile, bytes, 0644)
 	if err != nil {

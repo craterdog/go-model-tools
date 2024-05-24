@@ -34,8 +34,10 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var model = mod.ParseSource(source)
+	var parser = mod.Parser()
+	var model = parser.ParseSource(source)
 
 	// Validate the model.
-	mod.ValidateModel(model)
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
 }
