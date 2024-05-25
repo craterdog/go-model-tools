@@ -13,7 +13,7 @@
 package agent
 
 import (
-	ast "github.com/craterdog/go-model-framework/v4/gcmn/ast"
+	ast "github.com/craterdog/go-model-framework/v4/ast"
 )
 
 // CLASS ACCESS

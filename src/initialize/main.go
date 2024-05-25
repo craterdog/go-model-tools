@@ -33,7 +33,7 @@ func main() {
 
 	// Create a new model.
 	var generator = mod.Generator()
-	var source = generator.CreateModel(name, copyright)
+	var model = generator.CreateModel(name, copyright)
 
 	// Create a new directory for the package.
 	if !sts.HasSuffix(directory, "/") {
@@ -50,6 +50,8 @@ func main() {
 		"The package file %q for the model does not yet exist.\n\tCreating a template for it...\n",
 		packageFile,
 	)
+	var formatter = mod.Formatter()
+	var source = formatter.FormatModel(model)
 	var bytes = []byte(source)
 	err = osx.WriteFile(packageFile, bytes, 0644)
 	if err != nil {
