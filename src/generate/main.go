@@ -57,17 +57,17 @@ func parseModel(directory string) mod.ModelLike {
 
 func generateClasses(
 	directory string,
-	astModel mod.ModelLike,
+	model mod.ModelLike,
 ) {
 	var generator = mod.Generator()
-	var iterator = astModel.GetClasses().GetIterator()
+	var iterator = model.GetClasses().GetIterator()
 	for iterator.HasNext() {
 		var class = iterator.GetNext()
 		var name = sts.ToLower(sts.TrimSuffix(
 			class.GetDeclaration().GetIdentifier(),
 			"ClassLike",
 		))
-		var source = generator.GenerateClass(astModel, name)
+		var source = generator.GenerateClass(model, name)
 		var bytes = []byte(source)
 		var filename = directory + name + ".go"
 		var err = osx.WriteFile(filename, bytes, 0644)
