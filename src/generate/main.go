@@ -19,39 +19,55 @@ import (
 	sts "strings"
 )
 
-// MAIN PROGRAM
-
 func main() {
-	// Validate the commandline arguments.
+	var directory = retrieveArguments()
+	var model = parseModel(directory)
+	validateModel(model)
+	generateClasses(directory, model)
+}
+
+func retrieveArguments() (directory string) {
 	if len(osx.Args) < 2 {
-		fmt.Println("Usage: generate <package-directory>")
+		fmt.Println("Usage: generate <directory>")
 		return
 	}
-	var directory = osx.Args[1]
+	directory = osx.Args[1]
 	if !sts.HasSuffix(directory, "/") {
 		directory += "/"
 	}
+	return directory
+}
 
-	// Parse the class model.
-	var packageFile = directory + "Package.go"
-	var bytes, err = osx.ReadFile(packageFile)
+func validateModel(model mod.ModelLike) {
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
+}
+
+func parseModel(directory string) mod.ModelLike {
+	var modelFile = directory + "Package.go"
+	var bytes, err = osx.ReadFile(modelFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
 	var parser = mod.Parser()
 	var model = parser.ParseSource(source)
+	return model
+}
 
-	// Generate the class files.
+func generateClasses(
+	directory string,
+	astModel mod.ModelLike,
+) {
 	var generator = mod.Generator()
-	var iterator = model.GetClasses().GetIterator()
+	var iterator = astModel.GetClasses().GetIterator()
 	for iterator.HasNext() {
 		var class = iterator.GetNext()
 		var name = sts.ToLower(sts.TrimSuffix(
 			class.GetDeclaration().GetIdentifier(),
 			"ClassLike",
 		))
-		var source = generator.GenerateClass(model, name)
+		var source = generator.GenerateClass(astModel, name)
 		var bytes = []byte(source)
 		var filename = directory + name + ".go"
 		var err = osx.WriteFile(filename, bytes, 0644)

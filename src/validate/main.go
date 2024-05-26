@@ -18,26 +18,33 @@ import (
 	osx "os"
 )
 
-// MAIN PROGRAM
-
 func main() {
-	// Validate the commandline arguments.
+	var modelFile = retrieveArguments()
+	var model = parseModel(modelFile)
+	validateModel(model)
+}
+
+func retrieveArguments() (modelFile string) {
 	if len(osx.Args) < 2 {
-		fmt.Println("Usage: validate <package-file>")
+		fmt.Println("Usage: validate <model-file>")
 		return
 	}
-	var packageFile = osx.Args[1]
+	modelFile = osx.Args[1]
+	return modelFile
+}
 
-	// Parse the package file.
-	var bytes, err = osx.ReadFile(packageFile)
+func parseModel(modelFile string) mod.ModelLike {
+	var bytes, err = osx.ReadFile(modelFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
 	var parser = mod.Parser()
 	var model = parser.ParseSource(source)
+	return model
+}
 
-	// Validate the model.
+func validateModel(model mod.ModelLike) {
 	var validator = mod.Validator()
 	validator.ValidateModel(model)
 }

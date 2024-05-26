@@ -19,41 +19,55 @@ import (
 	sts "strings"
 )
 
-// MAIN PROGRAM
-
 func main() {
-	// Validate the commandline arguments.
+	var directory, name, copyright = retrieveArguments()
+	var model = createModel(name, copyright)
+	saveModel(directory, model)
+}
+
+func retrieveArguments() (
+	directory string,
+	name string,
+	copyright string,
+) {
 	if len(osx.Args) < 4 {
-		fmt.Println("Usage: initialize <package-directory> <package-name> <copyright>")
+		fmt.Println(
+			"Usage: initialize <directory> <name> <copyright>",
+		)
 		return
 	}
-	var directory = osx.Args[1]
-	var name = osx.Args[2]
-	var copyright = osx.Args[3]
-
-	// Create a new model.
-	var generator = mod.Generator()
-	var model = generator.CreateModel(name, copyright)
-
-	// Create a new directory for the package.
+	directory = osx.Args[1]
 	if !sts.HasSuffix(directory, "/") {
 		directory += "/"
 	}
+	name = osx.Args[2]
+	copyright = osx.Args[3]
+	return directory, name, copyright
+}
+
+func createModel(
+	name string,
+	copyright string,
+) mod.ModelLike {
+	var generator = mod.Generator()
+	var model = generator.CreateModel(name, copyright)
+	return model
+}
+
+func saveModel(directory string, model mod.ModelLike) {
 	var err = osx.MkdirAll(directory, 0755)
 	if err != nil {
 		panic(err)
 	}
-
-	// Save the new model template.
-	var packageFile = directory + "Package.go"
+	var modelFile = directory + "Package.go"
 	fmt.Printf(
-		"The package file %q for the model does not yet exist.\n\tCreating a template for it...\n",
-		packageFile,
+		"    Creating %q now...\n",
+		modelFile,
 	)
 	var formatter = mod.Formatter()
 	var source = formatter.FormatModel(model)
 	var bytes = []byte(source)
-	err = osx.WriteFile(packageFile, bytes, 0644)
+	err = osx.WriteFile(modelFile, bytes, 0644)
 	if err != nil {
 		panic(err)
 	}
