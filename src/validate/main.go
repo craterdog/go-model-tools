@@ -27,7 +27,7 @@ func main() {
 func retrieveArguments() (modelFile string) {
 	if len(osx.Args) < 2 {
 		fmt.Println("Usage: validate <model-file>")
-		return
+		osx.Exit(1)
 	}
 	modelFile = osx.Args[1]
 	return modelFile

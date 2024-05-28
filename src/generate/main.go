@@ -29,7 +29,7 @@ func main() {
 func retrieveArguments() (directory string) {
 	if len(osx.Args) < 2 {
 		fmt.Println("Usage: generate <directory>")
-		return
+		osx.Exit(1)
 	}
 	directory = osx.Args[1]
 	if !sts.HasSuffix(directory, "/") {
