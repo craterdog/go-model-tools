@@ -13,7 +13,7 @@
 package agent
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4/collection"
 	ast "github.com/craterdog/go-model-framework/v4/ast"
 )
 
@@ -36,15 +36,25 @@ func Formatter() FormatterClassLike {
 // Target
 
 type formatterClass_ struct {
-	// This class has no private constants.
+	defaultMaximum_ int
 }
 
 // Constants
+
+func (c *formatterClass_) DefaultMaximum() int {
+	return c.defaultMaximum_
+}
 
 // Constructors
 
 func (c *formatterClass_) Make() FormatterLike {
 	return &formatter_{}
+}
+
+func (c *formatterClass_) MakeWithMaximum(maximum int) FormatterLike {
+	return &formatter_{
+		maximum_: maximum,
+	}
 }
 
 // Functions
@@ -55,12 +65,22 @@ func (c *formatterClass_) Make() FormatterLike {
 
 type formatter_ struct {
 	class_ FormatterClassLike
+	depth_ int
+	maximum_ int
 }
 
 // Attributes
 
 func (v *formatter_) GetClass() FormatterClassLike {
 	return v.class_
+}
+
+func (v *formatter_) GetDepth() int {
+	return v.depth_
+}
+
+func (v *formatter_) GetMaximum() int {
+	return v.maximum_
 }
 
 // Public

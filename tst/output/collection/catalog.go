@@ -27,7 +27,7 @@ var catalogMutex syn.Mutex
 
 // Function
 
-func Catalog[K comparable, V Value]() CatalogClassLike[K, V] {
+func Catalog[K comparable, V any]() CatalogClassLike[K, V] {
 	// Generate the name of the bound class type.
 	var result_ CatalogClassLike[K, V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func Catalog[K comparable, V Value]() CatalogClassLike[K, V] {
 
 // Target
 
-type catalogClass_[K comparable, V Value] struct {
+type catalogClass_[K comparable, V any] struct {
 	notation_ NotationLike
 }
 
@@ -112,7 +112,7 @@ func (c *catalogClass_[K, V]) Merge(
 
 // Target
 
-type catalog_[K comparable, V Value] struct {
+type catalog_[K comparable, V any] struct {
 	class_ CatalogClassLike[K, V]
 }
 

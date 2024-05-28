@@ -27,7 +27,7 @@ var listMutex syn.Mutex
 
 // Function
 
-func List[V Value]() ListClassLike[V] {
+func List[V any]() ListClassLike[V] {
 	// Generate the name of the bound class type.
 	var result_ ListClassLike[V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func List[V Value]() ListClassLike[V] {
 
 // Target
 
-type listClass_[V Value] struct {
+type listClass_[V any] struct {
 	notation_ NotationLike
 }
 
@@ -99,7 +99,7 @@ func (c *listClass_[V]) Concatenate(
 
 // Target
 
-type list_[V Value] struct {
+type list_[V any] struct {
 	class_ ListClassLike[V]
 }
 

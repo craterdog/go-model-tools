@@ -27,7 +27,7 @@ var arrayMutex syn.Mutex
 
 // Function
 
-func Array[V Value]() ArrayClassLike[V] {
+func Array[V any]() ArrayClassLike[V] {
 	// Generate the name of the bound class type.
 	var result_ ArrayClassLike[V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func Array[V Value]() ArrayClassLike[V] {
 
 // Target
 
-type arrayClass_[V Value] struct {
+type arrayClass_[V any] struct {
 	notation_ NotationLike
 }
 
@@ -90,7 +90,7 @@ func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
 
 // Target
 
-type array_[V Value] struct {
+type array_[V any] struct {
 	// TBA - Add private instance attributes.
 }
 

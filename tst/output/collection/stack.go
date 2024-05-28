@@ -27,7 +27,7 @@ var stackMutex syn.Mutex
 
 // Function
 
-func Stack[V Value]() StackClassLike[V] {
+func Stack[V any]() StackClassLike[V] {
 	// Generate the name of the bound class type.
 	var result_ StackClassLike[V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func Stack[V Value]() StackClassLike[V] {
 
 // Target
 
-type stackClass_[V Value] struct {
+type stackClass_[V any] struct {
 	notation_ NotationLike
 	defaultCapacity_ int
 }
@@ -101,7 +101,7 @@ func (c *stackClass_[V]) MakeWithCapacity(capacity int) StackLike[V] {
 
 // Target
 
-type stack_[V Value] struct {
+type stack_[V any] struct {
 	class_ StackClassLike[V]
 	capacity_ int
 }

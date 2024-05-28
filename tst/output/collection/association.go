@@ -26,7 +26,7 @@ var associationMutex syn.Mutex
 
 // Function
 
-func Association[K Key, V Value]() AssociationClassLike[K, V] {
+func Association[K comparable, V any]() AssociationClassLike[K, V] {
 	// Generate the name of the bound class type.
 	var result_ AssociationClassLike[K, V]
 	var name = fmt.Sprintf("%T", result_)
@@ -55,7 +55,7 @@ func Association[K Key, V Value]() AssociationClassLike[K, V] {
 
 // Target
 
-type associationClass_[K Key, V Value] struct {
+type associationClass_[K comparable, V any] struct {
 	// This class has no private constants.
 }
 
@@ -79,7 +79,7 @@ func (c *associationClass_[K, V]) MakeWithAttributes(
 
 // Target
 
-type association_[K Key, V Value] struct {
+type association_[K comparable, V any] struct {
 	class_ AssociationClassLike[K, V]
 	key_ K
 	value_ V

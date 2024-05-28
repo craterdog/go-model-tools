@@ -27,7 +27,7 @@ var setMutex syn.Mutex
 
 // Function
 
-func Set[V Value]() SetClassLike[V] {
+func Set[V any]() SetClassLike[V] {
 	// Generate the name of the bound class type.
 	var result_ SetClassLike[V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func Set[V Value]() SetClassLike[V] {
 
 // Target
 
-type setClass_[V Value] struct {
+type setClass_[V any] struct {
 	notation_ NotationLike
 }
 
@@ -132,7 +132,7 @@ func (c *setClass_[V]) Xor(
 
 // Target
 
-type set_[V Value] struct {
+type set_[V any] struct {
 	class_ SetClassLike[V]
 	collator_ age.CollatorLike[V]
 }

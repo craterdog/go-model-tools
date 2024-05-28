@@ -12,7 +12,9 @@
 
 package agent
 
-import ()
+import (
+	ast "github.com/craterdog/go-model-framework/v4/ast"
+)
 
 // CLASS ACCESS
 
@@ -63,15 +65,21 @@ func (v *generator_) GetClass() GeneratorClassLike {
 // Public
 
 func (v *generator_) CreateModel(
-	directory string,
 	name string,
 	copyright string,
-) {
+) ast.ModelLike {
+	var result_ ast.ModelLike
 	// TBA - Implement the method.
+	return result_
 }
 
-func (v *generator_) GeneratePackage(directory string) {
+func (v *generator_) GenerateClass(
+	model ast.ModelLike,
+	name string,
+) string {
+	var result_ string
 	// TBA - Implement the method.
+	return result_
 }
 
 // Private

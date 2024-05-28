@@ -27,7 +27,7 @@ var mapMutex syn.Mutex
 
 // Function
 
-func Map[K comparable, V Value]() MapClassLike[K, V] {
+func Map[K comparable, V any]() MapClassLike[K, V] {
 	// Generate the name of the bound class type.
 	var result_ MapClassLike[K, V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func Map[K comparable, V Value]() MapClassLike[K, V] {
 
 // Target
 
-type mapClass_[K comparable, V Value] struct {
+type mapClass_[K comparable, V any] struct {
 	notation_ NotationLike
 }
 
@@ -94,7 +94,7 @@ func (c *mapClass_[K, V]) MakeFromSource(source string) MapLike[K, V] {
 
 // Target
 
-type map_[K comparable, V Value] struct {
+type map_[K comparable, V any] struct {
 	// TBA - Add private instance attributes.
 }
 

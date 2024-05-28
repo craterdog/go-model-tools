@@ -27,7 +27,7 @@ var queueMutex syn.Mutex
 
 // Function
 
-func Queue[V Value]() QueueClassLike[V] {
+func Queue[V any]() QueueClassLike[V] {
 	// Generate the name of the bound class type.
 	var result_ QueueClassLike[V]
 	var name = fmt.Sprintf("%T", result_)
@@ -56,7 +56,7 @@ func Queue[V Value]() QueueClassLike[V] {
 
 // Target
 
-type queueClass_[V Value] struct {
+type queueClass_[V any] struct {
 	notation_ NotationLike
 	defaultCapacity_ int
 }
@@ -130,7 +130,7 @@ func (c *queueClass_[V]) Split(
 
 // Target
 
-type queue_[V Value] struct {
+type queue_[V any] struct {
 	class_ QueueClassLike[V]
 	capacity_ int
 }

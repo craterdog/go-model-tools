@@ -27,7 +27,7 @@ on interfaces, not on each other.
 package agent
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4/collection"
 	ast "github.com/craterdog/go-model-framework/v4/ast"
 )
 
@@ -59,8 +59,12 @@ class constants, constructors and functions that must be supported by each
 concrete formatter-like class.
 */
 type FormatterClassLike interface {
+	// Constants
+	DefaultMaximum() int
+
 	// Constructors
 	Make() FormatterLike
+	MakeWithMaximum(maximum int) FormatterLike
 }
 
 /*
@@ -145,6 +149,8 @@ instance of a concrete formatter-like class.
 type FormatterLike interface {
 	// Attributes
 	GetClass() FormatterClassLike
+	GetDepth() int
+	GetMaximum() int
 
 	// Methods
 	FormatAbstraction(abstraction ast.AbstractionLike) string
@@ -169,11 +175,13 @@ type GeneratorLike interface {
 
 	// Methods
 	CreateModel(
-		directory string,
 		name string,
 		copyright string,
-	)
-	GeneratePackage(directory string)
+	) ast.ModelLike
+	GenerateClass(
+		model ast.ModelLike,
+		name string,
+	) string
 }
 
 /*
