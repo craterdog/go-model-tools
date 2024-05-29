@@ -12,7 +12,7 @@ defined in the package file.
 ### Quick Links
 For more information on this project click on the following links:
  * [project documentation](https://github.com/craterdog/go-model-tools/wiki)
- * [grammar framework](https://github.com/craterdog/go-model-framework/wiki)
+ * [model framework](https://github.com/craterdog/go-model-framework/wiki)
 
 ### Getting Started
 To install the class model tools do the following from a terminal window:
