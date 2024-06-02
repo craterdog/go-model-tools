@@ -38,8 +38,6 @@ type scannerClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *scannerClass_) Make(
@@ -79,7 +77,5 @@ type scanner_ struct {
 func (v *scanner_) GetClass() ScannerClassLike {
 	return v.class_
 }
-
-// Public
 
 // Private

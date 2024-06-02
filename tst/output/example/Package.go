@@ -142,6 +142,7 @@ The order of the values is determined by a configurable ranking function.
 type SetLike[V any] interface {
 	// Attributes
 	GetClass() SetClassLike[V]
+	SetPassword(password []rune)
 
 	// Abstractions
 	Sequential[V]

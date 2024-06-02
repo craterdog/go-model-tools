@@ -38,8 +38,6 @@ type resultClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *resultClass_) MakeWithAbstraction(abstraction AbstractionLike) ResultLike {
@@ -53,8 +51,6 @@ func (c *resultClass_) MakeWithParameters(parameters col.ListLike[ParameterLike]
 		parameters_: parameters,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -79,7 +75,5 @@ func (v *result_) GetAbstraction() AbstractionLike {
 func (v *result_) GetParameters() col.ListLike[ParameterLike] {
 	return v.parameters_
 }
-
-// Public
 
 // Private

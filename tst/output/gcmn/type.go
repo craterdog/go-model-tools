@@ -36,8 +36,6 @@ type typeClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *typeClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *typeClass_) MakeWithAttributes(
 		enumeration_: enumeration,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -82,7 +78,5 @@ func (v *type_) GetAbstraction() AbstractionLike {
 func (v *type_) GetEnumeration() EnumerationLike {
 	return v.enumeration_
 }
-
-// Public
 
 // Private

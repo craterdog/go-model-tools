@@ -36,8 +36,6 @@ type glyphClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *glyphClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *glyphClass_) MakeWithAttributes(
 		last_: last,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *glyph_) GetFirst() string {
 func (v *glyph_) GetLast() string {
 	return v.last_
 }
-
-// Public
 
 // Private

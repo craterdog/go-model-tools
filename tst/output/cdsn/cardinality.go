@@ -36,8 +36,6 @@ type cardinalityClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *cardinalityClass_) MakeWithConstraint(constraint ConstraintLike) CardinalityLike {
@@ -45,8 +43,6 @@ func (c *cardinalityClass_) MakeWithConstraint(constraint ConstraintLike) Cardin
 		constraint_: constraint,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -66,7 +62,5 @@ func (v *cardinality_) GetClass() CardinalityClassLike {
 func (v *cardinality_) GetConstraint() ConstraintLike {
 	return v.constraint_
 }
-
-// Public
 
 // Private

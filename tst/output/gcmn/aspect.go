@@ -38,8 +38,6 @@ type aspectClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *aspectClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *aspectClass_) MakeWithAttributes(
 		methods_: methods,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *aspect_) GetDeclaration() DeclarationLike {
 func (v *aspect_) GetMethods() col.ListLike[MethodLike] {
 	return v.methods_
 }
-
-// Public
 
 // Private

@@ -38,15 +38,11 @@ type parserClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *parserClass_) Make() ParserLike {
 	return &parser_{}
 }
-
-// Functions
 
 // INSTANCE METHODS
 

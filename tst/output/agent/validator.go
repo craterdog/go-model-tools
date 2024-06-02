@@ -38,15 +38,11 @@ type validatorClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *validatorClass_) Make() ValidatorLike {
 	return &validator_{}
 }
-
-// Functions
 
 // INSTANCE METHODS
 

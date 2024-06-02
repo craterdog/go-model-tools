@@ -36,8 +36,6 @@ type expressionClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *expressionClass_) MakeWithInline(inline InlineLike) ExpressionLike {
@@ -51,8 +49,6 @@ func (c *expressionClass_) MakeWithMultiline(multiline MultilineLike) Expression
 		multiline_: multiline,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *expression_) GetInline() InlineLike {
 func (v *expression_) GetMultiline() MultilineLike {
 	return v.multiline_
 }
-
-// Public
 
 // Private

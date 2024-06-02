@@ -36,8 +36,6 @@ type tokenClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *tokenClass_) MakeWithAttributes(
@@ -53,8 +51,6 @@ func (c *tokenClass_) MakeWithAttributes(
 		value_: value,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -89,7 +85,5 @@ func (v *token_) GetType() TokenType {
 func (v *token_) GetValue() string {
 	return v.value_
 }
-
-// Public
 
 // Private

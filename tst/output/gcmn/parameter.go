@@ -36,8 +36,6 @@ type parameterClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *parameterClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *parameterClass_) MakeWithAttributes(
 		abstraction_: abstraction,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *parameter_) GetIdentifier() string {
 func (v *parameter_) GetAbstraction() AbstractionLike {
 	return v.abstraction_
 }
-
-// Public
 
 // Private

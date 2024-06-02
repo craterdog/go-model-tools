@@ -238,6 +238,4 @@ func (v *set_[V]) IsEmpty() bool {
 	return result_
 }
 
-// Public
-
 // Private

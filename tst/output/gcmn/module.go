@@ -36,8 +36,6 @@ type moduleClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *moduleClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *moduleClass_) MakeWithAttributes(
 		text_: text,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *module_) GetIdentifier() string {
 func (v *module_) GetText() string {
 	return v.text_
 }
-
-// Public
 
 // Private

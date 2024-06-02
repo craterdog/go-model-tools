@@ -38,15 +38,11 @@ type generatorClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *generatorClass_) Make() GeneratorLike {
 	return &generator_{}
 }
-
-// Functions
 
 // INSTANCE METHODS
 

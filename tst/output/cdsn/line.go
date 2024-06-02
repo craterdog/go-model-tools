@@ -36,8 +36,6 @@ type lineClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *lineClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *lineClass_) MakeWithAttributes(
 		note_: note,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *line_) GetAlternative() AlternativeLike {
 func (v *line_) GetNote() string {
 	return v.note_
 }
-
-// Public
 
 // Private

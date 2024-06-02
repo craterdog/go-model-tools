@@ -38,8 +38,6 @@ type alternativeClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *alternativeClass_) MakeWithFactors(factors col.ListLike[FactorLike]) AlternativeLike {
@@ -47,8 +45,6 @@ func (c *alternativeClass_) MakeWithFactors(factors col.ListLike[FactorLike]) Al
 		factors_: factors,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -68,7 +64,5 @@ func (v *alternative_) GetClass() AlternativeClassLike {
 func (v *alternative_) GetFactors() col.ListLike[FactorLike] {
 	return v.factors_
 }
-
-// Public
 
 // Private

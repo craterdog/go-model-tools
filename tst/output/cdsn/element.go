@@ -36,8 +36,6 @@ type elementClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *elementClass_) MakeWithLiteral(literal string) ElementLike {
@@ -51,8 +49,6 @@ func (c *elementClass_) MakeWithName(name string) ElementLike {
 		name_: name,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *element_) GetLiteral() string {
 func (v *element_) GetName() string {
 	return v.name_
 }
-
-// Public
 
 // Private

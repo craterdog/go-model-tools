@@ -38,8 +38,6 @@ type filterClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *filterClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *filterClass_) MakeWithAttributes(
 		atoms_: atoms,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *filter_) IsInverted() bool {
 func (v *filter_) GetAtoms() col.ListLike[AtomLike] {
 	return v.atoms_
 }
-
-// Public
 
 // Private

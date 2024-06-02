@@ -36,8 +36,6 @@ type factorClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *factorClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *factorClass_) MakeWithAttributes(
 		cardinality_: cardinality,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *factor_) GetPredicate() PredicateLike {
 func (v *factor_) GetCardinality() CardinalityLike {
 	return v.cardinality_
 }
-
-// Public
 
 // Private

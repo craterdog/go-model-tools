@@ -36,8 +36,6 @@ type precedenceClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) PrecedenceLike {
@@ -45,8 +43,6 @@ func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) Precede
 		expression_: expression,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -66,7 +62,5 @@ func (v *precedence_) GetClass() PrecedenceClassLike {
 func (v *precedence_) GetExpression() ExpressionLike {
 	return v.expression_
 }
-
-// Public
 
 // Private

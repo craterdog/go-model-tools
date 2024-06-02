@@ -38,8 +38,6 @@ type inlineClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *inlineClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *inlineClass_) MakeWithAttributes(
 		note_: note,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *inline_) GetAlternatives() col.ListLike[AlternativeLike] {
 func (v *inline_) GetNote() string {
 	return v.note_
 }
-
-// Public
 
 // Private

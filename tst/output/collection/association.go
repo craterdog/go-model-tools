@@ -59,8 +59,6 @@ type associationClass_[K comparable, V any] struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *associationClass_[K, V]) MakeWithAttributes(
@@ -72,8 +70,6 @@ func (c *associationClass_[K, V]) MakeWithAttributes(
 		value_: value,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -102,7 +98,5 @@ func (v *association_[K, V]) GetValue() V {
 func (v *association_[K, V]) SetValue(value V) {
 	v.value_ = value
 }
-
-// Public
 
 // Private

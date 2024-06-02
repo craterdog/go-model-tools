@@ -36,8 +36,6 @@ type headerClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *headerClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *headerClass_) MakeWithAttributes(
 		identifier_: identifier,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *header_) GetComment() string {
 func (v *header_) GetIdentifier() string {
 	return v.identifier_
 }
-
-// Public
 
 // Private

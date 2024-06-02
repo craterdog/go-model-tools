@@ -95,8 +95,6 @@ func (c *stackClass_[V]) MakeWithCapacity(capacity int) StackLike[V] {
 	}
 }
 
-// Functions
-
 // INSTANCE METHODS
 
 // Target

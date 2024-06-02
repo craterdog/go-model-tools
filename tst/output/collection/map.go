@@ -88,8 +88,6 @@ func (c *mapClass_[K, V]) MakeFromSource(source string) MapLike[K, V] {
 	return &map_[K, V]{}
 }
 
-// Functions
-
 // INSTANCE METHODS
 
 // Target
@@ -97,8 +95,6 @@ func (c *mapClass_[K, V]) MakeFromSource(source string) MapLike[K, V] {
 type map_[K comparable, V any] struct {
 	// TBA - Add private instance attributes.
 }
-
-// Attributes
 
 // Associative[K, V]
 
@@ -168,7 +164,5 @@ func (v *map_[K, V]) IsEmpty() bool {
 	// TBA - Implement the method.
 	return result_
 }
-
-// Public
 
 // Private

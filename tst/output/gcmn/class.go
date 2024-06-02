@@ -38,8 +38,6 @@ type classClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *classClass_) MakeWithAttributes(
@@ -55,8 +53,6 @@ func (c *classClass_) MakeWithAttributes(
 		functions_: functions,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -91,7 +87,5 @@ func (v *class_) GetConstructors() col.ListLike[ConstructorLike] {
 func (v *class_) GetFunctions() col.ListLike[FunctionLike] {
 	return v.functions_
 }
-
-// Public
 
 // Private

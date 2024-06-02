@@ -36,8 +36,6 @@ type definitionClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *definitionClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *definitionClass_) MakeWithAttributes(
 		expression_: expression,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -82,7 +78,5 @@ func (v *definition_) GetName() string {
 func (v *definition_) GetExpression() ExpressionLike {
 	return v.expression_
 }
-
-// Public
 
 // Private

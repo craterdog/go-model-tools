@@ -36,8 +36,6 @@ type noticeClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *noticeClass_) MakeWithComment(comment string) NoticeLike {
@@ -45,8 +43,6 @@ func (c *noticeClass_) MakeWithComment(comment string) NoticeLike {
 		comment_: comment,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -66,7 +62,5 @@ func (v *notice_) GetClass() NoticeClassLike {
 func (v *notice_) GetComment() string {
 	return v.comment_
 }
-
-// Public
 
 // Private

@@ -36,15 +36,11 @@ type notationClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *notationClass_) Make() NotationLike {
 	return &notation_{}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -73,7 +69,5 @@ func (v *notation_) ParseSource(source string) Collection {
 	// TBA - Implement the method.
 	return result_
 }
-
-// Public
 
 // Private

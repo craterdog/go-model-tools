@@ -36,8 +36,6 @@ type constraintClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *constraintClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *constraintClass_) MakeWithAttributes(
 		last_: last,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *constraint_) GetFirst() string {
 func (v *constraint_) GetLast() string {
 	return v.last_
 }
-
-// Public
 
 // Private

@@ -36,8 +36,6 @@ type prefixClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *prefixClass_) MakeWithAttributes(
@@ -49,8 +47,6 @@ func (c *prefixClass_) MakeWithAttributes(
 		type_: type_,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -75,7 +71,5 @@ func (v *prefix_) GetType() PrefixType {
 func (v *prefix_) GetIdentifier() string {
 	return v.identifier_
 }
-
-// Public
 
 // Private

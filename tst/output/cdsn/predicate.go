@@ -36,8 +36,6 @@ type predicateClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *predicateClass_) MakeWithAtom(atom AtomLike) PredicateLike {
@@ -63,8 +61,6 @@ func (c *predicateClass_) MakeWithPrecedence(precedence PrecedenceLike) Predicat
 		precedence_: precedence,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -99,7 +95,5 @@ func (v *predicate_) GetFilter() FilterLike {
 func (v *predicate_) GetPrecedence() PrecedenceLike {
 	return v.precedence_
 }
-
-// Public
 
 // Private

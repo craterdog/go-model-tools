@@ -38,8 +38,6 @@ type syntaxClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *syntaxClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *syntaxClass_) MakeWithAttributes(
 		definitions_: definitions,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *syntax_) GetHeaders() col.ListLike[HeaderLike] {
 func (v *syntax_) GetDefinitions() col.ListLike[DefinitionLike] {
 	return v.definitions_
 }
-
-// Public
 
 // Private

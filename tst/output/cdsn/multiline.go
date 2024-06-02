@@ -38,8 +38,6 @@ type multilineClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineLike {
@@ -47,8 +45,6 @@ func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineL
 		lines_: lines,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -68,7 +64,5 @@ func (v *multiline_) GetClass() MultilineClassLike {
 func (v *multiline_) GetLines() col.ListLike[LineLike] {
 	return v.lines_
 }
-
-// Public
 
 // Private

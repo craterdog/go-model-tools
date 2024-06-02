@@ -209,6 +209,4 @@ func (v *catalog_[K, V]) SortValuesWithRanker(ranker age.RankingFunction[Associa
 	// TBA - Implement the method.
 }
 
-// Public
-
 // Private

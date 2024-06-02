@@ -38,8 +38,6 @@ type declarationClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *declarationClass_) MakeWithAttributes(
@@ -53,8 +51,6 @@ func (c *declarationClass_) MakeWithAttributes(
 		parameters_: parameters,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -84,7 +80,5 @@ func (v *declaration_) GetIdentifier() string {
 func (v *declaration_) GetParameters() col.ListLike[ParameterLike] {
 	return v.parameters_
 }
-
-// Public
 
 // Private

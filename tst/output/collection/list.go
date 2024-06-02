@@ -255,6 +255,4 @@ func (v *list_[V]) SetValues(
 	// TBA - Implement the method.
 }
 
-// Public
-
 // Private

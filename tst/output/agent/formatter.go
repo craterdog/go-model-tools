@@ -57,8 +57,6 @@ func (c *formatterClass_) MakeWithMaximum(maximum int) FormatterLike {
 	}
 }
 
-// Functions
-
 // INSTANCE METHODS
 
 // Target

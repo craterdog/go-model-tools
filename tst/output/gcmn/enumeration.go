@@ -38,8 +38,6 @@ type enumerationClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *enumerationClass_) MakeWithAttributes(
@@ -51,8 +49,6 @@ func (c *enumerationClass_) MakeWithAttributes(
 		identifiers_: identifiers,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *enumeration_) GetParameter() ParameterLike {
 func (v *enumeration_) GetIdentifiers() col.ListLike[string] {
 	return v.identifiers_
 }
-
-// Public
 
 // Private

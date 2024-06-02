@@ -84,8 +84,6 @@ func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
 	return &array_[V]{}
 }
 
-// Functions
-
 // INSTANCE METHODS
 
 // Target
@@ -93,8 +91,6 @@ func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
 type array_[V any] struct {
 	// TBA - Add private instance attributes.
 }
-
-// Attributes
 
 // Accessible[V]
 
@@ -172,7 +168,5 @@ func (v *array_[V]) SetValues(
 ) {
 	// TBA - Implement the method.
 }
-
-// Public
 
 // Private

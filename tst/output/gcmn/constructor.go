@@ -38,8 +38,6 @@ type constructorClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *constructorClass_) MakeWithAttributes(
@@ -53,8 +51,6 @@ func (c *constructorClass_) MakeWithAttributes(
 		abstraction_: abstraction,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -84,7 +80,5 @@ func (v *constructor_) GetParameters() col.ListLike[ParameterLike] {
 func (v *constructor_) GetAbstraction() AbstractionLike {
 	return v.abstraction_
 }
-
-// Public
 
 // Private

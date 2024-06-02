@@ -36,8 +36,6 @@ type headerClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *headerClass_) MakeWithComment(comment string) HeaderLike {
@@ -45,8 +43,6 @@ func (c *headerClass_) MakeWithComment(comment string) HeaderLike {
 		comment_: comment,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -66,7 +62,5 @@ func (v *header_) GetClass() HeaderClassLike {
 func (v *header_) GetComment() string {
 	return v.comment_
 }
-
-// Public
 
 // Private

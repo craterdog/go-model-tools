@@ -36,8 +36,6 @@ type atomClass_ struct {
 	// This class has no private constants.
 }
 
-// Constants
-
 // Constructors
 
 func (c *atomClass_) MakeWithGlyph(glyph GlyphLike) AtomLike {
@@ -51,8 +49,6 @@ func (c *atomClass_) MakeWithIntrinsic(intrinsic string) AtomLike {
 		intrinsic_: intrinsic,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
@@ -77,7 +73,5 @@ func (v *atom_) GetGlyph() GlyphLike {
 func (v *atom_) GetIntrinsic() string {
 	return v.intrinsic_
 }
-
-// Public
 
 // Private
