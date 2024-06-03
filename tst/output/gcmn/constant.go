@@ -34,8 +34,6 @@ func Constant() ConstantClassLike {
 
 type constantClass_ struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors

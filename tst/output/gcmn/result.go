@@ -36,8 +36,6 @@ func Result() ResultClassLike {
 
 type resultClass_ struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors

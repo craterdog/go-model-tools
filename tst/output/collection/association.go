@@ -57,8 +57,6 @@ func Association[K comparable, V any]() AssociationClassLike[K, V] {
 
 type associationClass_[K comparable, V any] struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors

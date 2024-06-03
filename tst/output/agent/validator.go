@@ -36,8 +36,6 @@ func Validator() ValidatorClassLike {
 
 type validatorClass_ struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors

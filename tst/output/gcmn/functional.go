@@ -36,8 +36,6 @@ func Functional() FunctionalClassLike {
 
 type functionalClass_ struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors

@@ -34,8 +34,6 @@ func Attribute() AttributeClassLike {
 
 type attributeClass_ struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors

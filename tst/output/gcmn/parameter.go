@@ -34,8 +34,6 @@ func Parameter() ParameterClassLike {
 
 type parameterClass_ struct {
 	// Define class constants.
-	// This class has no private constants.
-
 }
 
 // Constructors
