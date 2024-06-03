@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var precedenceClass = &precedenceClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,13 +33,17 @@ func Precedence() PrecedenceClassLike {
 // Target
 
 type precedenceClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) PrecedenceLike {
 	return &precedence_{
+		// Initialize instance attributes.
+		class_: c,
 		expression_: expression,
 	}
 }
@@ -49,6 +53,7 @@ func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) Precede
 // Target
 
 type precedence_ struct {
+	// Define instance attributes.
 	class_ PrecedenceClassLike
 	expression_ ExpressionLike
 }

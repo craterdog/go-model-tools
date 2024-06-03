@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var tokenClass = &tokenClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Token() TokenClassLike {
 // Target
 
 type tokenClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -45,6 +47,8 @@ func (c *tokenClass_) MakeWithAttributes(
 	value string,
 ) TokenLike {
 	return &token_{
+		// Initialize instance attributes.
+		class_: c,
 		line_: line,
 		position_: position,
 		type_: type_,
@@ -57,6 +61,7 @@ func (c *tokenClass_) MakeWithAttributes(
 // Target
 
 type token_ struct {
+	// Define instance attributes.
 	class_ TokenClassLike
 	line_ int
 	position_ int

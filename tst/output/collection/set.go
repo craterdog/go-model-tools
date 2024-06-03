@@ -42,7 +42,7 @@ func Set[V any]() SetClassLike[V] {
 	default:
 		// Add a new bound class type.
 		result_ = &setClass_[V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		setClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func Set[V any]() SetClassLike[V] {
 // Target
 
 type setClass_[V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 }
 
@@ -69,23 +70,37 @@ func (c *setClass_[V]) Notation() NotationLike {
 // Constructors
 
 func (c *setClass_[V]) Make() SetLike[V] {
-	return &set_[V]{}
+	return &set_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *setClass_[V]) MakeFromArray(values []V) SetLike[V] {
-	return &set_[V]{}
+	return &set_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *setClass_[V]) MakeFromSequence(values Sequential[V]) SetLike[V] {
-	return &set_[V]{}
+	return &set_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *setClass_[V]) MakeFromSource(source string) SetLike[V] {
-	return &set_[V]{}
+	return &set_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *setClass_[V]) MakeWithCollator(collator age.CollatorLike[V]) SetLike[V] {
 	return &set_[V]{
+		// Initialize instance attributes.
+		class_: c,
 		collator_: collator,
 	}
 }
@@ -133,6 +148,7 @@ func (c *setClass_[V]) Xor(
 // Target
 
 type set_[V any] struct {
+	// Define instance attributes.
 	class_ SetClassLike[V]
 	collator_ age.CollatorLike[V]
 }

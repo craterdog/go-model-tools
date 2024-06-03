@@ -21,7 +21,7 @@ import (
 // Reference
 
 var inlineClass = &inlineClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,7 +35,9 @@ func Inline() InlineClassLike {
 // Target
 
 type inlineClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -45,6 +47,8 @@ func (c *inlineClass_) MakeWithAttributes(
 	note string,
 ) InlineLike {
 	return &inline_{
+		// Initialize instance attributes.
+		class_: c,
 		alternatives_: alternatives,
 		note_: note,
 	}
@@ -55,6 +59,7 @@ func (c *inlineClass_) MakeWithAttributes(
 // Target
 
 type inline_ struct {
+	// Define instance attributes.
 	class_ InlineClassLike
 	alternatives_ col.ListLike[AlternativeLike]
 	note_ string

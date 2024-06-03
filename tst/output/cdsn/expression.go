@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var expressionClass = &expressionClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,19 +33,25 @@ func Expression() ExpressionClassLike {
 // Target
 
 type expressionClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *expressionClass_) MakeWithInline(inline InlineLike) ExpressionLike {
 	return &expression_{
+		// Initialize instance attributes.
+		class_: c,
 		inline_: inline,
 	}
 }
 
 func (c *expressionClass_) MakeWithMultiline(multiline MultilineLike) ExpressionLike {
 	return &expression_{
+		// Initialize instance attributes.
+		class_: c,
 		multiline_: multiline,
 	}
 }
@@ -55,6 +61,7 @@ func (c *expressionClass_) MakeWithMultiline(multiline MultilineLike) Expression
 // Target
 
 type expression_ struct {
+	// Define instance attributes.
 	class_ ExpressionClassLike
 	inline_ InlineLike
 	multiline_ MultilineLike

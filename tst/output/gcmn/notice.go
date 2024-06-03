@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var noticeClass = &noticeClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,13 +33,17 @@ func Notice() NoticeClassLike {
 // Target
 
 type noticeClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *noticeClass_) MakeWithComment(comment string) NoticeLike {
 	return &notice_{
+		// Initialize instance attributes.
+		class_: c,
 		comment_: comment,
 	}
 }
@@ -49,6 +53,7 @@ func (c *noticeClass_) MakeWithComment(comment string) NoticeLike {
 // Target
 
 type notice_ struct {
+	// Define instance attributes.
 	class_ NoticeClassLike
 	comment_ string
 }

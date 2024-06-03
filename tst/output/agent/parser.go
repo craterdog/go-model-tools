@@ -21,7 +21,7 @@ import (
 // Reference
 
 var parserClass = &parserClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,13 +35,18 @@ func Parser() ParserClassLike {
 // Target
 
 type parserClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *parserClass_) Make() ParserLike {
-	return &parser_{}
+	return &parser_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // INSTANCE METHODS
@@ -49,6 +54,7 @@ func (c *parserClass_) Make() ParserLike {
 // Target
 
 type parser_ struct {
+	// Define instance attributes.
 	class_ ParserClassLike
 }
 

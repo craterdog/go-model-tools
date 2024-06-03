@@ -20,37 +20,44 @@ import (
 )
 
 func main() {
-	var directory, name, copyright = retrieveArguments()
-	var model = createModel(name, copyright)
+	var isGeneric, directory, name, copyright = retrieveArguments()
+	var model = createModel(isGeneric, name, copyright)
 	saveModel(directory, model)
 }
 
 func retrieveArguments() (
+	isGeneric bool,
 	directory string,
 	name string,
 	copyright string,
 ) {
-	if len(osx.Args) < 4 {
+	if len(osx.Args) < 5 {
 		fmt.Println(
-			"Usage: initialize <directory> <name> <copyright>",
+			"Usage: initialize (model | generic) <directory> <name> <copyright>",
 		)
 		osx.Exit(1)
 	}
-	directory = osx.Args[1]
+	isGeneric = osx.Args[1] == "generic"
+	directory = osx.Args[2]
 	if !sts.HasSuffix(directory, "/") {
 		directory += "/"
 	}
-	name = osx.Args[2]
-	copyright = osx.Args[3]
-	return directory, name, copyright
+	name = osx.Args[3]
+	copyright = osx.Args[4]
+	return isGeneric, directory, name, copyright
 }
 
 func createModel(
+	isGeneric bool,
 	name string,
 	copyright string,
-) mod.ModelLike {
+) (model mod.ModelLike) {
 	var generator = mod.Generator()
-	var model = generator.CreateModel(name, copyright)
+	if isGeneric {
+		model = generator.CreateGeneric(name, copyright)
+	} else {
+		model = generator.CreateModel(name, copyright)
+	}
 	return model
 }
 

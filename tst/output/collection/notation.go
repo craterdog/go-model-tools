@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var notationClass = &notationClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,13 +33,18 @@ func Notation() NotationClassLike {
 // Target
 
 type notationClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *notationClass_) Make() NotationLike {
-	return &notation_{}
+	return &notation_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // INSTANCE METHODS
@@ -47,6 +52,7 @@ func (c *notationClass_) Make() NotationLike {
 // Target
 
 type notation_ struct {
+	// Define instance attributes.
 	class_ NotationClassLike
 }
 

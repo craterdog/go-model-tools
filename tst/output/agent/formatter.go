@@ -22,7 +22,7 @@ import (
 // Reference
 
 var formatterClass = &formatterClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -36,6 +36,7 @@ func Formatter() FormatterClassLike {
 // Target
 
 type formatterClass_ struct {
+	// Define class constants.
 	defaultMaximum_ int
 }
 
@@ -48,11 +49,16 @@ func (c *formatterClass_) DefaultMaximum() int {
 // Constructors
 
 func (c *formatterClass_) Make() FormatterLike {
-	return &formatter_{}
+	return &formatter_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *formatterClass_) MakeWithMaximum(maximum int) FormatterLike {
 	return &formatter_{
+		// Initialize instance attributes.
+		class_: c,
 		maximum_: maximum,
 	}
 }
@@ -62,6 +68,7 @@ func (c *formatterClass_) MakeWithMaximum(maximum int) FormatterLike {
 // Target
 
 type formatter_ struct {
+	// Define instance attributes.
 	class_ FormatterClassLike
 	depth_ int
 	maximum_ int

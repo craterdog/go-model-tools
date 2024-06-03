@@ -21,7 +21,7 @@ import (
 // Reference
 
 var validatorClass = &validatorClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,13 +35,18 @@ func Validator() ValidatorClassLike {
 // Target
 
 type validatorClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *validatorClass_) Make() ValidatorLike {
-	return &validator_{}
+	return &validator_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // INSTANCE METHODS
@@ -49,6 +54,7 @@ func (c *validatorClass_) Make() ValidatorLike {
 // Target
 
 type validator_ struct {
+	// Define instance attributes.
 	class_ ValidatorClassLike
 }
 

@@ -21,7 +21,7 @@ import (
 // Reference
 
 var generatorClass = &generatorClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,13 +35,18 @@ func Generator() GeneratorClassLike {
 // Target
 
 type generatorClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *generatorClass_) Make() GeneratorLike {
-	return &generator_{}
+	return &generator_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // INSTANCE METHODS
@@ -49,6 +54,7 @@ func (c *generatorClass_) Make() GeneratorLike {
 // Target
 
 type generator_ struct {
+	// Define instance attributes.
 	class_ GeneratorClassLike
 }
 

@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var factorClass = &factorClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Factor() FactorClassLike {
 // Target
 
 type factorClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -43,6 +45,8 @@ func (c *factorClass_) MakeWithAttributes(
 	cardinality CardinalityLike,
 ) FactorLike {
 	return &factor_{
+		// Initialize instance attributes.
+		class_: c,
 		predicate_: predicate,
 		cardinality_: cardinality,
 	}
@@ -53,6 +57,7 @@ func (c *factorClass_) MakeWithAttributes(
 // Target
 
 type factor_ struct {
+	// Define instance attributes.
 	class_ FactorClassLike
 	predicate_ PredicateLike
 	cardinality_ CardinalityLike

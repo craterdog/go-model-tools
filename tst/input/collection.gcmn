@@ -481,6 +481,9 @@ This type essentially provides a higher level abstraction for the primitive Go
 array type.
 */
 type ArrayLike[V any] interface {
+	// Attributes
+	GetClass() ArrayClassLike[V]
+
 	// Abstractions
 	Accessible[V]
 	Sequential[V]
@@ -571,6 +574,9 @@ This type is parameterized as follows:
 A map-like class can use any association-like class key-value association.
 */
 type MapLike[K comparable, V any] interface {
+	// Attributes
+	GetClass() MapClassLike[K, V]
+
 	// Abstractions
 	Associative[K, V]
 	Sequential[AssociationLike[K, V]]

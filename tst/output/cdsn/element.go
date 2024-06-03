@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var elementClass = &elementClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,19 +33,25 @@ func Element() ElementClassLike {
 // Target
 
 type elementClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *elementClass_) MakeWithLiteral(literal string) ElementLike {
 	return &element_{
+		// Initialize instance attributes.
+		class_: c,
 		literal_: literal,
 	}
 }
 
 func (c *elementClass_) MakeWithName(name string) ElementLike {
 	return &element_{
+		// Initialize instance attributes.
+		class_: c,
 		name_: name,
 	}
 }
@@ -55,6 +61,7 @@ func (c *elementClass_) MakeWithName(name string) ElementLike {
 // Target
 
 type element_ struct {
+	// Define instance attributes.
 	class_ ElementClassLike
 	literal_ string
 	name_ string

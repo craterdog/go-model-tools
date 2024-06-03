@@ -21,7 +21,7 @@ import (
 // Reference
 
 var syntaxClass = &syntaxClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,7 +35,9 @@ func Syntax() SyntaxClassLike {
 // Target
 
 type syntaxClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -45,6 +47,8 @@ func (c *syntaxClass_) MakeWithAttributes(
 	definitions col.ListLike[DefinitionLike],
 ) SyntaxLike {
 	return &syntax_{
+		// Initialize instance attributes.
+		class_: c,
 		headers_: headers,
 		definitions_: definitions,
 	}
@@ -55,6 +59,7 @@ func (c *syntaxClass_) MakeWithAttributes(
 // Target
 
 type syntax_ struct {
+	// Define instance attributes.
 	class_ SyntaxClassLike
 	headers_ col.ListLike[HeaderLike]
 	definitions_ col.ListLike[DefinitionLike]

@@ -42,7 +42,7 @@ func Catalog[K comparable, V any]() CatalogClassLike[K, V] {
 	default:
 		// Add a new bound class type.
 		result_ = &catalogClass_[K, V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		catalogClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func Catalog[K comparable, V any]() CatalogClassLike[K, V] {
 // Target
 
 type catalogClass_[K comparable, V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 }
 
@@ -69,23 +70,38 @@ func (c *catalogClass_[K, V]) Notation() NotationLike {
 // Constructors
 
 func (c *catalogClass_[K, V]) Make() CatalogLike[K, V] {
-	return &catalog_[K, V]{}
+	return &catalog_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromArray(associations []AssociationLike[K, V]) CatalogLike[K, V] {
-	return &catalog_[K, V]{}
+	return &catalog_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromMap(associations map[K]V) CatalogLike[K, V] {
-	return &catalog_[K, V]{}
+	return &catalog_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromSequence(associations Sequential[AssociationLike[K, V]]) CatalogLike[K, V] {
-	return &catalog_[K, V]{}
+	return &catalog_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromSource(source string) CatalogLike[K, V] {
-	return &catalog_[K, V]{}
+	return &catalog_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // Functions
@@ -113,6 +129,7 @@ func (c *catalogClass_[K, V]) Merge(
 // Target
 
 type catalog_[K comparable, V any] struct {
+	// Define instance attributes.
 	class_ CatalogClassLike[K, V]
 }
 

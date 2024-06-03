@@ -21,7 +21,7 @@ import (
 // Reference
 
 var enumerationClass = &enumerationClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,7 +35,9 @@ func Enumeration() EnumerationClassLike {
 // Target
 
 type enumerationClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -45,6 +47,8 @@ func (c *enumerationClass_) MakeWithAttributes(
 	identifiers col.ListLike[string],
 ) EnumerationLike {
 	return &enumeration_{
+		// Initialize instance attributes.
+		class_: c,
 		parameter_: parameter,
 		identifiers_: identifiers,
 	}
@@ -55,6 +59,7 @@ func (c *enumerationClass_) MakeWithAttributes(
 // Target
 
 type enumeration_ struct {
+	// Define instance attributes.
 	class_ EnumerationClassLike
 	parameter_ ParameterLike
 	identifiers_ col.ListLike[string]

@@ -41,7 +41,7 @@ func Association[K comparable, V any]() AssociationClassLike[K, V] {
 	default:
 		// Add a new bound class type.
 		result_ = &associationClass_[K, V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		associationClass[name] = result_
 	}
@@ -56,7 +56,9 @@ func Association[K comparable, V any]() AssociationClassLike[K, V] {
 // Target
 
 type associationClass_[K comparable, V any] struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -66,6 +68,8 @@ func (c *associationClass_[K, V]) MakeWithAttributes(
 	value V,
 ) AssociationLike[K, V] {
 	return &association_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
 		key_: key,
 		value_: value,
 	}
@@ -76,6 +80,7 @@ func (c *associationClass_[K, V]) MakeWithAttributes(
 // Target
 
 type association_[K comparable, V any] struct {
+	// Define instance attributes.
 	class_ AssociationClassLike[K, V]
 	key_ K
 	value_ V

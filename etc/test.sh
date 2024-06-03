@@ -29,7 +29,19 @@ done
 echo
 
 echo "Initializing a new model file:"
-rm -rf $output/example
-mkdir $output/example
-bin/initialize $output/example/ example ""
+rm -rf $output/model
+mkdir $output/model
+bin/initialize model $output/model/ model ""
 echo
+
+echo "Initializing a new generic file:"
+rm -rf $output/generic
+mkdir $output/generic
+bin/initialize generic $output/generic/ generic ""
+echo
+
+echo "Running lint on the generated files:"
+golangci-lint run
+echo
+
+echo "Done."

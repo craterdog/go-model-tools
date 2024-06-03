@@ -42,7 +42,7 @@ func Stack[V any]() StackClassLike[V] {
 	default:
 		// Add a new bound class type.
 		result_ = &stackClass_[V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		stackClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func Stack[V any]() StackClassLike[V] {
 // Target
 
 type stackClass_[V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 	defaultCapacity_ int
 }
@@ -74,23 +75,37 @@ func (c *stackClass_[V]) DefaultCapacity() int {
 // Constructors
 
 func (c *stackClass_[V]) Make() StackLike[V] {
-	return &stack_[V]{}
+	return &stack_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *stackClass_[V]) MakeFromArray(values []V) StackLike[V] {
-	return &stack_[V]{}
+	return &stack_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *stackClass_[V]) MakeFromSequence(values Sequential[V]) StackLike[V] {
-	return &stack_[V]{}
+	return &stack_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *stackClass_[V]) MakeFromSource(source string) StackLike[V] {
-	return &stack_[V]{}
+	return &stack_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *stackClass_[V]) MakeWithCapacity(capacity int) StackLike[V] {
 	return &stack_[V]{
+		// Initialize instance attributes.
+		class_: c,
 		capacity_: capacity,
 	}
 }
@@ -100,6 +115,7 @@ func (c *stackClass_[V]) MakeWithCapacity(capacity int) StackLike[V] {
 // Target
 
 type stack_[V any] struct {
+	// Define instance attributes.
 	class_ StackClassLike[V]
 	capacity_ int
 }

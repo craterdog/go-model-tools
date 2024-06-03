@@ -21,7 +21,7 @@ import (
 // Reference
 
 var scannerClass = &scannerClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,7 +35,9 @@ func Scanner() ScannerClassLike {
 // Target
 
 type scannerClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -44,7 +46,10 @@ func (c *scannerClass_) Make(
 	source string,
 	tokens col.QueueLike[TokenLike],
 ) ScannerLike {
-	return &scanner_{}
+	return &scanner_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // Functions
@@ -69,6 +74,7 @@ func (c *scannerClass_) MatchToken(
 // Target
 
 type scanner_ struct {
+	// Define instance attributes.
 	class_ ScannerClassLike
 }
 

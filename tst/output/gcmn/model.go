@@ -21,7 +21,7 @@ import (
 // Reference
 
 var modelClass = &modelClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,7 +35,9 @@ func Model() ModelClassLike {
 // Target
 
 type modelClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -51,6 +53,8 @@ func (c *modelClass_) MakeWithAttributes(
 	instances col.ListLike[InstanceLike],
 ) ModelLike {
 	return &model_{
+		// Initialize instance attributes.
+		class_: c,
 		notice_: notice,
 		header_: header,
 		modules_: modules,
@@ -67,6 +71,7 @@ func (c *modelClass_) MakeWithAttributes(
 // Target
 
 type model_ struct {
+	// Define instance attributes.
 	class_ ModelClassLike
 	notice_ NoticeLike
 	header_ HeaderLike

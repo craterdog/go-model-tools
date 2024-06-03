@@ -21,7 +21,7 @@ import (
 // Reference
 
 var multilineClass = &multilineClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,13 +35,17 @@ func Multiline() MultilineClassLike {
 // Target
 
 type multilineClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
 
 func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineLike {
 	return &multiline_{
+		// Initialize instance attributes.
+		class_: c,
 		lines_: lines,
 	}
 }
@@ -51,6 +55,7 @@ func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineL
 // Target
 
 type multiline_ struct {
+	// Define instance attributes.
 	class_ MultilineClassLike
 	lines_ col.ListLike[LineLike]
 }

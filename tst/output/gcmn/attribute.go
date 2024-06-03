@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var attributeClass = &attributeClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Attribute() AttributeClassLike {
 // Target
 
 type attributeClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -44,6 +46,8 @@ func (c *attributeClass_) MakeWithAttributes(
 	abstraction AbstractionLike,
 ) AttributeLike {
 	return &attribute_{
+		// Initialize instance attributes.
+		class_: c,
 		identifier_: identifier,
 		parameter_: parameter,
 		abstraction_: abstraction,
@@ -55,6 +59,7 @@ func (c *attributeClass_) MakeWithAttributes(
 // Target
 
 type attribute_ struct {
+	// Define instance attributes.
 	class_ AttributeClassLike
 	identifier_ string
 	parameter_ ParameterLike

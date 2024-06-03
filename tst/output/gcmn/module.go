@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var moduleClass = &moduleClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Module() ModuleClassLike {
 // Target
 
 type moduleClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -43,6 +45,8 @@ func (c *moduleClass_) MakeWithAttributes(
 	text string,
 ) ModuleLike {
 	return &module_{
+		// Initialize instance attributes.
+		class_: c,
 		identifier_: identifier,
 		text_: text,
 	}
@@ -53,6 +57,7 @@ func (c *moduleClass_) MakeWithAttributes(
 // Target
 
 type module_ struct {
+	// Define instance attributes.
 	class_ ModuleClassLike
 	identifier_ string
 	text_ string

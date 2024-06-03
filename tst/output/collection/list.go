@@ -42,7 +42,7 @@ func List[V any]() ListClassLike[V] {
 	default:
 		// Add a new bound class type.
 		result_ = &listClass_[V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		listClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func List[V any]() ListClassLike[V] {
 // Target
 
 type listClass_[V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 }
 
@@ -69,19 +70,31 @@ func (c *listClass_[V]) Notation() NotationLike {
 // Constructors
 
 func (c *listClass_[V]) Make() ListLike[V] {
-	return &list_[V]{}
+	return &list_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *listClass_[V]) MakeFromArray(values []V) ListLike[V] {
-	return &list_[V]{}
+	return &list_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *listClass_[V]) MakeFromSequence(values Sequential[V]) ListLike[V] {
-	return &list_[V]{}
+	return &list_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *listClass_[V]) MakeFromSource(source string) ListLike[V] {
-	return &list_[V]{}
+	return &list_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // Functions
@@ -100,6 +113,7 @@ func (c *listClass_[V]) Concatenate(
 // Target
 
 type list_[V any] struct {
+	// Define instance attributes.
 	class_ ListClassLike[V]
 }
 

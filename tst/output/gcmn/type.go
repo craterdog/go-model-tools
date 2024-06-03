@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var typeClass = &typeClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Type() TypeClassLike {
 // Target
 
 type typeClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -44,6 +46,8 @@ func (c *typeClass_) MakeWithAttributes(
 	enumeration EnumerationLike,
 ) TypeLike {
 	return &type_{
+		// Initialize instance attributes.
+		class_: c,
 		declaration_: declaration,
 		abstraction_: abstraction,
 		enumeration_: enumeration,
@@ -55,6 +59,7 @@ func (c *typeClass_) MakeWithAttributes(
 // Target
 
 type type_ struct {
+	// Define instance attributes.
 	class_ TypeClassLike
 	declaration_ DeclarationLike
 	abstraction_ AbstractionLike

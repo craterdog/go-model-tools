@@ -21,7 +21,7 @@ import (
 // Reference
 
 var abstractionClass = &abstractionClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -35,7 +35,9 @@ func Abstraction() AbstractionClassLike {
 // Target
 
 type abstractionClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -46,6 +48,8 @@ func (c *abstractionClass_) MakeWithAttributes(
 	arguments col.ListLike[AbstractionLike],
 ) AbstractionLike {
 	return &abstraction_{
+		// Initialize instance attributes.
+		class_: c,
 		prefix_: prefix,
 		identifier_: identifier,
 		arguments_: arguments,
@@ -57,6 +61,7 @@ func (c *abstractionClass_) MakeWithAttributes(
 // Target
 
 type abstraction_ struct {
+	// Define instance attributes.
 	class_ AbstractionClassLike
 	prefix_ PrefixLike
 	identifier_ string

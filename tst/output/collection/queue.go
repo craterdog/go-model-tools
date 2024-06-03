@@ -42,7 +42,7 @@ func Queue[V any]() QueueClassLike[V] {
 	default:
 		// Add a new bound class type.
 		result_ = &queueClass_[V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		queueClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func Queue[V any]() QueueClassLike[V] {
 // Target
 
 type queueClass_[V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 	defaultCapacity_ int
 }
@@ -74,23 +75,37 @@ func (c *queueClass_[V]) DefaultCapacity() int {
 // Constructors
 
 func (c *queueClass_[V]) Make() QueueLike[V] {
-	return &queue_[V]{}
+	return &queue_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *queueClass_[V]) MakeFromArray(values []V) QueueLike[V] {
-	return &queue_[V]{}
+	return &queue_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *queueClass_[V]) MakeFromSequence(values Sequential[V]) QueueLike[V] {
-	return &queue_[V]{}
+	return &queue_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *queueClass_[V]) MakeFromSource(source string) QueueLike[V] {
-	return &queue_[V]{}
+	return &queue_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *queueClass_[V]) MakeWithCapacity(capacity int) QueueLike[V] {
 	return &queue_[V]{
+		// Initialize instance attributes.
+		class_: c,
 		capacity_: capacity,
 	}
 }
@@ -131,6 +146,7 @@ func (c *queueClass_[V]) Split(
 // Target
 
 type queue_[V any] struct {
+	// Define instance attributes.
 	class_ QueueClassLike[V]
 	capacity_ int
 }

@@ -42,7 +42,7 @@ func Array[V any]() ArrayClassLike[V] {
 	default:
 		// Add a new bound class type.
 		result_ = &arrayClass_[V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		arrayClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func Array[V any]() ArrayClassLike[V] {
 // Target
 
 type arrayClass_[V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 }
 
@@ -69,19 +70,31 @@ func (c *arrayClass_[V]) Notation() NotationLike {
 // Constructors
 
 func (c *arrayClass_[V]) MakeFromArray(values []V) ArrayLike[V] {
-	return &array_[V]{}
+	return &array_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *arrayClass_[V]) MakeFromSequence(values Sequential[V]) ArrayLike[V] {
-	return &array_[V]{}
+	return &array_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *arrayClass_[V]) MakeFromSize(size int) ArrayLike[V] {
-	return &array_[V]{}
+	return &array_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
-	return &array_[V]{}
+	return &array_[V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // INSTANCE METHODS
@@ -89,7 +102,14 @@ func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
 // Target
 
 type array_[V any] struct {
-	// TBA - Add private instance attributes.
+	// Define instance attributes.
+	class_ ArrayClassLike[V]
+}
+
+// Attributes
+
+func (v *array_[V]) GetClass() ArrayClassLike[V] {
+	return v.class_
 }
 
 // Accessible[V]

@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var parameterClass = &parameterClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Parameter() ParameterClassLike {
 // Target
 
 type parameterClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -43,6 +45,8 @@ func (c *parameterClass_) MakeWithAttributes(
 	abstraction AbstractionLike,
 ) ParameterLike {
 	return &parameter_{
+		// Initialize instance attributes.
+		class_: c,
 		identifier_: identifier,
 		abstraction_: abstraction,
 	}
@@ -53,6 +57,7 @@ func (c *parameterClass_) MakeWithAttributes(
 // Target
 
 type parameter_ struct {
+	// Define instance attributes.
 	class_ ParameterClassLike
 	identifier_ string
 	abstraction_ AbstractionLike

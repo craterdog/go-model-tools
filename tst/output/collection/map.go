@@ -42,7 +42,7 @@ func Map[K comparable, V any]() MapClassLike[K, V] {
 	default:
 		// Add a new bound class type.
 		result_ = &mapClass_[K, V]{
-			// Any private class constants should be initialized here.
+			// Initialize class constants.
 		}
 		mapClass[name] = result_
 	}
@@ -57,6 +57,7 @@ func Map[K comparable, V any]() MapClassLike[K, V] {
 // Target
 
 type mapClass_[K comparable, V any] struct {
+	// Define class constants.
 	notation_ NotationLike
 }
 
@@ -69,23 +70,38 @@ func (c *mapClass_[K, V]) Notation() NotationLike {
 // Constructors
 
 func (c *mapClass_[K, V]) Make() MapLike[K, V] {
-	return &map_[K, V]{}
+	return &map_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *mapClass_[K, V]) MakeFromArray(associations []AssociationLike[K, V]) MapLike[K, V] {
-	return &map_[K, V]{}
+	return &map_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *mapClass_[K, V]) MakeFromMap(associations map[K]V) MapLike[K, V] {
-	return &map_[K, V]{}
+	return &map_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *mapClass_[K, V]) MakeFromSequence(associations Sequential[AssociationLike[K, V]]) MapLike[K, V] {
-	return &map_[K, V]{}
+	return &map_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 func (c *mapClass_[K, V]) MakeFromSource(source string) MapLike[K, V] {
-	return &map_[K, V]{}
+	return &map_[K, V]{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
 
 // INSTANCE METHODS
@@ -93,7 +109,14 @@ func (c *mapClass_[K, V]) MakeFromSource(source string) MapLike[K, V] {
 // Target
 
 type map_[K comparable, V any] struct {
-	// TBA - Add private instance attributes.
+	// Define instance attributes.
+	class_ MapClassLike[K, V]
+}
+
+// Attributes
+
+func (v *map_[K, V]) GetClass() MapClassLike[K, V] {
+	return v.class_
 }
 
 // Associative[K, V]

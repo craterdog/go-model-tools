@@ -19,7 +19,7 @@ import ()
 // Reference
 
 var lineClass = &lineClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -33,7 +33,9 @@ func Line() LineClassLike {
 // Target
 
 type lineClass_ struct {
+	// Define class constants.
 	// This class has no private constants.
+
 }
 
 // Constructors
@@ -43,6 +45,8 @@ func (c *lineClass_) MakeWithAttributes(
 	note string,
 ) LineLike {
 	return &line_{
+		// Initialize instance attributes.
+		class_: c,
 		alternative_: alternative,
 		note_: note,
 	}
@@ -53,6 +57,7 @@ func (c *lineClass_) MakeWithAttributes(
 // Target
 
 type line_ struct {
+	// Define instance attributes.
 	class_ LineClassLike
 	alternative_ AlternativeLike
 	note_ string
