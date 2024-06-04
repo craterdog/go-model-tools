@@ -70,7 +70,7 @@ type AngleClassLike interface {
 	Tau() AngleLike
 
 	// Constructors
-	MakeFromFloat(value float64) AngleLike
+	MakeWithValue(value float64) AngleLike
 	MakeFromString(value string) AngleLike
 
 	// Functions
@@ -93,11 +93,12 @@ angle-like class.
 type AngleLike interface {
 	// Attributes
 	GetClass() AngleClassLike
+	GetValue() float64
 
 	// Abstractions
 	Angular
 
 	// Methods
 	IsZero() bool
-	AsFloat() float64
+	AsString() string
 }
