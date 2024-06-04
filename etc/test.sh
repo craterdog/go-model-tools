@@ -20,10 +20,10 @@ mkdir $output/generic
 bin/initialize generic $output/generic/ generic ""
 echo
 
-echo "Validating the class model files:"
+echo "Validating the class models:"
 for file in `ls $input`; do
-	echo "    $file"
 	model=${file%?gcmn}
+	echo "    $model"
 	bin/validate $output/$model/Package.go
 done
 echo "    model"
@@ -32,10 +32,10 @@ echo "    generic"
 bin/validate $output/generic/Package.go
 echo
 
-echo "Formatting the class model files:"
+echo "Formatting the class model:"
 for file in `ls $input`; do
-	echo "    $file"
 	model=${file%?gcmn}
+	echo "    $model"
 	bin/format $output/$model/Package.go
 done
 echo "    model"
