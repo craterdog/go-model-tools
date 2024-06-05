@@ -6,7 +6,6 @@ rm -r $wiki/Example-*
 echo
 
 echo "Exporting the angle examples:"
-mkdir $wiki/angle
 echo "    angle/Package.md"
 echo '```go' >$wiki/Example-Angle-Package.md
 cat $output/angle/Package.go >>$wiki/Example-Angle-Package.md
@@ -18,7 +17,6 @@ echo '```' >>$wiki/Example-Angle-Class.md
 echo
 
 echo "Exporting the array examples:"
-mkdir $wiki/array
 echo "    array/Package.md"
 echo '```go' >$wiki/Example-Array-Package.md
 cat $output/array/Package.go >>$wiki/Example-Array-Package.md
@@ -30,7 +28,6 @@ echo '```' >>$wiki/Example-Array-Class.md
 echo
 
 echo "Exporting the complex examples:"
-mkdir $wiki/complex
 echo "    complex/Package.md"
 echo '```go' >$wiki/Example-Complex-Package.md
 cat $output/complex/Package.go >>$wiki/Example-Complex-Package.md
@@ -42,7 +39,6 @@ echo '```' >>$wiki/Example-Complex-Class.md
 echo
 
 echo "Exporting the catalog examples:"
-mkdir $wiki/catalog
 echo "    catalog/Package.md"
 echo '```go' >$wiki/Example-Catalog-Package.md
 cat $output/catalog/Package.go >>$wiki/Example-Catalog-Package.md
