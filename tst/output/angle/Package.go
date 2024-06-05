@@ -11,7 +11,7 @@
 */
 
 /*
-Package "model" provides...
+Package "angle" provides...
 
 This package follows the Crater Dog Technologies™ Go Coding Conventions located
 here:
@@ -22,7 +22,7 @@ be developed and used seamlessly since the interface definitions only depend on
 other interfaces and primitive types—and the class implementations only depend
 on interfaces, not on each other.
 */
-package model
+package angle
 
 // Types
 
@@ -54,7 +54,7 @@ must be supported by each instance of an angular concrete class.
 type Angular interface {
 	// Methods
 	AsNormalized() AngleLike
-	InUnits(units Units) float64
+	AsUnits(units Units) float64
 }
 
 // Classes
@@ -70,7 +70,7 @@ type AngleClassLike interface {
 	Tau() AngleLike
 
 	// Constructors
-	MakeWithValue(value float64) AngleLike
+	MakeFromValue(value float64) AngleLike
 	MakeFromString(value string) AngleLike
 
 	// Functions
@@ -93,12 +93,12 @@ angle-like class.
 type AngleLike interface {
 	// Attributes
 	GetClass() AngleClassLike
-	GetValue() float64
 
 	// Abstractions
 	Angular
 
 	// Methods
 	IsZero() bool
+	AsFloat() float64
 	AsString() string
 }

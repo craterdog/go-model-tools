@@ -20,43 +20,54 @@ import (
 )
 
 func main() {
-	var isGeneric, directory, name, copyright = retrieveArguments()
-	var model = createModel(isGeneric, name, copyright)
+	var modelType, directory, name, copyright = retrieveArguments()
+	var model = createModel(modelType, name, copyright)
 	saveModel(directory, model)
 }
 
 func retrieveArguments() (
-	isGeneric bool,
+	modelType string,
 	directory string,
 	name string,
 	copyright string,
 ) {
-	if len(osx.Args) < 5 {
+	if len(osx.Args) < 6 {
 		fmt.Println(
-			"Usage: initialize (model | generic) <directory> <name> <copyright>",
+			"Usage: initialize (class | generic) (type | structure) <directory> <name> <copyright>",
 		)
 		osx.Exit(1)
 	}
-	isGeneric = osx.Args[1] == "generic"
-	directory = osx.Args[2]
+	modelType = osx.Args[1] + " " + osx.Args[2]
+	directory = osx.Args[3]
 	if !sts.HasSuffix(directory, "/") {
 		directory += "/"
 	}
-	name = osx.Args[3]
-	copyright = osx.Args[4]
-	return isGeneric, directory, name, copyright
+	name = osx.Args[4]
+	copyright = osx.Args[5]
+	return modelType, directory, name, copyright
 }
 
 func createModel(
-	isGeneric bool,
+	modelType string,
 	name string,
 	copyright string,
 ) (model mod.ModelLike) {
 	var generator = mod.Generator()
-	if isGeneric {
-		model = generator.CreateGeneric(name, copyright)
-	} else {
-		model = generator.CreateModel(name, copyright)
+	switch modelType {
+	case "class type":
+		model = generator.CreateClassType(name, copyright)
+	case "generic type":
+		model = generator.CreateGenericType(name, copyright)
+	case "class structure":
+		model = generator.CreateClassStructure(name, copyright)
+	case "generic structure":
+		model = generator.CreateGenericStructure(name, copyright)
+	default:
+		fmt.Printf(
+			"Illegal model type: %v.",
+			modelType,
+		)
+		osx.Exit(1)
 	}
 	return model
 }
@@ -67,10 +78,6 @@ func saveModel(directory string, model mod.ModelLike) {
 		panic(err)
 	}
 	var modelFile = directory + "Package.go"
-	fmt.Printf(
-		"    Creating %q now...\n",
-		modelFile,
-	)
 	var formatter = mod.Formatter()
 	var source = formatter.FormatModel(model)
 	var bytes = []byte(source)

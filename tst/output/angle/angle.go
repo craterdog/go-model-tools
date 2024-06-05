@@ -10,7 +10,7 @@
 ................................................................................
 */
 
-package model
+package angle
 
 import ()
 
@@ -50,19 +50,15 @@ func (c *angleClass_) Tau() AngleLike {
 
 // Constructors
 
-func (c *angleClass_) MakeWithValue(value float64) AngleLike {
-	return &angle_{
-		// Initialize instance attributes.
-		class_: c,
-		value_: value,
-	}
+func (c *angleClass_) MakeFromValue(value float64) AngleLike {
+	// TBA - Validate the value.
+	return angle_(value)
 }
 
 func (c *angleClass_) MakeFromString(value string) AngleLike {
-	return &angle_{
-		// Initialize instance attributes.
-		class_: c,
-	}
+	var result_ AngleLike
+	// TBA - Implement the method.
+	return result_
 }
 
 // Functions
@@ -98,31 +94,23 @@ func (c *angleClass_) Tangent(angle AngleLike) float64 {
 
 // Target
 
-type angle_ struct {
-	// Define instance attributes.
-	class_ AngleClassLike
-	value_ float64
-}
+type angle_ float64
 
 // Attributes
 
-func (v *angle_) GetClass() AngleClassLike {
-	return v.class_
-}
-
-func (v *angle_) GetValue() float64 {
-	return v.value_
+func (v angle_) GetClass() AngleClassLike {
+	return Angle()
 }
 
 // Angular
 
-func (v *angle_) AsNormalized() AngleLike {
+func (v angle_) AsNormalized() AngleLike {
 	var result_ AngleLike
 	// TBA - Implement the method.
 	return result_
 }
 
-func (v *angle_) InUnits(units Units) float64 {
+func (v angle_) AsUnits(units Units) float64 {
 	var result_ float64
 	// TBA - Implement the method.
 	return result_
@@ -130,13 +118,19 @@ func (v *angle_) InUnits(units Units) float64 {
 
 // Public
 
-func (v *angle_) IsZero() bool {
+func (v angle_) IsZero() bool {
 	var result_ bool
 	// TBA - Implement the method.
 	return result_
 }
 
-func (v *angle_) AsString() string {
+func (v angle_) AsFloat() float64 {
+	var result_ float64
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v angle_) AsString() string {
 	var result_ string
 	// TBA - Implement the method.
 	return result_

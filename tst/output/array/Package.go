@@ -11,7 +11,7 @@
 */
 
 /*
-Package "generic" provides...
+Package "array" provides...
 
 This package follows the Crater Dog Technologies™ Go Coding Conventions located
 here:
@@ -22,7 +22,7 @@ be developed and used seamlessly since the interface definitions only depend on
 other interfaces and primitive types—and the class implementations only depend
 on interfaces, not on each other.
 */
-package generic
+package array
 
 // Types
 
@@ -51,6 +51,31 @@ type RankingFunction[V any] func(
 // Aspects
 
 /*
+Accessible[V any] is an aspect interface that defines a set of method signatures
+that must be supported by each instance of an accessible concrete class.
+The values in an accessible class are accessed using indices. The indices of an
+accessible class are ORDINAL rather than ZERO based—which never really made
+sense except for pointer offsets.
+
+This approach allows for positive indices starting at the beginning of the
+sequence as follows:
+
+	    1           2           3             N
+	[value 1] . [value 2] . [value 3] ... [value N]
+
+Notice that because the indices are ordinal based, the index actually matches
+the position in the sequence.
+*/
+type Accessible[V any] interface {
+	// Methods
+	GetValue(index uint) V
+	GetValues(
+		first uint,
+		last uint,
+	) Sequential[V]
+}
+
+/*
 Sequential[V any] is an aspect interface that defines a set of method signatures
 that must be supported by each instance of a sequential concrete class.
 */
@@ -61,79 +86,61 @@ type Sequential[V any] interface {
 	IsEmpty() bool
 }
 
+/*
+Updatable[V any] is an aspect interface that defines a set of method signatures
+that must be supported by each instance of an updatable concrete class.
+*/
+type Updatable[V any] interface {
+	// Methods
+	SetValue(
+		index uint,
+		value V,
+	)
+	SetValues(
+		index uint,
+		values Sequential[V],
+	)
+}
+
 // Classes
 
 /*
-SetClassLike[V any] is a class interface that defines the complete set of
+ArrayClassLike[V any] is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
-concrete set-like class.
-
-The following functions are supported:
-
-And() returns a new set containing the values that are both of the specified
-sets.
-
-Or() returns a new set containing the values that are in either of the specified
-sets.
-
-Sans() returns a new set containing the values that are in the first specified
-set but not in the second specified set.
-
-Xor() returns a new set containing the values that are in the first specified
-set or the second specified set but not both.
+concrete array-like class.
 */
-type SetClassLike[V any] interface {
+type ArrayClassLike[V any] interface {
 	// Constants
 	DefaultRanker() RankingFunction[V]
 
 	// Constructors
-	Make() SetLike[V]
-	MakeFromArray(values []V) SetLike[V]
-	MakeFromSequence(values Sequential[V]) SetLike[V]
-	MakeWithRanker(ranker RankingFunction[V]) SetLike[V]
-
-	// Functions
-	And(
-		first SetLike[V],
-		second SetLike[V],
-	) SetLike[V]
-	Or(
-		first SetLike[V],
-		second SetLike[V],
-	) SetLike[V]
-	Sans(
-		first SetLike[V],
-		second SetLike[V],
-	) SetLike[V]
-	Xor(
-		first SetLike[V],
-		second SetLike[V],
-	) SetLike[V]
+	MakeFromValue(value []V) ArrayLike[V]
+	MakeFromSequence(values Sequential[V]) ArrayLike[V]
+	MakeFromSize(size int) ArrayLike[V]
 }
 
 // Instances
 
 /*
-SetLike[V any] is an instance interface that defines the complete set of
+ArrayLike[V any] is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete set-like class.  A set-like class maintains an ordered
-sequence of values which can grow or shrink as needed.
+instance of a concrete array-like class.
 
-This type is parameterized as follows:
-  - V is any type of value.
-
-The order of the values is determined by a configurable ranking function.
+An array-like class maintains a fixed length indexed sequence of values.  Each
+value is associated with an implicit positive integer index. An array-like class
+uses ORDINAL based indexing rather than the more common—and nonsensical—ZERO
+based indexing scheme.
 */
-type SetLike[V any] interface {
+type ArrayLike[V any] interface {
 	// Attributes
-	GetClass() SetClassLike[V]
-	SetRanker(ranker RankingFunction[V])
+	GetClass() ArrayClassLike[V]
 
 	// Abstractions
+	Accessible[V]
 	Sequential[V]
+	Updatable[V]
 
 	// Methods
-	AddValue(value V)
-	RemoveValue(value V)
-	RemoveAll()
+	SortValues()
+	SortValuesWithRanker(ranker RankingFunction[V])
 }

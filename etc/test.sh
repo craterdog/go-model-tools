@@ -12,12 +12,18 @@ done
 echo
 
 echo "Creating the new class models:"
-echo "    model"
-mkdir $output/model
-bin/initialize model $output/model/ model ""
-echo "    generic"
-mkdir $output/generic
-bin/initialize generic $output/generic/ generic ""
+echo "    angle"
+mkdir $output/angle
+bin/initialize class type $output/angle/ angle ""
+echo "    array"
+mkdir $output/array
+bin/initialize generic type $output/array/ array ""
+echo "    complex"
+mkdir $output/complex
+bin/initialize class structure $output/complex/ complex ""
+echo "    catalog"
+mkdir $output/catalog
+bin/initialize generic structure $output/catalog/ catalog ""
 echo
 
 echo "Validating the class models:"
@@ -26,22 +32,30 @@ for file in `ls $input`; do
 	echo "    $model"
 	bin/validate $output/$model/Package.go
 done
-echo "    model"
-bin/validate $output/model/Package.go
-echo "    generic"
-bin/validate $output/generic/Package.go
+echo "    angle"
+bin/validate $output/angle/Package.go
+echo "    array"
+bin/validate $output/array/Package.go
+echo "    complex"
+bin/validate $output/complex/Package.go
+echo "    catalog"
+bin/validate $output/catalog/Package.go
 echo
 
-echo "Formatting the class model:"
+echo "Formatting the class models:"
 for file in `ls $input`; do
 	model=${file%?gcmn}
 	echo "    $model"
 	bin/format $output/$model/Package.go
 done
-echo "    model"
-bin/format $output/model/Package.go
-echo "    generic"
-bin/format $output/generic/Package.go
+echo "    angle"
+bin/format $output/angle/Package.go
+echo "    array"
+bin/format $output/array/Package.go
+echo "    complex"
+bin/format $output/complex/Package.go
+echo "    catalog"
+bin/format $output/catalog/Package.go
 echo
 
 echo "Generating the class implementation files:"
@@ -50,10 +64,14 @@ for file in `ls $input`; do
 	echo "    $model"
 	bin/generate $output/$model
 done
-echo "    model"
-bin/generate $output/model/
-echo "    generic"
-bin/generate $output/generic/
+echo "    angle"
+bin/generate $output/angle/
+echo "    array"
+bin/generate $output/array/
+echo "    complex"
+bin/generate $output/complex/
+echo "    catalog"
+bin/generate $output/catalog/
 echo
 
 echo "Running lint on the generated files:"
