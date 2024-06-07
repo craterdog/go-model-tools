@@ -69,6 +69,14 @@ func (c *arrayClass_[V]) Notation() NotationLike {
 
 // Constructors
 
+func (c *arrayClass_[V]) MakeWithSize(size uint) ArrayLike[V] {
+	return &array_[V]{
+		// Initialize instance attributes.
+		class_: c,
+		size_: size,
+	}
+}
+
 func (c *arrayClass_[V]) MakeFromArray(values []V) ArrayLike[V] {
 	return &array_[V]{
 		// Initialize instance attributes.
@@ -77,13 +85,6 @@ func (c *arrayClass_[V]) MakeFromArray(values []V) ArrayLike[V] {
 }
 
 func (c *arrayClass_[V]) MakeFromSequence(values Sequential[V]) ArrayLike[V] {
-	return &array_[V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
-}
-
-func (c *arrayClass_[V]) MakeFromSize(size int) ArrayLike[V] {
 	return &array_[V]{
 		// Initialize instance attributes.
 		class_: c,
@@ -104,6 +105,7 @@ func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
 type array_[V any] struct {
 	// Define instance attributes.
 	class_ ArrayClassLike[V]
+	size_ uint
 }
 
 // Attributes
@@ -131,6 +133,18 @@ func (v *array_[V]) GetValues(
 
 // Sequential[V]
 
+func (v *array_[V]) IsEmpty() bool {
+	var result_ bool
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *array_[V]) GetSize() int {
+	var result_ int
+	// TBA - Implement the method.
+	return result_
+}
+
 func (v *array_[V]) AsArray() []V {
 	var result_ []V
 	// TBA - Implement the method.
@@ -143,33 +157,21 @@ func (v *array_[V]) GetIterator() age.IteratorLike[V] {
 	return result_
 }
 
-func (v *array_[V]) GetSize() int {
-	var result_ int
-	// TBA - Implement the method.
-	return result_
-}
-
-func (v *array_[V]) IsEmpty() bool {
-	var result_ bool
-	// TBA - Implement the method.
-	return result_
-}
-
 // Sortable[V]
-
-func (v *array_[V]) ReverseValues() {
-	// TBA - Implement the method.
-}
-
-func (v *array_[V]) ShuffleValues() {
-	// TBA - Implement the method.
-}
 
 func (v *array_[V]) SortValues() {
 	// TBA - Implement the method.
 }
 
 func (v *array_[V]) SortValuesWithRanker(ranker age.RankingFunction[V]) {
+	// TBA - Implement the method.
+}
+
+func (v *array_[V]) ReverseValues() {
+	// TBA - Implement the method.
+}
+
+func (v *array_[V]) ShuffleValues() {
 	// TBA - Implement the method.
 }
 

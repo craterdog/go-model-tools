@@ -141,14 +141,21 @@ func (v *catalog_[K, V]) GetClass() CatalogClassLike[K, V] {
 
 // Associative[K, V]
 
-func (v *catalog_[K, V]) GetKeys() Sequential[K] {
-	var result_ Sequential[K]
+func (v *catalog_[K, V]) GetValue(key K) V {
+	var result_ V
 	// TBA - Implement the method.
 	return result_
 }
 
-func (v *catalog_[K, V]) GetValue(key K) V {
-	var result_ V
+func (v *catalog_[K, V]) SetValue(
+	key K,
+	value V,
+) {
+	// TBA - Implement the method.
+}
+
+func (v *catalog_[K, V]) GetKeys() Sequential[K] {
+	var result_ Sequential[K]
 	// TBA - Implement the method.
 	return result_
 }
@@ -157,10 +164,6 @@ func (v *catalog_[K, V]) GetValues(keys Sequential[K]) Sequential[V] {
 	var result_ Sequential[V]
 	// TBA - Implement the method.
 	return result_
-}
-
-func (v *catalog_[K, V]) RemoveAll() {
-	// TBA - Implement the method.
 }
 
 func (v *catalog_[K, V]) RemoveValue(key K) V {
@@ -175,14 +178,23 @@ func (v *catalog_[K, V]) RemoveValues(keys Sequential[K]) Sequential[V] {
 	return result_
 }
 
-func (v *catalog_[K, V]) SetValue(
-	key K,
-	value V,
-) {
+func (v *catalog_[K, V]) RemoveAll() {
 	// TBA - Implement the method.
 }
 
 // Sequential[AssociationLike[K, V]]
+
+func (v *catalog_[K, V]) IsEmpty() bool {
+	var result_ bool
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *catalog_[K, V]) GetSize() int {
+	var result_ int
+	// TBA - Implement the method.
+	return result_
+}
 
 func (v *catalog_[K, V]) AsArray() []AssociationLike[K, V] {
 	var result_ []AssociationLike[K, V]
@@ -196,33 +208,21 @@ func (v *catalog_[K, V]) GetIterator() age.IteratorLike[AssociationLike[K, V]] {
 	return result_
 }
 
-func (v *catalog_[K, V]) GetSize() int {
-	var result_ int
-	// TBA - Implement the method.
-	return result_
-}
-
-func (v *catalog_[K, V]) IsEmpty() bool {
-	var result_ bool
-	// TBA - Implement the method.
-	return result_
-}
-
 // Sortable[AssociationLike[K, V]]
-
-func (v *catalog_[K, V]) ReverseValues() {
-	// TBA - Implement the method.
-}
-
-func (v *catalog_[K, V]) ShuffleValues() {
-	// TBA - Implement the method.
-}
 
 func (v *catalog_[K, V]) SortValues() {
 	// TBA - Implement the method.
 }
 
 func (v *catalog_[K, V]) SortValuesWithRanker(ranker age.RankingFunction[AssociationLike[K, V]]) {
+	// TBA - Implement the method.
+}
+
+func (v *catalog_[K, V]) ReverseValues() {
+	// TBA - Implement the method.
+}
+
+func (v *catalog_[K, V]) ShuffleValues() {
 	// TBA - Implement the method.
 }
 

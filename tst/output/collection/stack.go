@@ -59,7 +59,7 @@ func Stack[V any]() StackClassLike[V] {
 type stackClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
-	defaultCapacity_ int
+	defaultCapacity_ uint
 }
 
 // Constants
@@ -68,7 +68,7 @@ func (c *stackClass_[V]) Notation() NotationLike {
 	return c.notation_
 }
 
-func (c *stackClass_[V]) DefaultCapacity() int {
+func (c *stackClass_[V]) DefaultCapacity() uint {
 	return c.defaultCapacity_
 }
 
@@ -78,6 +78,14 @@ func (c *stackClass_[V]) Make() StackLike[V] {
 	return &stack_[V]{
 		// Initialize instance attributes.
 		class_: c,
+	}
+}
+
+func (c *stackClass_[V]) MakeWithCapacity(capacity uint) StackLike[V] {
+	return &stack_[V]{
+		// Initialize instance attributes.
+		class_: c,
+		capacity_: capacity,
 	}
 }
 
@@ -102,14 +110,6 @@ func (c *stackClass_[V]) MakeFromSource(source string) StackLike[V] {
 	}
 }
 
-func (c *stackClass_[V]) MakeWithCapacity(capacity int) StackLike[V] {
-	return &stack_[V]{
-		// Initialize instance attributes.
-		class_: c,
-		capacity_: capacity,
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -117,7 +117,7 @@ func (c *stackClass_[V]) MakeWithCapacity(capacity int) StackLike[V] {
 type stack_[V any] struct {
 	// Define instance attributes.
 	class_ StackClassLike[V]
-	capacity_ int
+	capacity_ uint
 }
 
 // Attributes
@@ -126,7 +126,7 @@ func (v *stack_[V]) GetClass() StackClassLike[V] {
 	return v.class_
 }
 
-func (v *stack_[V]) GetCapacity() int {
+func (v *stack_[V]) GetCapacity() uint {
 	return v.capacity_
 }
 
@@ -142,14 +142,8 @@ func (v *stack_[V]) RemoveAll() {
 
 // Sequential[V]
 
-func (v *stack_[V]) AsArray() []V {
-	var result_ []V
-	// TBA - Implement the method.
-	return result_
-}
-
-func (v *stack_[V]) GetIterator() age.IteratorLike[V] {
-	var result_ age.IteratorLike[V]
+func (v *stack_[V]) IsEmpty() bool {
+	var result_ bool
 	// TBA - Implement the method.
 	return result_
 }
@@ -160,8 +154,14 @@ func (v *stack_[V]) GetSize() int {
 	return result_
 }
 
-func (v *stack_[V]) IsEmpty() bool {
-	var result_ bool
+func (v *stack_[V]) AsArray() []V {
+	var result_ []V
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *stack_[V]) GetIterator() age.IteratorLike[V] {
+	var result_ age.IteratorLike[V]
 	// TBA - Implement the method.
 	return result_
 }

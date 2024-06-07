@@ -62,14 +62,14 @@ func (v *notation_) GetClass() NotationClassLike {
 
 // Canonical
 
-func (v *notation_) FormatCollection(collection Collection) string {
-	var result_ string
+func (v *notation_) ParseSource(source string) Collection {
+	var result_ Collection
 	// TBA - Implement the method.
 	return result_
 }
 
-func (v *notation_) ParseSource(source string) Collection {
-	var result_ Collection
+func (v *notation_) FormatCollection(collection Collection) string {
+	var result_ string
 	// TBA - Implement the method.
 	return result_
 }

@@ -68,18 +68,18 @@ func (c *arrayClass_[V]) DefaultRanker() RankingFunction[V] {
 
 // Constructors
 
+func (c *arrayClass_[V]) MakeWithSize(size uint) ArrayLike[V] {
+	var result_ ArrayLike[V]
+	// TBA - Implement the method.
+	return result_
+}
+
 func (c *arrayClass_[V]) MakeFromValue(value []V) ArrayLike[V] {
 	// TBA - Validate the value.
 	return array_[V](value)
 }
 
 func (c *arrayClass_[V]) MakeFromSequence(values Sequential[V]) ArrayLike[V] {
-	var result_ ArrayLike[V]
-	// TBA - Implement the method.
-	return result_
-}
-
-func (c *arrayClass_[V]) MakeFromSize(size int) ArrayLike[V] {
 	var result_ ArrayLike[V]
 	// TBA - Implement the method.
 	return result_
@@ -99,15 +99,15 @@ func (v array_[V]) GetClass() ArrayClassLike[V] {
 
 // Accessible[V]
 
-func (v array_[V]) GetValue(index uint) V {
+func (v array_[V]) GetValue(index int) V {
 	var result_ V
 	// TBA - Implement the method.
 	return result_
 }
 
 func (v array_[V]) GetValues(
-	first uint,
-	last uint,
+	first int,
+	last int,
 ) Sequential[V] {
 	var result_ Sequential[V]
 	// TBA - Implement the method.
@@ -116,8 +116,8 @@ func (v array_[V]) GetValues(
 
 // Sequential[V]
 
-func (v array_[V]) AsArray() []V {
-	var result_ []V
+func (v array_[V]) IsEmpty() bool {
+	var result_ bool
 	// TBA - Implement the method.
 	return result_
 }
@@ -128,8 +128,8 @@ func (v array_[V]) GetSize() int {
 	return result_
 }
 
-func (v array_[V]) IsEmpty() bool {
-	var result_ bool
+func (v array_[V]) AsArray() []V {
+	var result_ []V
 	// TBA - Implement the method.
 	return result_
 }
@@ -137,14 +137,14 @@ func (v array_[V]) IsEmpty() bool {
 // Updatable[V]
 
 func (v array_[V]) SetValue(
-	index uint,
+	index int,
 	value V,
 ) {
 	// TBA - Implement the method.
 }
 
 func (v array_[V]) SetValues(
-	index uint,
+	index int,
 	values Sequential[V],
 ) {
 	// TBA - Implement the method.

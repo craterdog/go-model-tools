@@ -76,6 +76,14 @@ func (c *setClass_[V]) Make() SetLike[V] {
 	}
 }
 
+func (c *setClass_[V]) MakeWithCollator(collator age.CollatorLike[V]) SetLike[V] {
+	return &set_[V]{
+		// Initialize instance attributes.
+		class_: c,
+		collator_: collator,
+	}
+}
+
 func (c *setClass_[V]) MakeFromArray(values []V) SetLike[V] {
 	return &set_[V]{
 		// Initialize instance attributes.
@@ -94,14 +102,6 @@ func (c *setClass_[V]) MakeFromSource(source string) SetLike[V] {
 	return &set_[V]{
 		// Initialize instance attributes.
 		class_: c,
-	}
-}
-
-func (c *setClass_[V]) MakeWithCollator(collator age.CollatorLike[V]) SetLike[V] {
-	return &set_[V]{
-		// Initialize instance attributes.
-		class_: c,
-		collator_: collator,
 	}
 }
 
@@ -190,10 +190,6 @@ func (v *set_[V]) AddValues(values Sequential[V]) {
 	// TBA - Implement the method.
 }
 
-func (v *set_[V]) RemoveAll() {
-	// TBA - Implement the method.
-}
-
 func (v *set_[V]) RemoveValue(value V) {
 	// TBA - Implement the method.
 }
@@ -202,9 +198,13 @@ func (v *set_[V]) RemoveValues(values Sequential[V]) {
 	// TBA - Implement the method.
 }
 
+func (v *set_[V]) RemoveAll() {
+	// TBA - Implement the method.
+}
+
 // Searchable[V]
 
-func (v *set_[V]) ContainsAll(values Sequential[V]) bool {
+func (v *set_[V]) ContainsValue(value V) bool {
 	var result_ bool
 	// TBA - Implement the method.
 	return result_
@@ -216,7 +216,7 @@ func (v *set_[V]) ContainsAny(values Sequential[V]) bool {
 	return result_
 }
 
-func (v *set_[V]) ContainsValue(value V) bool {
+func (v *set_[V]) ContainsAll(values Sequential[V]) bool {
 	var result_ bool
 	// TBA - Implement the method.
 	return result_
@@ -230,14 +230,8 @@ func (v *set_[V]) GetIndex(value V) int {
 
 // Sequential[V]
 
-func (v *set_[V]) AsArray() []V {
-	var result_ []V
-	// TBA - Implement the method.
-	return result_
-}
-
-func (v *set_[V]) GetIterator() age.IteratorLike[V] {
-	var result_ age.IteratorLike[V]
+func (v *set_[V]) IsEmpty() bool {
+	var result_ bool
 	// TBA - Implement the method.
 	return result_
 }
@@ -248,8 +242,14 @@ func (v *set_[V]) GetSize() int {
 	return result_
 }
 
-func (v *set_[V]) IsEmpty() bool {
-	var result_ bool
+func (v *set_[V]) AsArray() []V {
+	var result_ []V
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *set_[V]) GetIterator() age.IteratorLike[V] {
+	var result_ age.IteratorLike[V]
 	// TBA - Implement the method.
 	return result_
 }

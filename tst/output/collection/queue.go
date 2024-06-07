@@ -59,7 +59,7 @@ func Queue[V any]() QueueClassLike[V] {
 type queueClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
-	defaultCapacity_ int
+	defaultCapacity_ uint
 }
 
 // Constants
@@ -68,7 +68,7 @@ func (c *queueClass_[V]) Notation() NotationLike {
 	return c.notation_
 }
 
-func (c *queueClass_[V]) DefaultCapacity() int {
+func (c *queueClass_[V]) DefaultCapacity() uint {
 	return c.defaultCapacity_
 }
 
@@ -78,6 +78,14 @@ func (c *queueClass_[V]) Make() QueueLike[V] {
 	return &queue_[V]{
 		// Initialize instance attributes.
 		class_: c,
+	}
+}
+
+func (c *queueClass_[V]) MakeWithCapacity(capacity uint) QueueLike[V] {
+	return &queue_[V]{
+		// Initialize instance attributes.
+		class_: c,
+		capacity_: capacity,
 	}
 }
 
@@ -102,20 +110,22 @@ func (c *queueClass_[V]) MakeFromSource(source string) QueueLike[V] {
 	}
 }
 
-func (c *queueClass_[V]) MakeWithCapacity(capacity int) QueueLike[V] {
-	return &queue_[V]{
-		// Initialize instance attributes.
-		class_: c,
-		capacity_: capacity,
-	}
-}
-
 // Functions
 
 func (c *queueClass_[V]) Fork(
 	group Synchronized,
 	input QueueLike[V],
-	size int,
+	size uint,
+) Sequential[QueueLike[V]] {
+	var result_ Sequential[QueueLike[V]]
+	// TBA - Implement the function.
+	return result_
+}
+
+func (c *queueClass_[V]) Split(
+	group Synchronized,
+	input QueueLike[V],
+	size uint,
 ) Sequential[QueueLike[V]] {
 	var result_ Sequential[QueueLike[V]]
 	// TBA - Implement the function.
@@ -131,16 +141,6 @@ func (c *queueClass_[V]) Join(
 	return result_
 }
 
-func (c *queueClass_[V]) Split(
-	group Synchronized,
-	input QueueLike[V],
-	size int,
-) Sequential[QueueLike[V]] {
-	var result_ Sequential[QueueLike[V]]
-	// TBA - Implement the function.
-	return result_
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -148,7 +148,7 @@ func (c *queueClass_[V]) Split(
 type queue_[V any] struct {
 	// Define instance attributes.
 	class_ QueueClassLike[V]
-	capacity_ int
+	capacity_ uint
 }
 
 // Attributes
@@ -157,7 +157,7 @@ func (v *queue_[V]) GetClass() QueueClassLike[V] {
 	return v.class_
 }
 
-func (v *queue_[V]) GetCapacity() int {
+func (v *queue_[V]) GetCapacity() uint {
 	return v.capacity_
 }
 
@@ -173,6 +173,18 @@ func (v *queue_[V]) RemoveAll() {
 
 // Sequential[V]
 
+func (v *queue_[V]) IsEmpty() bool {
+	var result_ bool
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *queue_[V]) GetSize() int {
+	var result_ int
+	// TBA - Implement the method.
+	return result_
+}
+
 func (v *queue_[V]) AsArray() []V {
 	var result_ []V
 	// TBA - Implement the method.
@@ -185,23 +197,7 @@ func (v *queue_[V]) GetIterator() age.IteratorLike[V] {
 	return result_
 }
 
-func (v *queue_[V]) GetSize() int {
-	var result_ int
-	// TBA - Implement the method.
-	return result_
-}
-
-func (v *queue_[V]) IsEmpty() bool {
-	var result_ bool
-	// TBA - Implement the method.
-	return result_
-}
-
 // Public
-
-func (v *queue_[V]) CloseQueue() {
-	// TBA - Implement the method.
-}
 
 func (v *queue_[V]) RemoveHead() (
 	head V,
@@ -209,6 +205,10 @@ func (v *queue_[V]) RemoveHead() (
 ) {
 	// TBA - Implement the method.
 	return
+}
+
+func (v *queue_[V]) CloseQueue() {
+	// TBA - Implement the method.
 }
 
 // Private

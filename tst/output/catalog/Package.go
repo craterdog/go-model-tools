@@ -68,6 +68,10 @@ type Associative[K comparable, V any] interface {
 /*
 Sequential[V any] is an aspect interface that defines a set of method signatures
 that must be supported by each instance of a sequential concrete class.
+
+NOTE: that sizes should be of type "uint" but the Go language does not allow
+arithmetic and comparison operations between "int" and "uint" so we us "int" for
+the return type to make it easier to use.
 */
 type Sequential[V any] interface {
 	// Methods
