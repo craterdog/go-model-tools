@@ -13,16 +13,12 @@ echo
 
 echo "Creating the new class models:"
 echo "    angle"
-mkdir $output/angle
 bin/initialize class type $output/angle/ angle ""
 echo "    array"
-mkdir $output/array
 bin/initialize generic type $output/array/ array ""
 echo "    complex"
-mkdir $output/complex
 bin/initialize class structure $output/complex/ complex ""
 echo "    catalog"
-mkdir $output/catalog
 bin/initialize generic structure $output/catalog/ catalog ""
 echo
 

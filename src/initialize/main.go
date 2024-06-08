@@ -21,30 +21,15 @@ import (
 
 func main() {
 	var modelType, directory, name, copyright = retrieveArguments()
+	if pathExists(directory) {
+		fmt.Printf(
+			"The directory %v exists, so aborting...",
+			directory,
+		)
+		return
+	}
 	var model = createModel(modelType, name, copyright)
 	saveModel(directory, model)
-}
-
-func retrieveArguments() (
-	modelType string,
-	directory string,
-	name string,
-	copyright string,
-) {
-	if len(osx.Args) < 6 {
-		fmt.Println(
-			"Usage: initialize (class | generic) (type | structure) <directory> <name> <copyright>",
-		)
-		osx.Exit(1)
-	}
-	modelType = osx.Args[1] + " " + osx.Args[2]
-	directory = osx.Args[3]
-	if !sts.HasSuffix(directory, "/") {
-		directory += "/"
-	}
-	name = osx.Args[4]
-	copyright = osx.Args[5]
-	return modelType, directory, name, copyright
 }
 
 func createModel(
@@ -70,6 +55,39 @@ func createModel(
 		osx.Exit(1)
 	}
 	return model
+}
+
+func pathExists(path string) bool {
+	var _, err = osx.Stat(path)
+	if err == nil {
+		return true
+	}
+	if osx.IsNotExist(err) {
+		return false
+	}
+	panic(err)
+}
+
+func retrieveArguments() (
+	modelType string,
+	directory string,
+	name string,
+	copyright string,
+) {
+	if len(osx.Args) < 6 {
+		fmt.Println(
+			"Usage: initialize (class | generic) (type | structure) <directory> <name> <copyright>",
+		)
+		osx.Exit(1)
+	}
+	modelType = osx.Args[1] + " " + osx.Args[2]
+	directory = osx.Args[3]
+	if !sts.HasSuffix(directory, "/") {
+		directory += "/"
+	}
+	name = osx.Args[4]
+	copyright = osx.Args[5]
+	return modelType, directory, name, copyright
 }
 
 func saveModel(directory string, model mod.ModelLike) {

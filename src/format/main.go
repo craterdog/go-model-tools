@@ -20,18 +20,16 @@ import (
 
 func main() {
 	var modelFile = retrieveArguments()
+	if !pathExists(modelFile) {
+		fmt.Printf(
+			"The model file %v does not exist, so aborting...",
+			modelFile,
+		)
+		return
+	}
 	var model = parseModel(modelFile)
 	validateModel(model)
 	reformatModel(modelFile, model)
-}
-
-func retrieveArguments() (modelFile string) {
-	if len(osx.Args) < 2 {
-		fmt.Println("Usage: format <model-file>")
-		osx.Exit(1)
-	}
-	modelFile = osx.Args[1]
-	return modelFile
 }
 
 func parseModel(modelFile string) mod.ModelLike {
@@ -45,9 +43,15 @@ func parseModel(modelFile string) mod.ModelLike {
 	return model
 }
 
-func validateModel(model mod.ModelLike) {
-	var validator = mod.Validator()
-	validator.ValidateModel(model)
+func pathExists(path string) bool {
+	var _, err = osx.Stat(path)
+	if err == nil {
+		return true
+	}
+	if osx.IsNotExist(err) {
+		return false
+	}
+	panic(err)
 }
 
 func reformatModel(
@@ -61,4 +65,18 @@ func reformatModel(
 	if err != nil {
 		panic(err)
 	}
+}
+
+func retrieveArguments() (modelFile string) {
+	if len(osx.Args) < 2 {
+		fmt.Println("Usage: format <model-file>")
+		osx.Exit(1)
+	}
+	modelFile = osx.Args[1]
+	return modelFile
+}
+
+func validateModel(model mod.ModelLike) {
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
 }

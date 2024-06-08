@@ -21,38 +21,17 @@ import (
 
 func main() {
 	var directory = retrieveArguments()
+	var modelFile = directory + "Package.go"
+	if !pathExists(modelFile) {
+		fmt.Printf(
+			"The model file %v does not exist, so aborting...",
+			modelFile,
+		)
+		return
+	}
 	var model = parseModel(directory)
 	validateModel(model)
 	generateClasses(directory, model)
-}
-
-func retrieveArguments() (directory string) {
-	if len(osx.Args) < 2 {
-		fmt.Println("Usage: generate <directory>")
-		osx.Exit(1)
-	}
-	directory = osx.Args[1]
-	if !sts.HasSuffix(directory, "/") {
-		directory += "/"
-	}
-	return directory
-}
-
-func validateModel(model mod.ModelLike) {
-	var validator = mod.Validator()
-	validator.ValidateModel(model)
-}
-
-func parseModel(directory string) mod.ModelLike {
-	var modelFile = directory + "Package.go"
-	var bytes, err = osx.ReadFile(modelFile)
-	if err != nil {
-		panic(err)
-	}
-	var source = string(bytes)
-	var parser = mod.Parser()
-	var model = parser.ParseSource(source)
-	return model
 }
 
 func generateClasses(
@@ -70,9 +49,56 @@ func generateClasses(
 		var source = generator.GenerateClass(model, name)
 		var bytes = []byte(source)
 		var filename = directory + name + ".go"
+		if pathExists(filename) {
+			fmt.Printf(
+				"The class %v exists, so skipping it...",
+				filename,
+			)
+			continue
+		}
 		var err = osx.WriteFile(filename, bytes, 0644)
 		if err != nil {
 			panic(err)
 		}
 	}
+}
+
+func parseModel(directory string) mod.ModelLike {
+	var modelFile = directory + "Package.go"
+	var bytes, err = osx.ReadFile(modelFile)
+	if err != nil {
+		panic(err)
+	}
+	var source = string(bytes)
+	var parser = mod.Parser()
+	var model = parser.ParseSource(source)
+	return model
+}
+
+func pathExists(path string) bool {
+	var _, err = osx.Stat(path)
+	if err == nil {
+		return true
+	}
+	if osx.IsNotExist(err) {
+		return false
+	}
+	panic(err)
+}
+
+func retrieveArguments() (directory string) {
+	if len(osx.Args) < 2 {
+		fmt.Println("Usage: generate <directory>")
+		osx.Exit(1)
+	}
+	directory = osx.Args[1]
+	if !sts.HasSuffix(directory, "/") {
+		directory += "/"
+	}
+	return directory
+}
+
+func validateModel(model mod.ModelLike) {
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
 }
