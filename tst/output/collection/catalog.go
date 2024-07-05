@@ -27,10 +27,13 @@ var catalogMutex syn.Mutex
 
 // Function
 
-func Catalog[K comparable, V any]() CatalogClassLike[K, V] {
+func Catalog[
+	K comparable,
+	V any,
+]() CatalogClassLike[K, V] {
 	// Generate the name of the bound class type.
-	var result_ CatalogClassLike[K, V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *catalogClass_[K, V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	catalogMutex.Lock()
@@ -38,33 +41,30 @@ func Catalog[K comparable, V any]() CatalogClassLike[K, V] {
 	switch actual := value.(type) {
 	case *catalogClass_[K, V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &catalogClass_[K, V]{
+		class = &catalogClass_[K, V]{
 			// Initialize class constants.
 		}
-		catalogClass[name] = result_
+		catalogClass[name] = class
 	}
 	catalogMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
 
 // Target
 
-type catalogClass_[K comparable, V any] struct {
+type catalogClass_[
+	K comparable,
+	V any,
+] struct {
 	// Define class constants.
 	notation_ NotationLike
-}
-
-// Constants
-
-func (c *catalogClass_[K, V]) Notation() NotationLike {
-	return c.notation_
 }
 
 // Constructors
@@ -97,11 +97,10 @@ func (c *catalogClass_[K, V]) MakeFromSequence(associations Sequential[Associati
 	}
 }
 
-func (c *catalogClass_[K, V]) MakeFromSource(source string) CatalogLike[K, V] {
-	return &catalog_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *catalogClass_[K, V]) Notation() NotationLike {
+	return c.notation_
 }
 
 // Functions
@@ -128,7 +127,10 @@ func (c *catalogClass_[K, V]) Merge(
 
 // Target
 
-type catalog_[K comparable, V any] struct {
+type catalog_[
+	K comparable,
+	V any,
+] struct {
 	// Define instance attributes.
 	class_ CatalogClassLike[K, V]
 }

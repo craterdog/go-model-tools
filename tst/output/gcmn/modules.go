@@ -12,41 +12,39 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var glyphClass = &glyphClass_{
+var modulesClass = &modulesClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Glyph() GlyphClassLike {
-	return glyphClass
+func Modules() ModulesClassLike {
+	return modulesClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type glyphClass_ struct {
+type modulesClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *glyphClass_) MakeWithAttributes(
-	first string,
-	last string,
-) GlyphLike {
-	return &glyph_{
+func (c *modulesClass_) Make(modules col.Sequential[ModuleLike]) ModulesLike {
+	return &modules_{
 		// Initialize instance attributes.
 		class_: c,
-		first_: first,
-		last_: last,
+		modules_: modules,
 	}
 }
 
@@ -54,25 +52,20 @@ func (c *glyphClass_) MakeWithAttributes(
 
 // Target
 
-type glyph_ struct {
+type modules_ struct {
 	// Define instance attributes.
-	class_ GlyphClassLike
-	first_ string
-	last_ string
+	class_ ModulesClassLike
+	modules_ col.Sequential[ModuleLike]
 }
 
 // Attributes
 
-func (v *glyph_) GetClass() GlyphClassLike {
+func (v *modules_) GetClass() ModulesClassLike {
 	return v.class_
 }
 
-func (v *glyph_) GetFirst() string {
-	return v.first_
-}
-
-func (v *glyph_) GetLast() string {
-	return v.last_
+func (v *modules_) GetModules() col.Sequential[ModuleLike] {
+	return v.modules_
 }
 
 // Private

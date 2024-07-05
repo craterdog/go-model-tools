@@ -20,35 +20,35 @@ import (
 
 // Reference
 
-var inlineClass = &inlineClass_{
+var classesClass = &classesClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Inline() InlineClassLike {
-	return inlineClass
+func Classes() ClassesClassLike {
+	return classesClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type inlineClass_ struct {
+type classesClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *inlineClass_) MakeWithAttributes(
-	alternatives col.ListLike[AlternativeLike],
+func (c *classesClass_) Make(
 	note string,
-) InlineLike {
-	return &inline_{
+	classes col.Sequential[ClassLike],
+) ClassesLike {
+	return &classes_{
 		// Initialize instance attributes.
 		class_: c,
-		alternatives_: alternatives,
 		note_: note,
+		classes_: classes,
 	}
 }
 
@@ -56,25 +56,25 @@ func (c *inlineClass_) MakeWithAttributes(
 
 // Target
 
-type inline_ struct {
+type classes_ struct {
 	// Define instance attributes.
-	class_ InlineClassLike
-	alternatives_ col.ListLike[AlternativeLike]
+	class_ ClassesClassLike
 	note_ string
+	classes_ col.Sequential[ClassLike]
 }
 
 // Attributes
 
-func (v *inline_) GetClass() InlineClassLike {
+func (v *classes_) GetClass() ClassesClassLike {
 	return v.class_
 }
 
-func (v *inline_) GetAlternatives() col.ListLike[AlternativeLike] {
-	return v.alternatives_
+func (v *classes_) GetNote() string {
+	return v.note_
 }
 
-func (v *inline_) GetNote() string {
-	return v.note_
+func (v *classes_) GetClasses() col.Sequential[ClassLike] {
+	return v.classes_
 }
 
 // Private

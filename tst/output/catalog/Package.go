@@ -48,38 +48,6 @@ type RankingFunction[V any] func(
 	second V,
 ) Rank
 
-// Aspects
-
-/*
-Associative[K comparable, V any] defines the set of method signatures that
-must be supported by all sequences of key-value associations.
-*/
-type Associative[K comparable, V any] interface {
-	// Methods
-	GetKeys() Sequential[K]
-	GetValue(key K) V
-	RemoveValue(key K) V
-	SetValue(
-		key K,
-		value V,
-	)
-}
-
-/*
-Sequential[V any] is an aspect interface that defines a set of method signatures
-that must be supported by each instance of a sequential concrete class.
-
-NOTE: that sizes should be of type "uint" but the Go language does not allow
-arithmetic and comparison operations between "int" and "uint" so we us "int" for
-the return type to make it easier to use.
-*/
-type Sequential[V any] interface {
-	// Methods
-	AsArray() []V
-	GetSize() int
-	IsEmpty() bool
-}
-
 // Classes
 
 /*
@@ -87,9 +55,12 @@ AssociationClassLike[K comparable, V any] is a class interface that defines
 the complete set of class constants, constructors and functions that must be
 supported by each concrete association-like class.
 */
-type AssociationClassLike[K comparable, V any] interface {
+type AssociationClassLike[
+	K comparable,
+	V any,
+] interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		key K,
 		value V,
 	) AssociationLike[K, V]
@@ -111,15 +82,18 @@ the specified catalogs in the order that they appear in each catalog.  If a
 key is present in both catalogs, the value of the key from the second
 catalog takes precedence.
 */
-type CatalogClassLike[K comparable, V any] interface {
-	// Constants
-	DefaultRanker() RankingFunction[AssociationLike[K, V]]
-
+type CatalogClassLike[
+	K comparable,
+	V any,
+] interface {
 	// Constructors
 	Make() CatalogLike[K, V]
 	MakeFromArray(associations []AssociationLike[K, V]) CatalogLike[K, V]
 	MakeFromMap(associations map[K]V) CatalogLike[K, V]
 	MakeFromSequence(associations Sequential[AssociationLike[K, V]]) CatalogLike[K, V]
+
+	// Constants
+	DefaultRanker() RankingFunction[AssociationLike[K, V]]
 
 	// Functions
 	Extract(
@@ -139,7 +113,10 @@ AssociationLike[K comparable, V any] is an instance interface that defines the
 complete set of instance attributes, abstractions and methods that must be
 supported by each instance of a concrete association-like class.
 */
-type AssociationLike[K comparable, V any] interface {
+type AssociationLike[
+	K comparable,
+	V any,
+] interface {
 	// Attributes
 	GetClass() AssociationClassLike[K, V]
 	GetKey() K
@@ -152,7 +129,10 @@ CatalogLike[K comparable, V any] is an instance interface that defines the
 complete set of instance attributes, abstractions and methods that must be
 supported by each instance of a concrete catalog-like class.
 */
-type CatalogLike[K comparable, V any] interface {
+type CatalogLike[
+	K comparable,
+	V any,
+] interface {
 	// Attributes
 	GetClass() CatalogClassLike[K, V]
 
@@ -163,4 +143,41 @@ type CatalogLike[K comparable, V any] interface {
 	// Methods
 	SortValues()
 	SortValuesWithRanker(ranker RankingFunction[AssociationLike[K, V]])
+}
+
+// Aspects
+
+/*
+Associative[K comparable, V any] defines the set of method signatures that
+must be supported by all sequences of key-value associations.
+*/
+type Associative[
+	K comparable,
+	V any,
+] interface {
+	
+	// Methods
+	GetKeys() Sequential[K]
+	GetValue(key K) V
+	RemoveValue(key K) V
+	SetValue(
+		key K,
+		value V,
+	)
+}
+
+/*
+Sequential[V any] is an aspect interface that defines a set of method signatures
+that must be supported by each instance of a sequential concrete class.
+
+NOTE: that sizes should be of type "uint" but the Go language does not allow
+arithmetic and comparison operations between "int" and "uint" so we us "int" for
+the return type to make it easier to use.
+*/
+type Sequential[V any] interface {
+	
+	// Methods
+	AsArray() []V
+	GetSize() int
+	IsEmpty() bool
 }

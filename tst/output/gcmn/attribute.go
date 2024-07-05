@@ -38,15 +38,15 @@ type attributeClass_ struct {
 
 // Constructors
 
-func (c *attributeClass_) MakeWithAttributes(
-	identifier string,
+func (c *attributeClass_) Make(
+	name string,
 	parameter ParameterLike,
 	abstraction AbstractionLike,
 ) AttributeLike {
 	return &attribute_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
+		name_: name,
 		parameter_: parameter,
 		abstraction_: abstraction,
 	}
@@ -59,7 +59,7 @@ func (c *attributeClass_) MakeWithAttributes(
 type attribute_ struct {
 	// Define instance attributes.
 	class_ AttributeClassLike
-	identifier_ string
+	name_ string
 	parameter_ ParameterLike
 	abstraction_ AbstractionLike
 }
@@ -70,8 +70,8 @@ func (v *attribute_) GetClass() AttributeClassLike {
 	return v.class_
 }
 
-func (v *attribute_) GetIdentifier() string {
-	return v.identifier_
+func (v *attribute_) GetName() string {
+	return v.name_
 }
 
 func (v *attribute_) GetParameter() ParameterLike {

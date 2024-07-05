@@ -41,183 +41,6 @@ import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 )
 
-// Types
-
-/*
-Collection is a generic type representing any type of collections of values.
-*/
-type Collection any
-
-// Aspects
-
-/*
-Accessible[V any] defines the set of method signatures that must be
-supported by all sequences whose values can be accessed using indices. The
-indices of an accessible sequence are ORDINAL rather than ZERO based—which
-never really made sense except for pointer offsets. What is the "zeroth
-value" anyway? It's the "first value", right?  So we start fresh...
-
-This approach allows for positive indices starting at the beginning of the
-sequence, and negative indices starting at the end of the sequence as follows:
-
-	    1           2           3             N
-	[value 1] . [value 2] . [value 3] ... [value N]
-	   -N        -(N-1)      -(N-2)          -1
-
-Notice that because the indices are ordinal based, the positive and negative
-indices are symmetrical.
-*/
-type Accessible[V any] interface {
-	// Methods
-	GetValue(index int) V
-	GetValues(
-		first int,
-		last int,
-	) Sequential[V]
-}
-
-/*
-Associative[K comparable, V any] defines the set of method signatures that
-must be supported by all sequences of key-value associations.
-*/
-type Associative[K comparable, V any] interface {
-	// Methods
-	GetValue(key K) V
-	SetValue(
-		key K,
-		value V,
-	)
-	GetKeys() Sequential[K]
-	GetValues(keys Sequential[K]) Sequential[V]
-	RemoveValue(key K) V
-	RemoveValues(keys Sequential[K]) Sequential[V]
-	RemoveAll()
-}
-
-/*
-Canonical defines the set of method signatures that must be supported by all
-canonical notations.
-*/
-type Canonical interface {
-	// Methods
-	ParseSource(source string) Collection
-	FormatCollection(collection Collection) string
-}
-
-/*
-Expandable[V any] defines the set of method signatures that must be supported
-by all sequences that allow new values to be appended, inserted and removed.
-*/
-type Expandable[V any] interface {
-	// Methods
-	InsertValue(
-		slot uint,
-		value V,
-	)
-	InsertValues(
-		slot uint,
-		values Sequential[V],
-	)
-	AppendValue(value V)
-	AppendValues(values Sequential[V])
-	RemoveValue(index int) V
-	RemoveValues(
-		first int,
-		last int,
-	) Sequential[V]
-	RemoveAll()
-}
-
-/*
-Flexible[V any] defines the set of method signatures that must be supported by
-all sequences of values that allow new values to be added and existing values to
-be removed.
-*/
-type Flexible[V any] interface {
-	// Methods
-	AddValue(value V)
-	AddValues(values Sequential[V])
-	RemoveValue(value V)
-	RemoveValues(values Sequential[V])
-	RemoveAll()
-}
-
-/*
-Limited[V any] defines the set of method signatures that must be supported by
-all sequences of values that allow new values to be added and limit the total
-number of values in the sequence.
-*/
-type Limited[V any] interface {
-	// Methods
-	AddValue(value V)
-	RemoveAll()
-}
-
-/*
-Searchable[V any] defines the set of method signatures that must be supported
-by all searchable sequences of values.
-*/
-type Searchable[V any] interface {
-	// Methods
-	ContainsValue(value V) bool
-	ContainsAny(values Sequential[V]) bool
-	ContainsAll(values Sequential[V]) bool
-	GetIndex(value V) int
-}
-
-/*
-Sequential[V any] defines the set of method signatures that must be supported
-by all sequences of values.  Note that sizes should be of type "uint" but the Go
-language does not allow arithmetic and comparison operations between "int" and
-"uint" so we us "int" for the return type to make it easier to use.
-*/
-type Sequential[V any] interface {
-	// Methods
-	IsEmpty() bool
-	GetSize() int
-	AsArray() []V
-	GetIterator() age.IteratorLike[V]
-}
-
-/*
-Sortable[V any] defines the set of method signatures that must be supported by
-all sequences whose values may be reordered using various sorting algorithms.
-*/
-type Sortable[V any] interface {
-	// Methods
-	SortValues()
-	SortValuesWithRanker(ranker age.RankingFunction[V])
-	ReverseValues()
-	ShuffleValues()
-}
-
-/*
-Synchronized defines the set of method signatures that must be supported by all
-synchronized groups of threads.
-*/
-type Synchronized interface {
-	// Methods
-	Add(delta int)
-	Wait()
-	Done()
-}
-
-/*
-Updatable[V any] defines the set of method signatures that must be supported
-by all updatable sequences of values.
-*/
-type Updatable[V any] interface {
-	// Methods
-	SetValue(
-		index int,
-		value V,
-	)
-	SetValues(
-		index int,
-		values Sequential[V],
-	)
-}
-
 // Classes
 
 /*
@@ -226,14 +49,13 @@ class constants, constructors and functions that must be supported by each
 concrete array-like class.
 */
 type ArrayClassLike[V any] interface {
-	// Constants
-	Notation() NotationLike
-
 	// Constructors
 	MakeWithSize(size uint) ArrayLike[V]
 	MakeFromArray(values []V) ArrayLike[V]
 	MakeFromSequence(values Sequential[V]) ArrayLike[V]
-	MakeFromSource(source string) ArrayLike[V]
+
+	// Constants
+	Notation() NotationLike
 }
 
 /*
@@ -247,6 +69,9 @@ type AssociationClassLike[K comparable, V any] interface {
 		key K,
 		value V,
 	) AssociationLike[K, V]
+
+	// Constants
+	Notation() NotationLike
 }
 
 /*
@@ -266,15 +91,14 @@ key is present in both Catalogs, the value of the key from the second
 catalog takes precedence.
 */
 type CatalogClassLike[K comparable, V any] interface {
-	// Constants
-	Notation() NotationLike
-
 	// Constructors
 	Make() CatalogLike[K, V]
 	MakeFromArray(associations []AssociationLike[K, V]) CatalogLike[K, V]
 	MakeFromMap(associations map[K]V) CatalogLike[K, V]
 	MakeFromSequence(associations Sequential[AssociationLike[K, V]]) CatalogLike[K, V]
-	MakeFromSource(source string) CatalogLike[K, V]
+
+	// Constants
+	Notation() NotationLike
 
 	// Functions
 	Extract(
@@ -298,14 +122,13 @@ Concatenate() combines two lists into a new list containing all values in both
 lists.  The order of the values in each list is preserved in the new list.
 */
 type ListClassLike[V any] interface {
-	// Constants
-	Notation() NotationLike
-
 	// Constructors
 	Make() ListLike[V]
 	MakeFromArray(values []V) ListLike[V]
 	MakeFromSequence(values Sequential[V]) ListLike[V]
-	MakeFromSource(source string) ListLike[V]
+
+	// Constants
+	Notation() NotationLike
 
 	// Functions
 	Concatenate(
@@ -320,21 +143,20 @@ complete set of class constants, constructors and functions that must be
 supported by each concrete map-like class.
 */
 type MapClassLike[K comparable, V any] interface {
-	// Constants
-	Notation() NotationLike
-
 	// Constructors
 	Make() MapLike[K, V]
 	MakeFromArray(associations []AssociationLike[K, V]) MapLike[K, V]
 	MakeFromMap(associations map[K]V) MapLike[K, V]
 	MakeFromSequence(associations Sequential[AssociationLike[K, V]]) MapLike[K, V]
-	MakeFromSource(source string) MapLike[K, V]
+
+	// Constants
+	Notation() NotationLike
 }
 
 /*
-NotationClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete notation-like class.
+NotationClassLike is a class interface that defines the complete set of class
+constants, constructors and functions that must be supported by each concrete
+notation-like class.
 */
 type NotationClassLike interface {
 	// Constructors
@@ -370,16 +192,15 @@ when the results of the processing with a Split() function need to be
 consolidated into a single queue.
 */
 type QueueClassLike[V any] interface {
-	// Constants
-	Notation() NotationLike
-	DefaultCapacity() uint
-
 	// Constructors
 	Make() QueueLike[V]
 	MakeWithCapacity(capacity uint) QueueLike[V]
 	MakeFromArray(values []V) QueueLike[V]
 	MakeFromSequence(values Sequential[V]) QueueLike[V]
-	MakeFromSource(source string) QueueLike[V]
+
+	// Constants
+	Notation() NotationLike
+	DefaultCapacity() uint
 
 	// Functions
 	Fork(
@@ -418,15 +239,14 @@ Xor() returns a new set containing the values that are in the first specified
 set or the second specified set but not both.
 */
 type SetClassLike[V any] interface {
-	// Constants
-	Notation() NotationLike
-
 	// Constructors
 	Make() SetLike[V]
 	MakeWithCollator(collator age.CollatorLike[V]) SetLike[V]
 	MakeFromArray(values []V) SetLike[V]
 	MakeFromSequence(values Sequential[V]) SetLike[V]
-	MakeFromSource(source string) SetLike[V]
+
+	// Constants
+	Notation() NotationLike
 
 	// Functions
 	And(
@@ -453,16 +273,15 @@ class constants, constructors and functions that must be supported by each
 concrete stack-like class.
 */
 type StackClassLike[V any] interface {
-	// Constants
-	Notation() NotationLike
-	DefaultCapacity() uint
-
 	// Constructors
 	Make() StackLike[V]
 	MakeWithCapacity(capacity uint) StackLike[V]
 	MakeFromArray(values []V) StackLike[V]
 	MakeFromSequence(values Sequential[V]) StackLike[V]
-	MakeFromSource(source string) StackLike[V]
+
+	// Constants
+	Notation() NotationLike
+	DefaultCapacity() uint
 }
 
 // Instances
@@ -588,8 +407,8 @@ type MapLike[K comparable, V any] interface {
 NotationLike is an instance interface that defines the complete set of instance
 attributes, abstractions and methods that must be supported by each instance of
 a concrete notation-like class.  A notation-like class can be used to parse and
-format collections using a canonical notation like XML, JSON and  CDCN
-(Crater Dog Collection Notation™).
+format collections using a canonical notation like XML, JSON and CDCN (Crater
+Dog Collection Notation™).
 */
 type NotationLike interface {
 	// Attributes
@@ -676,4 +495,174 @@ type StackLike[V any] interface {
 
 	// Methods
 	RemoveTop() V
+}
+
+// Aspects
+
+/*
+Accessible[V any] defines the set of method signatures that must be
+supported by all sequences whose values can be accessed using indices. The
+indices of an accessible sequence are ORDINAL rather than ZERO based—which
+never really made sense except for pointer offsets. What is the "zeroth
+value" anyway? It's the "first value", right?  So we start fresh...
+
+This approach allows for positive indices starting at the beginning of the
+sequence, and negative indices starting at the end of the sequence as follows:
+
+	    1           2           3             N
+	[value 1] . [value 2] . [value 3] ... [value N]
+	   -N        -(N-1)      -(N-2)          -1
+
+Notice that because the indices are ordinal based, the positive and negative
+indices are symmetrical.
+*/
+type Accessible[V any] interface {
+	// Methods
+	GetValue(index int) V
+	GetValues(
+		first int,
+		last int,
+	) Sequential[V]
+}
+
+/*
+Associative[K comparable, V any] defines the set of method signatures that
+must be supported by all sequences of key-value associations.
+*/
+type Associative[K comparable, V any] interface {
+	// Methods
+	GetValue(key K) V
+	SetValue(
+		key K,
+		value V,
+	)
+	GetKeys() Sequential[K]
+	GetValues(keys Sequential[K]) Sequential[V]
+	RemoveValue(key K) V
+	RemoveValues(keys Sequential[K]) Sequential[V]
+	RemoveAll()
+}
+
+/*
+Canonical defines the set of method signatures that must be supported by all
+canonical notations.
+*/
+type Canonical interface {
+	// Methods
+	ParseSource(source string) (value any)
+	FormatValue(value any) (source string)
+}
+
+/*
+Expandable[V any] defines the set of method signatures that must be supported
+by all sequences that allow new values to be appended, inserted and removed.
+*/
+type Expandable[V any] interface {
+	// Methods
+	InsertValue(
+		slot uint,
+		value V,
+	)
+	InsertValues(
+		slot uint,
+		values Sequential[V],
+	)
+	AppendValue(value V)
+	AppendValues(values Sequential[V])
+	RemoveValue(index int) V
+	RemoveValues(
+		first int,
+		last int,
+	) Sequential[V]
+	RemoveAll()
+}
+
+/*
+Flexible[V any] defines the set of method signatures that must be supported by
+all sequences of values that allow new values to be added and existing values to
+be removed.
+*/
+type Flexible[V any] interface {
+	// Methods
+	AddValue(value V)
+	AddValues(values Sequential[V])
+	RemoveValue(value V)
+	RemoveValues(values Sequential[V])
+	RemoveAll()
+}
+
+/*
+Limited[V any] defines the set of method signatures that must be supported by
+all sequences of values that allow new values to be added and limit the total
+number of values in the sequence.
+*/
+type Limited[V any] interface {
+	// Methods
+	AddValue(value V)
+	RemoveAll()
+}
+
+/*
+Searchable[V any] defines the set of method signatures that must be supported
+by all searchable sequences of values.
+*/
+type Searchable[V any] interface {
+	// Methods
+	ContainsValue(value V) bool
+	ContainsAny(values Sequential[V]) bool
+	ContainsAll(values Sequential[V]) bool
+	GetIndex(value V) int
+}
+
+/*
+Sequential[V any] defines the set of method signatures that must be supported
+by all sequences of values.  Note that sizes should be of type "uint" but the Go
+language does not allow arithmetic and comparison operations between "int" and
+"uint" so we us "int" for the return type to make it easier to use.
+*/
+type Sequential[V any] interface {
+	// Methods
+	IsEmpty() bool
+	GetSize() int
+	AsArray() []V
+	GetIterator() age.IteratorLike[V]
+}
+
+/*
+Sortable[V any] defines the set of method signatures that must be supported by
+all sequences whose values may be reordered using various sorting algorithms.
+*/
+type Sortable[V any] interface {
+	// Methods
+	SortValues()
+	SortValuesWithRanker(ranker age.RankingFunction[V])
+	ReverseValues()
+	ShuffleValues()
+}
+
+/*
+Synchronized defines the set of method signatures that must be supported by all
+synchronized groups of threads.
+*/
+type Synchronized interface {
+	// Methods
+	Add(delta int)
+	Wait()
+	Done()
+}
+
+/*
+Updatable[V any] defines the set of method signatures that must be supported
+by all updatable sequences of values.
+*/
+type Updatable[V any] interface {
+	// Methods
+	SetValue(
+		index int,
+		value V,
+	)
+	SetValues(
+		index int,
+		values Sequential[V],
+	)
 }

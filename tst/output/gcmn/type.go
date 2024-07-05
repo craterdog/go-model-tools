@@ -38,7 +38,7 @@ type typeClass_ struct {
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
+func (c *typeClass_) Make(
 	declaration DeclarationLike,
 	abstraction AbstractionLike,
 	enumeration EnumerationLike,

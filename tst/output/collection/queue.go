@@ -29,8 +29,8 @@ var queueMutex syn.Mutex
 
 func Queue[V any]() QueueClassLike[V] {
 	// Generate the name of the bound class type.
-	var result_ QueueClassLike[V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *queueClass_[V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	queueMutex.Lock()
@@ -38,18 +38,18 @@ func Queue[V any]() QueueClassLike[V] {
 	switch actual := value.(type) {
 	case *queueClass_[V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &queueClass_[V]{
+		class = &queueClass_[V]{
 			// Initialize class constants.
 		}
-		queueClass[name] = result_
+		queueClass[name] = class
 	}
 	queueMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
@@ -60,16 +60,6 @@ type queueClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
 	defaultCapacity_ uint
-}
-
-// Constants
-
-func (c *queueClass_[V]) Notation() NotationLike {
-	return c.notation_
-}
-
-func (c *queueClass_[V]) DefaultCapacity() uint {
-	return c.defaultCapacity_
 }
 
 // Constructors
@@ -103,11 +93,14 @@ func (c *queueClass_[V]) MakeFromSequence(values Sequential[V]) QueueLike[V] {
 	}
 }
 
-func (c *queueClass_[V]) MakeFromSource(source string) QueueLike[V] {
-	return &queue_[V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *queueClass_[V]) Notation() NotationLike {
+	return c.notation_
+}
+
+func (c *queueClass_[V]) DefaultCapacity() uint {
+	return c.defaultCapacity_
 }
 
 // Functions

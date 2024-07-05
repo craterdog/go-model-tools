@@ -38,19 +38,11 @@ type expressionClass_ struct {
 
 // Constructors
 
-func (c *expressionClass_) MakeWithInline(inline InlineLike) ExpressionLike {
+func (c *expressionClass_) Make(any_ any) ExpressionLike {
 	return &expression_{
 		// Initialize instance attributes.
 		class_: c,
-		inline_: inline,
-	}
-}
-
-func (c *expressionClass_) MakeWithMultiline(multiline MultilineLike) ExpressionLike {
-	return &expression_{
-		// Initialize instance attributes.
-		class_: c,
-		multiline_: multiline,
+		any_: any_,
 	}
 }
 
@@ -61,8 +53,7 @@ func (c *expressionClass_) MakeWithMultiline(multiline MultilineLike) Expression
 type expression_ struct {
 	// Define instance attributes.
 	class_ ExpressionClassLike
-	inline_ InlineLike
-	multiline_ MultilineLike
+	any_ any
 }
 
 // Attributes
@@ -71,12 +62,8 @@ func (v *expression_) GetClass() ExpressionClassLike {
 	return v.class_
 }
 
-func (v *expression_) GetInline() InlineLike {
-	return v.inline_
-}
-
-func (v *expression_) GetMultiline() MultilineLike {
-	return v.multiline_
+func (v *expression_) GetAny() any {
+	return v.any_
 }
 
 // Private

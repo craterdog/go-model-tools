@@ -20,31 +20,35 @@ import (
 
 // Reference
 
-var multilineClass = &multilineClass_{
+var methodsClass = &methodsClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Multiline() MultilineClassLike {
-	return multilineClass
+func Methods() MethodsClassLike {
+	return methodsClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type multilineClass_ struct {
+type methodsClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineLike {
-	return &multiline_{
+func (c *methodsClass_) Make(
+	note string,
+	methods col.Sequential[MethodLike],
+) MethodsLike {
+	return &methods_{
 		// Initialize instance attributes.
 		class_: c,
-		lines_: lines,
+		note_: note,
+		methods_: methods,
 	}
 }
 
@@ -52,20 +56,25 @@ func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineL
 
 // Target
 
-type multiline_ struct {
+type methods_ struct {
 	// Define instance attributes.
-	class_ MultilineClassLike
-	lines_ col.ListLike[LineLike]
+	class_ MethodsClassLike
+	note_ string
+	methods_ col.Sequential[MethodLike]
 }
 
 // Attributes
 
-func (v *multiline_) GetClass() MultilineClassLike {
+func (v *methods_) GetClass() MethodsClassLike {
 	return v.class_
 }
 
-func (v *multiline_) GetLines() col.ListLike[LineLike] {
-	return v.lines_
+func (v *methods_) GetNote() string {
+	return v.note_
+}
+
+func (v *methods_) GetMethods() col.Sequential[MethodLike] {
+	return v.methods_
 }
 
 // Private

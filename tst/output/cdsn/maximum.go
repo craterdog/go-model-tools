@@ -18,35 +18,31 @@ import ()
 
 // Reference
 
-var constraintClass = &constraintClass_{
+var maximumClass = &maximumClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Constraint() ConstraintClassLike {
-	return constraintClass
+func Maximum() MaximumClassLike {
+	return maximumClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type constraintClass_ struct {
+type maximumClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *constraintClass_) MakeWithAttributes(
-	first string,
-	last string,
-) ConstraintLike {
-	return &constraint_{
+func (c *maximumClass_) Make(number string) MaximumLike {
+	return &maximum_{
 		// Initialize instance attributes.
 		class_: c,
-		first_: first,
-		last_: last,
+		number_: number,
 	}
 }
 
@@ -54,25 +50,20 @@ func (c *constraintClass_) MakeWithAttributes(
 
 // Target
 
-type constraint_ struct {
+type maximum_ struct {
 	// Define instance attributes.
-	class_ ConstraintClassLike
-	first_ string
-	last_ string
+	class_ MaximumClassLike
+	number_ string
 }
 
 // Attributes
 
-func (v *constraint_) GetClass() ConstraintClassLike {
+func (v *maximum_) GetClass() MaximumClassLike {
 	return v.class_
 }
 
-func (v *constraint_) GetFirst() string {
-	return v.first_
-}
-
-func (v *constraint_) GetLast() string {
-	return v.last_
+func (v *maximum_) GetNumber() string {
+	return v.number_
 }
 
 // Private

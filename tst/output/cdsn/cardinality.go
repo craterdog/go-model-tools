@@ -38,11 +38,11 @@ type cardinalityClass_ struct {
 
 // Constructors
 
-func (c *cardinalityClass_) MakeWithConstraint(constraint ConstraintLike) CardinalityLike {
+func (c *cardinalityClass_) Make(any_ any) CardinalityLike {
 	return &cardinality_{
 		// Initialize instance attributes.
 		class_: c,
-		constraint_: constraint,
+		any_: any_,
 	}
 }
 
@@ -53,7 +53,7 @@ func (c *cardinalityClass_) MakeWithConstraint(constraint ConstraintLike) Cardin
 type cardinality_ struct {
 	// Define instance attributes.
 	class_ CardinalityClassLike
-	constraint_ ConstraintLike
+	any_ any
 }
 
 // Attributes
@@ -62,8 +62,8 @@ func (v *cardinality_) GetClass() CardinalityClassLike {
 	return v.class_
 }
 
-func (v *cardinality_) GetConstraint() ConstraintLike {
-	return v.constraint_
+func (v *cardinality_) GetAny() any {
+	return v.any_
 }
 
 // Private

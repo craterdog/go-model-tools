@@ -18,39 +18,35 @@ import ()
 
 // Reference
 
-var atomClass = &atomClass_{
+var constrainedClass = &constrainedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Atom() AtomClassLike {
-	return atomClass
+func Constrained() ConstrainedClassLike {
+	return constrainedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type atomClass_ struct {
+type constrainedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *atomClass_) MakeWithGlyph(glyph GlyphLike) AtomLike {
-	return &atom_{
+func (c *constrainedClass_) Make(
+	minimum MinimumLike,
+	maximum MaximumLike,
+) ConstrainedLike {
+	return &constrained_{
 		// Initialize instance attributes.
 		class_: c,
-		glyph_: glyph,
-	}
-}
-
-func (c *atomClass_) MakeWithIntrinsic(intrinsic string) AtomLike {
-	return &atom_{
-		// Initialize instance attributes.
-		class_: c,
-		intrinsic_: intrinsic,
+		minimum_: minimum,
+		maximum_: maximum,
 	}
 }
 
@@ -58,25 +54,25 @@ func (c *atomClass_) MakeWithIntrinsic(intrinsic string) AtomLike {
 
 // Target
 
-type atom_ struct {
+type constrained_ struct {
 	// Define instance attributes.
-	class_ AtomClassLike
-	glyph_ GlyphLike
-	intrinsic_ string
+	class_ ConstrainedClassLike
+	minimum_ MinimumLike
+	maximum_ MaximumLike
 }
 
 // Attributes
 
-func (v *atom_) GetClass() AtomClassLike {
+func (v *constrained_) GetClass() ConstrainedClassLike {
 	return v.class_
 }
 
-func (v *atom_) GetGlyph() GlyphLike {
-	return v.glyph_
+func (v *constrained_) GetMinimum() MinimumLike {
+	return v.minimum_
 }
 
-func (v *atom_) GetIntrinsic() string {
-	return v.intrinsic_
+func (v *constrained_) GetMaximum() MaximumLike {
+	return v.maximum_
 }
 
 // Private

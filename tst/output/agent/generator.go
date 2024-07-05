@@ -64,7 +64,34 @@ func (v *generator_) GetClass() GeneratorClassLike {
 
 // Public
 
-func (v *generator_) CreateModel(
+func (v *generator_) CreateClassType(
+	name string,
+	copyright string,
+) ast.ModelLike {
+	var result_ ast.ModelLike
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *generator_) CreateGenericType(
+	name string,
+	copyright string,
+) ast.ModelLike {
+	var result_ ast.ModelLike
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *generator_) CreateClassStructure(
+	name string,
+	copyright string,
+) ast.ModelLike {
+	var result_ ast.ModelLike
+	// TBA - Implement the method.
+	return result_
+}
+
+func (v *generator_) CreateGenericStructure(
 	name string,
 	copyright string,
 ) ast.ModelLike {

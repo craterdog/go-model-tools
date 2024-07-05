@@ -38,15 +38,15 @@ type moduleClass_ struct {
 
 // Constructors
 
-func (c *moduleClass_) MakeWithAttributes(
-	identifier string,
-	text string,
+func (c *moduleClass_) Make(
+	name string,
+	path string,
 ) ModuleLike {
 	return &module_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
-		text_: text,
+		name_: name,
+		path_: path,
 	}
 }
 
@@ -57,8 +57,8 @@ func (c *moduleClass_) MakeWithAttributes(
 type module_ struct {
 	// Define instance attributes.
 	class_ ModuleClassLike
-	identifier_ string
-	text_ string
+	name_ string
+	path_ string
 }
 
 // Attributes
@@ -67,12 +67,12 @@ func (v *module_) GetClass() ModuleClassLike {
 	return v.class_
 }
 
-func (v *module_) GetIdentifier() string {
-	return v.identifier_
+func (v *module_) GetName() string {
+	return v.name_
 }
 
-func (v *module_) GetText() string {
-	return v.text_
+func (v *module_) GetPath() string {
+	return v.path_
 }
 
 // Private

@@ -38,15 +38,15 @@ type headerClass_ struct {
 
 // Constructors
 
-func (c *headerClass_) MakeWithAttributes(
+func (c *headerClass_) Make(
 	comment string,
-	identifier string,
+	name string,
 ) HeaderLike {
 	return &header_{
 		// Initialize instance attributes.
 		class_: c,
 		comment_: comment,
-		identifier_: identifier,
+		name_: name,
 	}
 }
 
@@ -58,7 +58,7 @@ type header_ struct {
 	// Define instance attributes.
 	class_ HeaderClassLike
 	comment_ string
-	identifier_ string
+	name_ string
 }
 
 // Attributes
@@ -71,8 +71,8 @@ func (v *header_) GetComment() string {
 	return v.comment_
 }
 
-func (v *header_) GetIdentifier() string {
-	return v.identifier_
+func (v *header_) GetName() string {
+	return v.name_
 }
 
 // Private

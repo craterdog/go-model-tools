@@ -12,43 +12,39 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var definitionClass = &definitionClass_{
+var multilinedClass = &multilinedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Definition() DefinitionClassLike {
-	return definitionClass
+func Multilined() MultilinedClassLike {
+	return multilinedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type definitionClass_ struct {
+type multilinedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *definitionClass_) MakeWithAttributes(
-	comment string,
-	name string,
-	expression ExpressionLike,
-) DefinitionLike {
-	return &definition_{
+func (c *multilinedClass_) Make(lines col.ListLike[LineLike]) MultilinedLike {
+	return &multilined_{
 		// Initialize instance attributes.
 		class_: c,
-		comment_: comment,
-		name_: name,
-		expression_: expression,
+		lines_: lines,
 	}
 }
 
@@ -56,30 +52,20 @@ func (c *definitionClass_) MakeWithAttributes(
 
 // Target
 
-type definition_ struct {
+type multilined_ struct {
 	// Define instance attributes.
-	class_ DefinitionClassLike
-	comment_ string
-	name_ string
-	expression_ ExpressionLike
+	class_ MultilinedClassLike
+	lines_ col.ListLike[LineLike]
 }
 
 // Attributes
 
-func (v *definition_) GetClass() DefinitionClassLike {
+func (v *multilined_) GetClass() MultilinedClassLike {
 	return v.class_
 }
 
-func (v *definition_) GetComment() string {
-	return v.comment_
-}
-
-func (v *definition_) GetName() string {
-	return v.name_
-}
-
-func (v *definition_) GetExpression() ExpressionLike {
-	return v.expression_
+func (v *multilined_) GetLines() col.ListLike[LineLike] {
+	return v.lines_
 }
 
 // Private

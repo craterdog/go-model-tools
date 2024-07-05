@@ -45,19 +45,6 @@ mathematical norm function.
 */
 type NormFunction[V any] func(value V) float64
 
-// Aspects
-
-/*
-Continuous is an aspect interface that defines a set of method signatures
-that must be supported by each instance of a continuous concrete class.
-*/
-type Continuous interface {
-	// Methods
-	IsZero() bool
-	IsDiscrete() bool
-	IsInfinity() bool
-}
-
 // Classes
 
 /*
@@ -66,17 +53,17 @@ constructors and functions that must be supported by each complex-like concrete
 class.
 */
 type ComplexClassLike interface {
-	// Constants
-	Zero() ComplexLike
-	Infinity() ComplexLike
-
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		realPart float64,
 		imaginaryPart float64,
 		form Form,
 	) ComplexLike
 	MakeFromValue(value complex128) ComplexLike
+
+	// Constants
+	Zero() ComplexLike
+	Infinity() ComplexLike
 
 	// Functions
 	Inverse(value ComplexLike) ComplexLike
@@ -124,4 +111,18 @@ type ComplexLike interface {
 	// Methods
 	IsReal() bool
 	IsImaginary() bool
+}
+
+// Aspects
+
+/*
+Continuous is an aspect interface that defines a set of method signatures
+that must be supported by each instance of a continuous concrete class.
+*/
+type Continuous interface {
+	
+	// Methods
+	IsZero() bool
+	IsDiscrete() bool
+	IsInfinity() bool
 }

@@ -12,8 +12,6 @@
 
 package angle
 
-import ()
-
 // CLASS ACCESS
 
 // Reference
@@ -38,16 +36,6 @@ type angleClass_ struct {
 	tau_ AngleLike
 }
 
-// Constants
-
-func (c *angleClass_) Pi() AngleLike {
-	return c.pi_
-}
-
-func (c *angleClass_) Tau() AngleLike {
-	return c.tau_
-}
-
 // Constructors
 
 func (c *angleClass_) MakeFromValue(value float64) AngleLike {
@@ -59,6 +47,16 @@ func (c *angleClass_) MakeFromString(value string) AngleLike {
 	var result_ AngleLike
 	// TBA - Implement the method.
 	return result_
+}
+
+// Constants
+
+func (c *angleClass_) Pi() AngleLike {
+	return c.pi_
+}
+
+func (c *angleClass_) Tau() AngleLike {
+	return c.tau_
 }
 
 // Functions

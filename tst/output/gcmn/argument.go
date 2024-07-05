@@ -12,43 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var filterClass = &filterClass_{
+var argumentClass = &argumentClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Filter() FilterClassLike {
-	return filterClass
+func Argument() ArgumentClassLike {
+	return argumentClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type filterClass_ struct {
+type argumentClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *filterClass_) MakeWithAttributes(
-	inverted bool,
-	atoms col.ListLike[AtomLike],
-) FilterLike {
-	return &filter_{
+func (c *argumentClass_) Make(abstraction AbstractionLike) ArgumentLike {
+	return &argument_{
 		// Initialize instance attributes.
 		class_: c,
-		inverted_: inverted,
-		atoms_: atoms,
+		abstraction_: abstraction,
 	}
 }
 
@@ -56,25 +50,20 @@ func (c *filterClass_) MakeWithAttributes(
 
 // Target
 
-type filter_ struct {
+type argument_ struct {
 	// Define instance attributes.
-	class_ FilterClassLike
-	inverted_ bool
-	atoms_ col.ListLike[AtomLike]
+	class_ ArgumentClassLike
+	abstraction_ AbstractionLike
 }
 
 // Attributes
 
-func (v *filter_) GetClass() FilterClassLike {
+func (v *argument_) GetClass() ArgumentClassLike {
 	return v.class_
 }
 
-func (v *filter_) IsInverted() bool {
-	return v.inverted_
-}
-
-func (v *filter_) GetAtoms() col.ListLike[AtomLike] {
-	return v.atoms_
+func (v *argument_) GetAbstraction() AbstractionLike {
+	return v.abstraction_
 }
 
 // Private

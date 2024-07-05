@@ -39,11 +39,11 @@ func generateClasses(
 	model mod.ModelLike,
 ) {
 	var generator = mod.Generator()
-	var iterator = model.GetClasses().GetIterator()
+	var iterator = model.GetClasses().GetClasses().GetIterator()
 	for iterator.HasNext() {
 		var class = iterator.GetNext()
 		var name = sts.ToLower(sts.TrimSuffix(
-			class.GetDeclaration().GetIdentifier(),
+			class.GetDeclaration().GetName(),
 			"ClassLike",
 		))
 		var source = generator.GenerateClass(model, name)

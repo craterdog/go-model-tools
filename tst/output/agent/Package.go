@@ -44,11 +44,10 @@ const (
 	CommentToken
 	DelimiterToken
 	EOFToken
-	EOLToken
-	IdentifierToken
+	NameToken
 	NoteToken
+	PathToken
 	SpaceToken
-	TextToken
 )
 
 // Classes
@@ -59,12 +58,8 @@ class constants, constructors and functions that must be supported by each
 concrete formatter-like class.
 */
 type FormatterClassLike interface {
-	// Constants
-	DefaultMaximum() int
-
 	// Constructors
 	Make() FormatterLike
-	MakeWithMaximum(maximum int) FormatterLike
 }
 
 /*
@@ -121,7 +116,7 @@ concrete token-like class.
 */
 type TokenClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		line int,
 		position int,
 		type_ TokenType,
@@ -150,17 +145,14 @@ type FormatterLike interface {
 	// Attributes
 	GetClass() FormatterClassLike
 	GetDepth() int
-	GetMaximum() int
 
 	// Methods
 	FormatAbstraction(abstraction ast.AbstractionLike) string
-	FormatArguments(arguments col.ListLike[ast.AbstractionLike]) string
-	FormatGenerics(parameters col.ListLike[ast.ParameterLike]) string
+	FormatArguments(arguments ast.ArgumentsLike) string
 	FormatMethod(method ast.MethodLike) string
 	FormatModel(model ast.ModelLike) string
 	FormatParameter(parameter ast.ParameterLike) string
-	FormatParameterNames(parameters col.ListLike[ast.ParameterLike]) string
-	FormatParameters(parameters col.ListLike[ast.ParameterLike]) string
+	FormatParameters(parameters ast.ParametersLike) string
 	FormatResult(result ast.ResultLike) string
 }
 
@@ -174,7 +166,19 @@ type GeneratorLike interface {
 	GetClass() GeneratorClassLike
 
 	// Methods
-	CreateModel(
+	CreateClassType(
+		name string,
+		copyright string,
+	) ast.ModelLike
+	CreateGenericType(
+		name string,
+		copyright string,
+	) ast.ModelLike
+	CreateClassStructure(
+		name string,
+		copyright string,
+	) ast.ModelLike
+	CreateGenericStructure(
 		name string,
 		copyright string,
 	) ast.ModelLike

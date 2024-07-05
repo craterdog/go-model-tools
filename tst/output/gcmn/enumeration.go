@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -40,15 +38,11 @@ type enumerationClass_ struct {
 
 // Constructors
 
-func (c *enumerationClass_) MakeWithAttributes(
-	parameter ParameterLike,
-	identifiers col.ListLike[string],
-) EnumerationLike {
+func (c *enumerationClass_) Make(values ValuesLike) EnumerationLike {
 	return &enumeration_{
 		// Initialize instance attributes.
 		class_: c,
-		parameter_: parameter,
-		identifiers_: identifiers,
+		values_: values,
 	}
 }
 
@@ -59,8 +53,7 @@ func (c *enumerationClass_) MakeWithAttributes(
 type enumeration_ struct {
 	// Define instance attributes.
 	class_ EnumerationClassLike
-	parameter_ ParameterLike
-	identifiers_ col.ListLike[string]
+	values_ ValuesLike
 }
 
 // Attributes
@@ -69,12 +62,8 @@ func (v *enumeration_) GetClass() EnumerationClassLike {
 	return v.class_
 }
 
-func (v *enumeration_) GetParameter() ParameterLike {
-	return v.parameter_
-}
-
-func (v *enumeration_) GetIdentifiers() col.ListLike[string] {
-	return v.identifiers_
+func (v *enumeration_) GetValues() ValuesLike {
+	return v.values_
 }
 
 // Private

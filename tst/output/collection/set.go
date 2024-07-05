@@ -29,8 +29,8 @@ var setMutex syn.Mutex
 
 func Set[V any]() SetClassLike[V] {
 	// Generate the name of the bound class type.
-	var result_ SetClassLike[V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *setClass_[V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	setMutex.Lock()
@@ -38,18 +38,18 @@ func Set[V any]() SetClassLike[V] {
 	switch actual := value.(type) {
 	case *setClass_[V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &setClass_[V]{
+		class = &setClass_[V]{
 			// Initialize class constants.
 		}
-		setClass[name] = result_
+		setClass[name] = class
 	}
 	setMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
@@ -59,12 +59,6 @@ func Set[V any]() SetClassLike[V] {
 type setClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
-}
-
-// Constants
-
-func (c *setClass_[V]) Notation() NotationLike {
-	return c.notation_
 }
 
 // Constructors
@@ -98,11 +92,10 @@ func (c *setClass_[V]) MakeFromSequence(values Sequential[V]) SetLike[V] {
 	}
 }
 
-func (c *setClass_[V]) MakeFromSource(source string) SetLike[V] {
-	return &set_[V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *setClass_[V]) Notation() NotationLike {
+	return c.notation_
 }
 
 // Functions

@@ -29,8 +29,8 @@ var arrayMutex syn.Mutex
 
 func Array[V any]() ArrayClassLike[V] {
 	// Generate the name of the bound class type.
-	var result_ ArrayClassLike[V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *arrayClass_[V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	arrayMutex.Lock()
@@ -38,18 +38,18 @@ func Array[V any]() ArrayClassLike[V] {
 	switch actual := value.(type) {
 	case *arrayClass_[V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &arrayClass_[V]{
+		class = &arrayClass_[V]{
 			// Initialize class constants.
 		}
-		arrayClass[name] = result_
+		arrayClass[name] = class
 	}
 	arrayMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
@@ -59,12 +59,6 @@ func Array[V any]() ArrayClassLike[V] {
 type arrayClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
-}
-
-// Constants
-
-func (c *arrayClass_[V]) Notation() NotationLike {
-	return c.notation_
 }
 
 // Constructors
@@ -91,11 +85,10 @@ func (c *arrayClass_[V]) MakeFromSequence(values Sequential[V]) ArrayLike[V] {
 	}
 }
 
-func (c *arrayClass_[V]) MakeFromSource(source string) ArrayLike[V] {
-	return &array_[V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *arrayClass_[V]) Notation() NotationLike {
+	return c.notation_
 }
 
 // INSTANCE METHODS

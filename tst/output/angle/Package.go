@@ -45,18 +45,6 @@ trigonometric function.
 */
 type TrigonometricFunction func(angle AngleLike) float64
 
-// Aspects
-
-/*
-Angular is an aspect interface that defines a set of method signatures that
-must be supported by each instance of an angular concrete class.
-*/
-type Angular interface {
-	// Methods
-	AsNormalized() AngleLike
-	InUnits(units Units) float64
-}
-
 // Classes
 
 /*
@@ -65,13 +53,13 @@ constructors and functions that must be supported by each angle-like concrete
 class.
 */
 type AngleClassLike interface {
-	// Constants
-	Pi() AngleLike
-	Tau() AngleLike
-
 	// Constructors
 	MakeFromValue(value float64) AngleLike
 	MakeFromString(value string) AngleLike
+
+	// Constants
+	Pi() AngleLike
+	Tau() AngleLike
 
 	// Functions
 	Apply(
@@ -100,4 +88,17 @@ type AngleLike interface {
 	// Methods
 	AsFloat() float64
 	IsZero() bool
+}
+
+// Aspects
+
+/*
+Angular is an aspect interface that defines a set of method signatures that
+must be supported by each instance of an angular concrete class.
+*/
+type Angular interface {
+	
+	// Methods
+	AsNormalized() AngleLike
+	InUnits(units Units) float64
 }

@@ -29,8 +29,8 @@ var stackMutex syn.Mutex
 
 func Stack[V any]() StackClassLike[V] {
 	// Generate the name of the bound class type.
-	var result_ StackClassLike[V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *stackClass_[V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	stackMutex.Lock()
@@ -38,18 +38,18 @@ func Stack[V any]() StackClassLike[V] {
 	switch actual := value.(type) {
 	case *stackClass_[V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &stackClass_[V]{
+		class = &stackClass_[V]{
 			// Initialize class constants.
 		}
-		stackClass[name] = result_
+		stackClass[name] = class
 	}
 	stackMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
@@ -60,16 +60,6 @@ type stackClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
 	defaultCapacity_ uint
-}
-
-// Constants
-
-func (c *stackClass_[V]) Notation() NotationLike {
-	return c.notation_
-}
-
-func (c *stackClass_[V]) DefaultCapacity() uint {
-	return c.defaultCapacity_
 }
 
 // Constructors
@@ -103,11 +93,14 @@ func (c *stackClass_[V]) MakeFromSequence(values Sequential[V]) StackLike[V] {
 	}
 }
 
-func (c *stackClass_[V]) MakeFromSource(source string) StackLike[V] {
-	return &stack_[V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *stackClass_[V]) Notation() NotationLike {
+	return c.notation_
+}
+
+func (c *stackClass_[V]) DefaultCapacity() uint {
+	return c.defaultCapacity_
 }
 
 // INSTANCE METHODS

@@ -38,14 +38,14 @@ type lineClass_ struct {
 
 // Constructors
 
-func (c *lineClass_) MakeWithAttributes(
-	alternative AlternativeLike,
+func (c *lineClass_) Make(
+	identifier IdentifierLike,
 	note string,
 ) LineLike {
 	return &line_{
 		// Initialize instance attributes.
 		class_: c,
-		alternative_: alternative,
+		identifier_: identifier,
 		note_: note,
 	}
 }
@@ -57,7 +57,7 @@ func (c *lineClass_) MakeWithAttributes(
 type line_ struct {
 	// Define instance attributes.
 	class_ LineClassLike
-	alternative_ AlternativeLike
+	identifier_ IdentifierLike
 	note_ string
 }
 
@@ -67,8 +67,8 @@ func (v *line_) GetClass() LineClassLike {
 	return v.class_
 }
 
-func (v *line_) GetAlternative() AlternativeLike {
-	return v.alternative_
+func (v *line_) GetIdentifier() IdentifierLike {
+	return v.identifier_
 }
 
 func (v *line_) GetNote() string {

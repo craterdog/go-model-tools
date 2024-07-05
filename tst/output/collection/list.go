@@ -29,8 +29,8 @@ var listMutex syn.Mutex
 
 func List[V any]() ListClassLike[V] {
 	// Generate the name of the bound class type.
-	var result_ ListClassLike[V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *listClass_[V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	listMutex.Lock()
@@ -38,18 +38,18 @@ func List[V any]() ListClassLike[V] {
 	switch actual := value.(type) {
 	case *listClass_[V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &listClass_[V]{
+		class = &listClass_[V]{
 			// Initialize class constants.
 		}
-		listClass[name] = result_
+		listClass[name] = class
 	}
 	listMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
@@ -59,12 +59,6 @@ func List[V any]() ListClassLike[V] {
 type listClass_[V any] struct {
 	// Define class constants.
 	notation_ NotationLike
-}
-
-// Constants
-
-func (c *listClass_[V]) Notation() NotationLike {
-	return c.notation_
 }
 
 // Constructors
@@ -90,11 +84,10 @@ func (c *listClass_[V]) MakeFromSequence(values Sequential[V]) ListLike[V] {
 	}
 }
 
-func (c *listClass_[V]) MakeFromSource(source string) ListLike[V] {
-	return &list_[V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *listClass_[V]) Notation() NotationLike {
+	return c.notation_
 }
 
 // Functions

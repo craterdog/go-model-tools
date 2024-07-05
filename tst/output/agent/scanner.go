@@ -47,6 +47,8 @@ func (c *scannerClass_) Make(
 	return &scanner_{
 		// Initialize instance attributes.
 		class_: c,
+		source_: source,
+		tokens_: tokens,
 	}
 }
 
@@ -74,6 +76,8 @@ func (c *scannerClass_) MatchToken(
 type scanner_ struct {
 	// Define instance attributes.
 	class_ ScannerClassLike
+	source_ string
+	tokens_ col.QueueLike[TokenLike]
 }
 
 // Attributes

@@ -12,8 +12,6 @@
 
 package complex
 
-import ()
-
 // CLASS ACCESS
 
 // Reference
@@ -38,19 +36,9 @@ type complexClass_ struct {
 	infinity_ ComplexLike
 }
 
-// Constants
-
-func (c *complexClass_) Zero() ComplexLike {
-	return c.zero_
-}
-
-func (c *complexClass_) Infinity() ComplexLike {
-	return c.infinity_
-}
-
 // Constructors
 
-func (c *complexClass_) MakeWithAttributes(
+func (c *complexClass_) Make(
 	realPart float64,
 	imaginaryPart float64,
 	form Form,
@@ -69,6 +57,16 @@ func (c *complexClass_) MakeFromValue(value complex128) ComplexLike {
 		// Initialize instance attributes.
 		class_: c,
 	}
+}
+
+// Constants
+
+func (c *complexClass_) Zero() ComplexLike {
+	return c.zero_
+}
+
+func (c *complexClass_) Infinity() ComplexLike {
+	return c.infinity_
 }
 
 // Functions

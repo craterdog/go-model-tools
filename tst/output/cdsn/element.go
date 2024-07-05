@@ -38,19 +38,11 @@ type elementClass_ struct {
 
 // Constructors
 
-func (c *elementClass_) MakeWithLiteral(literal string) ElementLike {
+func (c *elementClass_) Make(any_ any) ElementLike {
 	return &element_{
 		// Initialize instance attributes.
 		class_: c,
-		literal_: literal,
-	}
-}
-
-func (c *elementClass_) MakeWithName(name string) ElementLike {
-	return &element_{
-		// Initialize instance attributes.
-		class_: c,
-		name_: name,
+		any_: any_,
 	}
 }
 
@@ -61,8 +53,7 @@ func (c *elementClass_) MakeWithName(name string) ElementLike {
 type element_ struct {
 	// Define instance attributes.
 	class_ ElementClassLike
-	literal_ string
-	name_ string
+	any_ any
 }
 
 // Attributes
@@ -71,12 +62,8 @@ func (v *element_) GetClass() ElementClassLike {
 	return v.class_
 }
 
-func (v *element_) GetLiteral() string {
-	return v.literal_
-}
-
-func (v *element_) GetName() string {
-	return v.name_
+func (v *element_) GetAny() any {
+	return v.any_
 }
 
 // Private

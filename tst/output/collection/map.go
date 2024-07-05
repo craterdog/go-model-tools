@@ -27,10 +27,13 @@ var mapMutex syn.Mutex
 
 // Function
 
-func Map[K comparable, V any]() MapClassLike[K, V] {
+func Map[
+	K comparable,
+	V any,
+]() MapClassLike[K, V] {
 	// Generate the name of the bound class type.
-	var result_ MapClassLike[K, V]
-	var name = fmt.Sprintf("%T", result_)
+	var class *mapClass_[K, V]
+	var name = fmt.Sprintf("%T", class)
 
 	// Check for existing bound class type.
 	mapMutex.Lock()
@@ -38,33 +41,30 @@ func Map[K comparable, V any]() MapClassLike[K, V] {
 	switch actual := value.(type) {
 	case *mapClass_[K, V]:
 		// This bound class type already exists.
-		result_ = actual
+		class = actual
 	default:
 		// Add a new bound class type.
-		result_ = &mapClass_[K, V]{
+		class = &mapClass_[K, V]{
 			// Initialize class constants.
 		}
-		mapClass[name] = result_
+		mapClass[name] = class
 	}
 	mapMutex.Unlock()
 
 	// Return a reference to the bound class type.
-	return result_
+	return class
 }
 
 // CLASS METHODS
 
 // Target
 
-type mapClass_[K comparable, V any] struct {
+type mapClass_[
+	K comparable,
+	V any,
+] struct {
 	// Define class constants.
 	notation_ NotationLike
-}
-
-// Constants
-
-func (c *mapClass_[K, V]) Notation() NotationLike {
-	return c.notation_
 }
 
 // Constructors
@@ -97,18 +97,20 @@ func (c *mapClass_[K, V]) MakeFromSequence(associations Sequential[AssociationLi
 	}
 }
 
-func (c *mapClass_[K, V]) MakeFromSource(source string) MapLike[K, V] {
-	return &map_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
-	}
+// Constants
+
+func (c *mapClass_[K, V]) Notation() NotationLike {
+	return c.notation_
 }
 
 // INSTANCE METHODS
 
 // Target
 
-type map_[K comparable, V any] struct {
+type map_[
+	K comparable,
+	V any,
+] struct {
 	// Define instance attributes.
 	class_ MapClassLike[K, V]
 }

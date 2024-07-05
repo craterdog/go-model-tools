@@ -12,37 +12,43 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var precedenceClass = &precedenceClass_{
+var aspectsClass = &aspectsClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Precedence() PrecedenceClassLike {
-	return precedenceClass
+func Aspects() AspectsClassLike {
+	return aspectsClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type precedenceClass_ struct {
+type aspectsClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) PrecedenceLike {
-	return &precedence_{
+func (c *aspectsClass_) Make(
+	note string,
+	aspects col.Sequential[AspectLike],
+) AspectsLike {
+	return &aspects_{
 		// Initialize instance attributes.
 		class_: c,
-		expression_: expression,
+		note_: note,
+		aspects_: aspects,
 	}
 }
 
@@ -50,20 +56,25 @@ func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) Precede
 
 // Target
 
-type precedence_ struct {
+type aspects_ struct {
 	// Define instance attributes.
-	class_ PrecedenceClassLike
-	expression_ ExpressionLike
+	class_ AspectsClassLike
+	note_ string
+	aspects_ col.Sequential[AspectLike]
 }
 
 // Attributes
 
-func (v *precedence_) GetClass() PrecedenceClassLike {
+func (v *aspects_) GetClass() AspectsClassLike {
 	return v.class_
 }
 
-func (v *precedence_) GetExpression() ExpressionLike {
-	return v.expression_
+func (v *aspects_) GetNote() string {
+	return v.note_
+}
+
+func (v *aspects_) GetAspects() col.Sequential[AspectLike] {
+	return v.aspects_
 }
 
 // Private

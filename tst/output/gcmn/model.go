@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -40,27 +38,27 @@ type modelClass_ struct {
 
 // Constructors
 
-func (c *modelClass_) MakeWithAttributes(
+func (c *modelClass_) Make(
 	notice NoticeLike,
 	header HeaderLike,
-	modules col.ListLike[ModuleLike],
-	types col.ListLike[TypeLike],
-	functionals col.ListLike[FunctionalLike],
-	aspects col.ListLike[AspectLike],
-	classes col.ListLike[ClassLike],
-	instances col.ListLike[InstanceLike],
+	imports ImportsLike,
+	types TypesLike,
+	functionals FunctionalsLike,
+	classes ClassesLike,
+	instances InstancesLike,
+	aspects AspectsLike,
 ) ModelLike {
 	return &model_{
 		// Initialize instance attributes.
 		class_: c,
 		notice_: notice,
 		header_: header,
-		modules_: modules,
+		imports_: imports,
 		types_: types,
 		functionals_: functionals,
-		aspects_: aspects,
 		classes_: classes,
 		instances_: instances,
+		aspects_: aspects,
 	}
 }
 
@@ -73,12 +71,12 @@ type model_ struct {
 	class_ ModelClassLike
 	notice_ NoticeLike
 	header_ HeaderLike
-	modules_ col.ListLike[ModuleLike]
-	types_ col.ListLike[TypeLike]
-	functionals_ col.ListLike[FunctionalLike]
-	aspects_ col.ListLike[AspectLike]
-	classes_ col.ListLike[ClassLike]
-	instances_ col.ListLike[InstanceLike]
+	imports_ ImportsLike
+	types_ TypesLike
+	functionals_ FunctionalsLike
+	classes_ ClassesLike
+	instances_ InstancesLike
+	aspects_ AspectsLike
 }
 
 // Attributes
@@ -95,28 +93,28 @@ func (v *model_) GetHeader() HeaderLike {
 	return v.header_
 }
 
-func (v *model_) GetModules() col.ListLike[ModuleLike] {
-	return v.modules_
+func (v *model_) GetImports() ImportsLike {
+	return v.imports_
 }
 
-func (v *model_) GetTypes() col.ListLike[TypeLike] {
+func (v *model_) GetTypes() TypesLike {
 	return v.types_
 }
 
-func (v *model_) GetFunctionals() col.ListLike[FunctionalLike] {
+func (v *model_) GetFunctionals() FunctionalsLike {
 	return v.functionals_
 }
 
-func (v *model_) GetAspects() col.ListLike[AspectLike] {
-	return v.aspects_
-}
-
-func (v *model_) GetClasses() col.ListLike[ClassLike] {
+func (v *model_) GetClasses() ClassesLike {
 	return v.classes_
 }
 
-func (v *model_) GetInstances() col.ListLike[InstanceLike] {
+func (v *model_) GetInstances() InstancesLike {
 	return v.instances_
+}
+
+func (v *model_) GetAspects() AspectsLike {
+	return v.aspects_
 }
 
 // Private
