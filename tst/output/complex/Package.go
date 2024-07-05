@@ -120,8 +120,6 @@ Continuous is an aspect interface that defines a set of method signatures
 that must be supported by each instance of a continuous concrete class.
 */
 type Continuous interface {
-	
-	// Methods
 	IsZero() bool
 	IsDiscrete() bool
 	IsInfinity() bool

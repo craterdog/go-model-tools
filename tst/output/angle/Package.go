@@ -97,8 +97,6 @@ Angular is an aspect interface that defines a set of method signatures that
 must be supported by each instance of an angular concrete class.
 */
 type Angular interface {
-	
-	// Methods
 	AsNormalized() AngleLike
 	InUnits(units Units) float64
 }

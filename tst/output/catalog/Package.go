@@ -155,8 +155,6 @@ type Associative[
 	K comparable,
 	V any,
 ] interface {
-	
-	// Methods
 	GetKeys() Sequential[K]
 	GetValue(key K) V
 	RemoveValue(key K) V
@@ -175,8 +173,6 @@ arithmetic and comparison operations between "int" and "uint" so we us "int" for
 the return type to make it easier to use.
 */
 type Sequential[V any] interface {
-	
-	// Methods
 	AsArray() []V
 	GetSize() int
 	IsEmpty() bool
