@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -44,13 +46,42 @@ func (c *abstractionClass_) Make(
 	name string,
 	genericArguments GenericArgumentsLike,
 ) AbstractionLike {
-	return &abstraction_{
-		// Initialize instance attributes.
-		class_: c,
-		prefix_: prefix,
-		alias_: alias,
-		name_: name,
-		genericArguments_: genericArguments,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(prefix):
+		panic("The prefix attribute is required for each Abstraction.")
+	case c.isUndefined(alias):
+		panic("The alias attribute is required for each Abstraction.")
+	case c.isUndefined(name):
+		panic("The name attribute is required for each Abstraction.")
+	case c.isUndefined(genericArguments):
+		panic("The genericArguments attribute is required for each Abstraction.")
+	default:
+		return &abstraction_{
+			// Initialize instance attributes.
+			class_: c,
+			prefix_: prefix,
+			alias_: alias,
+			name_: name,
+			genericArguments_: genericArguments,
+		}
+	}
+}
+
+// Private
+
+func (c *abstractionClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -73,11 +104,11 @@ func (v *abstraction_) GetClass() AbstractionClassLike {
 	return v.class_
 }
 
-func (v *abstraction_) GetPrefix() PrefixLike {
+func (v *abstraction_) GetOptionalPrefix() PrefixLike {
 	return v.prefix_
 }
 
-func (v *abstraction_) GetAlias() AliasLike {
+func (v *abstraction_) GetOptionalAlias() AliasLike {
 	return v.alias_
 }
 
@@ -85,7 +116,7 @@ func (v *abstraction_) GetName() string {
 	return v.name_
 }
 
-func (v *abstraction_) GetGenericArguments() GenericArgumentsLike {
+func (v *abstraction_) GetOptionalGenericArguments() GenericArgumentsLike {
 	return v.genericArguments_
 }
 

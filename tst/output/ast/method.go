@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -43,12 +45,39 @@ func (c *methodClass_) Make(
 	parameters ParametersLike,
 	result ResultLike,
 ) MethodLike {
-	return &method_{
-		// Initialize instance attributes.
-		class_: c,
-		name_: name,
-		parameters_: parameters,
-		result_: result,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(name):
+		panic("The name attribute is required for each Method.")
+	case c.isUndefined(parameters):
+		panic("The parameters attribute is required for each Method.")
+	case c.isUndefined(result):
+		panic("The result attribute is required for each Method.")
+	default:
+		return &method_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			parameters_: parameters,
+			result_: result,
+		}
+	}
+}
+
+// Private
+
+func (c *methodClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -74,11 +103,11 @@ func (v *method_) GetName() string {
 	return v.name_
 }
 
-func (v *method_) GetParameters() ParametersLike {
+func (v *method_) GetOptionalParameters() ParametersLike {
 	return v.parameters_
 }
 
-func (v *method_) GetResult() ResultLike {
+func (v *method_) GetOptionalResult() ResultLike {
 	return v.result_
 }
 

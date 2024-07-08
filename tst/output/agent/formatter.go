@@ -41,9 +41,13 @@ type formatterClass_ struct {
 // Constructors
 
 func (c *formatterClass_) Make() FormatterLike {
-	return &formatter_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &formatter_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

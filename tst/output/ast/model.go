@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -48,17 +50,54 @@ func (c *modelClass_) Make(
 	instances InstancesLike,
 	aspects AspectsLike,
 ) ModelLike {
-	return &model_{
-		// Initialize instance attributes.
-		class_: c,
-		notice_: notice,
-		header_: header,
-		imports_: imports,
-		types_: types,
-		functionals_: functionals,
-		classes_: classes,
-		instances_: instances,
-		aspects_: aspects,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(notice):
+		panic("The notice attribute is required for each Model.")
+	case c.isUndefined(header):
+		panic("The header attribute is required for each Model.")
+	case c.isUndefined(imports):
+		panic("The imports attribute is required for each Model.")
+	case c.isUndefined(types):
+		panic("The types attribute is required for each Model.")
+	case c.isUndefined(functionals):
+		panic("The functionals attribute is required for each Model.")
+	case c.isUndefined(classes):
+		panic("The classes attribute is required for each Model.")
+	case c.isUndefined(instances):
+		panic("The instances attribute is required for each Model.")
+	case c.isUndefined(aspects):
+		panic("The aspects attribute is required for each Model.")
+	default:
+		return &model_{
+			// Initialize instance attributes.
+			class_: c,
+			notice_: notice,
+			header_: header,
+			imports_: imports,
+			types_: types,
+			functionals_: functionals,
+			classes_: classes,
+			instances_: instances,
+			aspects_: aspects,
+		}
+	}
+}
+
+// Private
+
+func (c *modelClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -93,15 +132,15 @@ func (v *model_) GetHeader() HeaderLike {
 	return v.header_
 }
 
-func (v *model_) GetImports() ImportsLike {
+func (v *model_) GetOptionalImports() ImportsLike {
 	return v.imports_
 }
 
-func (v *model_) GetTypes() TypesLike {
+func (v *model_) GetOptionalTypes() TypesLike {
 	return v.types_
 }
 
-func (v *model_) GetFunctionals() FunctionalsLike {
+func (v *model_) GetOptionalFunctionals() FunctionalsLike {
 	return v.functionals_
 }
 
@@ -113,7 +152,7 @@ func (v *model_) GetInstances() InstancesLike {
 	return v.instances_
 }
 
-func (v *model_) GetAspects() AspectsLike {
+func (v *model_) GetOptionalAspects() AspectsLike {
 	return v.aspects_
 }
 

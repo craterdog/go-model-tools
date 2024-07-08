@@ -15,6 +15,7 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
+	ref "reflect"
 	syn "sync"
 )
 
@@ -64,24 +65,38 @@ type arrayClass_[V any] struct {
 // Constructors
 
 func (c *arrayClass_[V]) MakeWithSize(size uint) ArrayLike[V] {
-	return &array_[V]{
-		// Initialize instance attributes.
-		class_: c,
-		size_: size,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(size):
+		panic("The size attribute is required for each Array.")
+	default:
+		return &array_[V]{
+			// Initialize instance attributes.
+			class_: c,
+			size_: size,
+		}
 	}
 }
 
 func (c *arrayClass_[V]) MakeFromArray(values []V) ArrayLike[V] {
-	return &array_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &array_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *arrayClass_[V]) MakeFromSequence(values Sequential[V]) ArrayLike[V] {
-	return &array_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &array_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
@@ -89,6 +104,23 @@ func (c *arrayClass_[V]) MakeFromSequence(values Sequential[V]) ArrayLike[V] {
 
 func (c *arrayClass_[V]) Notation() NotationLike {
 	return c.notation_
+}
+
+// Private
+
+func (c *arrayClass_[V]) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
+	}
 }
 
 // INSTANCE METHODS

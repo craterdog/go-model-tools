@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -45,12 +46,39 @@ func (c *syntaxClass_) Make(
 	rules col.ListLike[RuleLike],
 	lexigrams col.ListLike[LexigramLike],
 ) SyntaxLike {
-	return &syntax_{
-		// Initialize instance attributes.
-		class_: c,
-		headers_: headers,
-		rules_: rules,
-		lexigrams_: lexigrams,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(headers):
+		panic("The headers attribute is required for each Syntax.")
+	case c.isUndefined(rules):
+		panic("The rules attribute is required for each Syntax.")
+	case c.isUndefined(lexigrams):
+		panic("The lexigrams attribute is required for each Syntax.")
+	default:
+		return &syntax_{
+			// Initialize instance attributes.
+			class_: c,
+			headers_: headers,
+			rules_: rules,
+			lexigrams_: lexigrams,
+		}
+	}
+}
+
+// Private
+
+func (c *syntaxClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

@@ -41,9 +41,13 @@ type validatorClass_ struct {
 // Constructors
 
 func (c *validatorClass_) Make() ValidatorLike {
-	return &validator_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &validator_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

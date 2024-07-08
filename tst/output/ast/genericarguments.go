@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -39,10 +41,33 @@ type genericArgumentsClass_ struct {
 // Constructors
 
 func (c *genericArgumentsClass_) Make(arguments ArgumentsLike) GenericArgumentsLike {
-	return &genericArguments_{
-		// Initialize instance attributes.
-		class_: c,
-		arguments_: arguments,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(arguments):
+		panic("The arguments attribute is required for each GenericArguments.")
+	default:
+		return &genericArguments_{
+			// Initialize instance attributes.
+			class_: c,
+			arguments_: arguments,
+		}
+	}
+}
+
+// Private
+
+func (c *genericArgumentsClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

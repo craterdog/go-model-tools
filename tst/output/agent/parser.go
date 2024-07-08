@@ -41,9 +41,13 @@ type parserClass_ struct {
 // Constructors
 
 func (c *parserClass_) Make() ParserLike {
-	return &parser_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &parser_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

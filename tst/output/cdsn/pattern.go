@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -44,11 +45,36 @@ func (c *patternClass_) Make(
 	parts col.ListLike[PartLike],
 	alternatives col.ListLike[AlternativeLike],
 ) PatternLike {
-	return &pattern_{
-		// Initialize instance attributes.
-		class_: c,
-		parts_: parts,
-		alternatives_: alternatives,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(parts):
+		panic("The parts attribute is required for each Pattern.")
+	case c.isUndefined(alternatives):
+		panic("The alternatives attribute is required for each Pattern.")
+	default:
+		return &pattern_{
+			// Initialize instance attributes.
+			class_: c,
+			parts_: parts,
+			alternatives_: alternatives,
+		}
+	}
+}
+
+// Private
+
+func (c *patternClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

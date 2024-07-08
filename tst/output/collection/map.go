@@ -70,30 +70,46 @@ type mapClass_[
 // Constructors
 
 func (c *mapClass_[K, V]) Make() MapLike[K, V] {
-	return &map_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &map_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *mapClass_[K, V]) MakeFromArray(associations []AssociationLike[K, V]) MapLike[K, V] {
-	return &map_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &map_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *mapClass_[K, V]) MakeFromMap(associations map[K]V) MapLike[K, V] {
-	return &map_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &map_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *mapClass_[K, V]) MakeFromSequence(associations Sequential[AssociationLike[K, V]]) MapLike[K, V] {
-	return &map_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &map_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -43,12 +45,39 @@ func (c *constructorClass_) Make(
 	parameters ParametersLike,
 	abstraction AbstractionLike,
 ) ConstructorLike {
-	return &constructor_{
-		// Initialize instance attributes.
-		class_: c,
-		name_: name,
-		parameters_: parameters,
-		abstraction_: abstraction,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(name):
+		panic("The name attribute is required for each Constructor.")
+	case c.isUndefined(parameters):
+		panic("The parameters attribute is required for each Constructor.")
+	case c.isUndefined(abstraction):
+		panic("The abstraction attribute is required for each Constructor.")
+	default:
+		return &constructor_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			parameters_: parameters,
+			abstraction_: abstraction,
+		}
+	}
+}
+
+// Private
+
+func (c *constructorClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -74,7 +103,7 @@ func (v *constructor_) GetName() string {
 	return v.name_
 }
 
-func (v *constructor_) GetParameters() ParametersLike {
+func (v *constructor_) GetOptionalParameters() ParametersLike {
 	return v.parameters_
 }
 

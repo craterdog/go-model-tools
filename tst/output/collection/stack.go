@@ -15,6 +15,7 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
+	ref "reflect"
 	syn "sync"
 )
 
@@ -65,31 +66,49 @@ type stackClass_[V any] struct {
 // Constructors
 
 func (c *stackClass_[V]) Make() StackLike[V] {
-	return &stack_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &stack_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *stackClass_[V]) MakeWithCapacity(capacity uint) StackLike[V] {
-	return &stack_[V]{
-		// Initialize instance attributes.
-		class_: c,
-		capacity_: capacity,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(capacity):
+		panic("The capacity attribute is required for each Stack.")
+	default:
+		return &stack_[V]{
+			// Initialize instance attributes.
+			class_: c,
+			capacity_: capacity,
+		}
 	}
 }
 
 func (c *stackClass_[V]) MakeFromArray(values []V) StackLike[V] {
-	return &stack_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &stack_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *stackClass_[V]) MakeFromSequence(values Sequential[V]) StackLike[V] {
-	return &stack_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &stack_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
@@ -101,6 +120,23 @@ func (c *stackClass_[V]) Notation() NotationLike {
 
 func (c *stackClass_[V]) DefaultCapacity() uint {
 	return c.defaultCapacity_
+}
+
+// Private
+
+func (c *stackClass_[V]) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
+	}
 }
 
 // INSTANCE METHODS

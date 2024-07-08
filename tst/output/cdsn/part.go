@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -42,11 +44,36 @@ func (c *partClass_) Make(
 	element ElementLike,
 	cardinality CardinalityLike,
 ) PartLike {
-	return &part_{
-		// Initialize instance attributes.
-		class_: c,
-		element_: element,
-		cardinality_: cardinality,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(element):
+		panic("The element attribute is required for each Part.")
+	case c.isUndefined(cardinality):
+		panic("The cardinality attribute is required for each Part.")
+	default:
+		return &part_{
+			// Initialize instance attributes.
+			class_: c,
+			element_: element,
+			cardinality_: cardinality,
+		}
+	}
+}
+
+// Private
+
+func (c *partClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

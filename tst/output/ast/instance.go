@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -44,13 +46,42 @@ func (c *instanceClass_) Make(
 	abstractions AbstractionsLike,
 	methods MethodsLike,
 ) InstanceLike {
-	return &instance_{
-		// Initialize instance attributes.
-		class_: c,
-		declaration_: declaration,
-		attributes_: attributes,
-		abstractions_: abstractions,
-		methods_: methods,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(declaration):
+		panic("The declaration attribute is required for each Instance.")
+	case c.isUndefined(attributes):
+		panic("The attributes attribute is required for each Instance.")
+	case c.isUndefined(abstractions):
+		panic("The abstractions attribute is required for each Instance.")
+	case c.isUndefined(methods):
+		panic("The methods attribute is required for each Instance.")
+	default:
+		return &instance_{
+			// Initialize instance attributes.
+			class_: c,
+			declaration_: declaration,
+			attributes_: attributes,
+			abstractions_: abstractions,
+			methods_: methods,
+		}
+	}
+}
+
+// Private
+
+func (c *instanceClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -81,11 +112,11 @@ func (v *instance_) GetAttributes() AttributesLike {
 	return v.attributes_
 }
 
-func (v *instance_) GetAbstractions() AbstractionsLike {
+func (v *instance_) GetOptionalAbstractions() AbstractionsLike {
 	return v.abstractions_
 }
 
-func (v *instance_) GetMethods() MethodsLike {
+func (v *instance_) GetOptionalMethods() MethodsLike {
 	return v.methods_
 }
 

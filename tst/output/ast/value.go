@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -42,11 +44,36 @@ func (c *valueClass_) Make(
 	name string,
 	abstraction AbstractionLike,
 ) ValueLike {
-	return &value_{
-		// Initialize instance attributes.
-		class_: c,
-		name_: name,
-		abstraction_: abstraction,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(name):
+		panic("The name attribute is required for each Value.")
+	case c.isUndefined(abstraction):
+		panic("The abstraction attribute is required for each Value.")
+	default:
+		return &value_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			abstraction_: abstraction,
+		}
+	}
+}
+
+// Private
+
+func (c *valueClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

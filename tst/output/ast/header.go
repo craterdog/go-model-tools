@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -42,11 +44,36 @@ func (c *headerClass_) Make(
 	comment string,
 	name string,
 ) HeaderLike {
-	return &header_{
-		// Initialize instance attributes.
-		class_: c,
-		comment_: comment,
-		name_: name,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(comment):
+		panic("The comment attribute is required for each Header.")
+	case c.isUndefined(name):
+		panic("The name attribute is required for each Header.")
+	default:
+		return &header_{
+			// Initialize instance attributes.
+			class_: c,
+			comment_: comment,
+			name_: name,
+		}
+	}
+}
+
+// Private
+
+func (c *headerClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

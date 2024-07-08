@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -44,11 +45,36 @@ func (c *instancesClass_) Make(
 	note string,
 	instances col.Sequential[InstanceLike],
 ) InstancesLike {
-	return &instances_{
-		// Initialize instance attributes.
-		class_: c,
-		note_: note,
-		instances_: instances,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(note):
+		panic("The note attribute is required for each Instances.")
+	case c.isUndefined(instances):
+		panic("The instances attribute is required for each Instances.")
+	default:
+		return &instances_{
+			// Initialize instance attributes.
+			class_: c,
+			note_: note,
+			instances_: instances,
+		}
+	}
+}
+
+// Private
+
+func (c *instancesClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

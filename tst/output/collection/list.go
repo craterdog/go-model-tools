@@ -64,23 +64,35 @@ type listClass_[V any] struct {
 // Constructors
 
 func (c *listClass_[V]) Make() ListLike[V] {
-	return &list_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &list_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *listClass_[V]) MakeFromArray(values []V) ListLike[V] {
-	return &list_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &list_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *listClass_[V]) MakeFromSequence(values Sequential[V]) ListLike[V] {
-	return &list_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &list_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

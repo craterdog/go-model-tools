@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -39,10 +41,33 @@ type enumerationClass_ struct {
 // Constructors
 
 func (c *enumerationClass_) Make(values ValuesLike) EnumerationLike {
-	return &enumeration_{
-		// Initialize instance attributes.
-		class_: c,
-		values_: values,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(values):
+		panic("The values attribute is required for each Enumeration.")
+	default:
+		return &enumeration_{
+			// Initialize instance attributes.
+			class_: c,
+			values_: values,
+		}
+	}
+}
+
+// Private
+
+func (c *enumerationClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

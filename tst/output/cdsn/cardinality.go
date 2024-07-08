@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -39,10 +41,33 @@ type cardinalityClass_ struct {
 // Constructors
 
 func (c *cardinalityClass_) Make(any_ any) CardinalityLike {
-	return &cardinality_{
-		// Initialize instance attributes.
-		class_: c,
-		any_: any_,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(any_):
+		panic("The any_ attribute is required for each Cardinality.")
+	default:
+		return &cardinality_{
+			// Initialize instance attributes.
+			class_: c,
+			any_: any_,
+		}
+	}
+}
+
+// Private
+
+func (c *cardinalityClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

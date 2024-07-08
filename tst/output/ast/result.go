@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -39,10 +41,33 @@ type resultClass_ struct {
 // Constructors
 
 func (c *resultClass_) Make(any any) ResultLike {
-	return &result_{
-		// Initialize instance attributes.
-		class_: c,
-		any_: any,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(any):
+		panic("The any attribute is required for each Result.")
+	default:
+		return &result_{
+			// Initialize instance attributes.
+			class_: c,
+			any_: any,
+		}
+	}
+}
+
+// Private
+
+func (c *resultClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

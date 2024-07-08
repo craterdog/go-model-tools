@@ -41,9 +41,13 @@ type generatorClass_ struct {
 // Constructors
 
 func (c *generatorClass_) Make() GeneratorLike {
-	return &generator_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &generator_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

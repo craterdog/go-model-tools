@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -43,12 +45,39 @@ func (c *ruleClass_) Make(
 	uppercase string,
 	expression ExpressionLike,
 ) RuleLike {
-	return &rule_{
-		// Initialize instance attributes.
-		class_: c,
-		comment_: comment,
-		uppercase_: uppercase,
-		expression_: expression,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(comment):
+		panic("The comment attribute is required for each Rule.")
+	case c.isUndefined(uppercase):
+		panic("The uppercase attribute is required for each Rule.")
+	case c.isUndefined(expression):
+		panic("The expression attribute is required for each Rule.")
+	default:
+		return &rule_{
+			// Initialize instance attributes.
+			class_: c,
+			comment_: comment,
+			uppercase_: uppercase,
+			expression_: expression,
+		}
+	}
+}
+
+// Private
+
+func (c *ruleClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

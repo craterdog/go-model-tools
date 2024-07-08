@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -44,13 +46,42 @@ func (c *classClass_) Make(
 	constants ConstantsLike,
 	functions FunctionsLike,
 ) ClassLike {
-	return &class_{
-		// Initialize instance attributes.
-		class_: c,
-		declaration_: declaration,
-		constructors_: constructors,
-		constants_: constants,
-		functions_: functions,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(declaration):
+		panic("The declaration attribute is required for each Class.")
+	case c.isUndefined(constructors):
+		panic("The constructors attribute is required for each Class.")
+	case c.isUndefined(constants):
+		panic("The constants attribute is required for each Class.")
+	case c.isUndefined(functions):
+		panic("The functions attribute is required for each Class.")
+	default:
+		return &class_{
+			// Initialize instance attributes.
+			class_: c,
+			declaration_: declaration,
+			constructors_: constructors,
+			constants_: constants,
+			functions_: functions,
+		}
+	}
+}
+
+// Private
+
+func (c *classClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -81,11 +112,11 @@ func (v *class_) GetConstructors() ConstructorsLike {
 	return v.constructors_
 }
 
-func (v *class_) GetConstants() ConstantsLike {
+func (v *class_) GetOptionalConstants() ConstantsLike {
 	return v.constants_
 }
 
-func (v *class_) GetFunctions() FunctionsLike {
+func (v *class_) GetOptionalFunctions() FunctionsLike {
 	return v.functions_
 }
 

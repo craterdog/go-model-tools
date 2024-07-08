@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	ref "reflect"
+)
 
 // CLASS ACCESS
 
@@ -43,12 +45,39 @@ func (c *declarationClass_) Make(
 	name string,
 	genericParameters GenericParametersLike,
 ) DeclarationLike {
-	return &declaration_{
-		// Initialize instance attributes.
-		class_: c,
-		comment_: comment,
-		name_: name,
-		genericParameters_: genericParameters,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(comment):
+		panic("The comment attribute is required for each Declaration.")
+	case c.isUndefined(name):
+		panic("The name attribute is required for each Declaration.")
+	case c.isUndefined(genericParameters):
+		panic("The genericParameters attribute is required for each Declaration.")
+	default:
+		return &declaration_{
+			// Initialize instance attributes.
+			class_: c,
+			comment_: comment,
+			name_: name,
+			genericParameters_: genericParameters,
+		}
+	}
+}
+
+// Private
+
+func (c *declarationClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
@@ -78,7 +107,7 @@ func (v *declaration_) GetName() string {
 	return v.name_
 }
 
-func (v *declaration_) GetGenericParameters() GenericParametersLike {
+func (v *declaration_) GetOptionalGenericParameters() GenericParametersLike {
 	return v.genericParameters_
 }
 

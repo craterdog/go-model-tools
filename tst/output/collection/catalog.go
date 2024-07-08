@@ -70,30 +70,46 @@ type catalogClass_[
 // Constructors
 
 func (c *catalogClass_[K, V]) Make() CatalogLike[K, V] {
-	return &catalog_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &catalog_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromArray(associations []AssociationLike[K, V]) CatalogLike[K, V] {
-	return &catalog_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &catalog_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromMap(associations map[K]V) CatalogLike[K, V] {
-	return &catalog_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &catalog_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *catalogClass_[K, V]) MakeFromSequence(associations Sequential[AssociationLike[K, V]]) CatalogLike[K, V] {
-	return &catalog_[K, V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &catalog_[K, V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

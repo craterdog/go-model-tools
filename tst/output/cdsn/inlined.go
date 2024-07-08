@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -44,11 +45,36 @@ func (c *inlinedClass_) Make(
 	factors col.ListLike[FactorLike],
 	note string,
 ) InlinedLike {
-	return &inlined_{
-		// Initialize instance attributes.
-		class_: c,
-		factors_: factors,
-		note_: note,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(factors):
+		panic("The factors attribute is required for each Inlined.")
+	case c.isUndefined(note):
+		panic("The note attribute is required for each Inlined.")
+	default:
+		return &inlined_{
+			// Initialize instance attributes.
+			class_: c,
+			factors_: factors,
+			note_: note,
+		}
+	}
+}
+
+// Private
+
+func (c *inlinedClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

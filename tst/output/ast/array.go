@@ -39,9 +39,13 @@ type arrayClass_ struct {
 // Constructors
 
 func (c *arrayClass_) Make() ArrayLike {
-	return &array_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &array_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

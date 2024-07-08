@@ -39,9 +39,13 @@ type notationClass_ struct {
 // Constructors
 
 func (c *notationClass_) Make() NotationLike {
-	return &notation_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &notation_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 

@@ -15,6 +15,7 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
+	ref "reflect"
 	syn "sync"
 )
 
@@ -64,31 +65,49 @@ type setClass_[V any] struct {
 // Constructors
 
 func (c *setClass_[V]) Make() SetLike[V] {
-	return &set_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &set_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *setClass_[V]) MakeWithCollator(collator age.CollatorLike[V]) SetLike[V] {
-	return &set_[V]{
-		// Initialize instance attributes.
-		class_: c,
-		collator_: collator,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(collator):
+		panic("The collator attribute is required for each Set.")
+	default:
+		return &set_[V]{
+			// Initialize instance attributes.
+			class_: c,
+			collator_: collator,
+		}
 	}
 }
 
 func (c *setClass_[V]) MakeFromArray(values []V) SetLike[V] {
-	return &set_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &set_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
 func (c *setClass_[V]) MakeFromSequence(values Sequential[V]) SetLike[V] {
-	return &set_[V]{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &set_[V]{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
@@ -134,6 +153,23 @@ func (c *setClass_[V]) Xor(
 	var result_ SetLike[V]
 	// TBA - Implement the function.
 	return result_
+}
+
+// Private
+
+func (c *setClass_[V]) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
+	}
 }
 
 // INSTANCE METHODS

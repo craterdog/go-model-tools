@@ -12,6 +12,10 @@
 
 package complex
 
+import (
+	ref "reflect"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -43,19 +47,33 @@ func (c *complexClass_) Make(
 	imaginaryPart float64,
 	form Form,
 ) ComplexLike {
-	return &complex_{
-		// Initialize instance attributes.
-		class_: c,
-		realPart_: realPart,
-		imaginaryPart_: imaginaryPart,
-		form_: form,
+	// Validate the arguments.
+	switch {
+	case c.isUndefined(realPart):
+		panic("The realPart attribute is required for each Complex.")
+	case c.isUndefined(imaginaryPart):
+		panic("The imaginaryPart attribute is required for each Complex.")
+	case c.isUndefined(form):
+		panic("The form attribute is required for each Complex.")
+	default:
+		return &complex_{
+			// Initialize instance attributes.
+			class_: c,
+			realPart_: realPart,
+			imaginaryPart_: imaginaryPart,
+			form_: form,
+		}
 	}
 }
 
 func (c *complexClass_) MakeFromValue(value complex128) ComplexLike {
-	return &complex_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	default:
+		return &complex_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
@@ -128,6 +146,23 @@ func (c *complexClass_) Norm(
 	return result_
 }
 
+// Private
+
+func (c *complexClass_) isUndefined(value any) bool {
+	switch actual := value.(type) {
+	case string:
+		return len(actual) > 0
+	default:
+		var meta = ref.ValueOf(actual)
+		return (meta.Kind() == ref.Ptr ||
+			meta.Kind() == ref.Interface ||
+			meta.Kind() == ref.Slice ||
+			meta.Kind() == ref.Map ||
+			meta.Kind() == ref.Chan ||
+			meta.Kind() == ref.Func) && meta.IsNil()
+	}
+}
+
 // INSTANCE METHODS
 
 // Target
@@ -159,6 +194,9 @@ func (v *complex_) GetForm() Form {
 }
 
 func (v *complex_) SetForm(form Form) {
+	if v.GetClass().(*complexClass_).isUndefined(form) {
+		panic("The form attribute cannot be nil.")
+	}
 	v.form_ = form
 }
 
