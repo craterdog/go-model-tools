@@ -45,7 +45,7 @@ func generatePrivate(
 	var filename = directory + "Private.go"
 	if pathExists(filename) {
 		fmt.Printf(
-			"The %v file exists, so skipping it...",
+			"The %v file exists, so skipping it...\n",
 			filename,
 		)
 		return
@@ -73,7 +73,7 @@ func generateClasses(
 		var filename = directory + name + ".go"
 		if pathExists(filename) {
 			fmt.Printf(
-				"The class %v exists, so skipping it...",
+				"The class %v exists, so skipping it...\n",
 				filename,
 			)
 			continue
