@@ -39,8 +39,8 @@ type instanceClass_ struct {
 func (c *instanceClass_) Make(
 	declaration DeclarationLike,
 	attributes AttributesLike,
-	abstractions AbstractionsLike,
-	methods MethodsLike,
+	optionalAbstractions AbstractionsLike,
+	optionalMethods MethodsLike,
 ) InstanceLike {
 	// Validate the arguments.
 	switch {
@@ -48,18 +48,14 @@ func (c *instanceClass_) Make(
 		panic("The declaration attribute is required for each Instance.")
 	case isUndefined(attributes):
 		panic("The attributes attribute is required for each Instance.")
-	case isUndefined(abstractions):
-		panic("The abstractions attribute is required for each Instance.")
-	case isUndefined(methods):
-		panic("The methods attribute is required for each Instance.")
 	default:
 		return &instance_{
 			// Initialize instance attributes.
 			class_: c,
 			declaration_: declaration,
 			attributes_: attributes,
-			abstractions_: abstractions,
-			methods_: methods,
+			optionalAbstractions_: optionalAbstractions,
+			optionalMethods_: optionalMethods,
 		}
 	}
 }
@@ -75,8 +71,6 @@ type instance_ struct {
 	attributes_ AttributesLike
 	optionalAbstractions_ AbstractionsLike
 	optionalMethods_ MethodsLike
-	abstractions_ AbstractionsLike
-	methods_ MethodsLike
 }
 
 // Attributes

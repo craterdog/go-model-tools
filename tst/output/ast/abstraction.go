@@ -37,29 +37,23 @@ type abstractionClass_ struct {
 // Constructors
 
 func (c *abstractionClass_) Make(
-	prefix PrefixLike,
-	alias AliasLike,
+	optionalPrefix PrefixLike,
+	optionalAlias AliasLike,
 	name string,
-	genericArguments GenericArgumentsLike,
+	optionalGenericArguments GenericArgumentsLike,
 ) AbstractionLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(prefix):
-		panic("The prefix attribute is required for each Abstraction.")
-	case isUndefined(alias):
-		panic("The alias attribute is required for each Abstraction.")
 	case isUndefined(name):
 		panic("The name attribute is required for each Abstraction.")
-	case isUndefined(genericArguments):
-		panic("The genericArguments attribute is required for each Abstraction.")
 	default:
 		return &abstraction_{
 			// Initialize instance attributes.
 			class_: c,
-			prefix_: prefix,
-			alias_: alias,
+			optionalPrefix_: optionalPrefix,
+			optionalAlias_: optionalAlias,
 			name_: name,
-			genericArguments_: genericArguments,
+			optionalGenericArguments_: optionalGenericArguments,
 		}
 	}
 }
@@ -75,9 +69,6 @@ type abstraction_ struct {
 	optionalAlias_ AliasLike
 	name_ string
 	optionalGenericArguments_ GenericArgumentsLike
-	prefix_ PrefixLike
-	alias_ AliasLike
-	genericArguments_ GenericArgumentsLike
 }
 
 // Attributes

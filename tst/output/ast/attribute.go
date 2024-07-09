@@ -38,24 +38,20 @@ type attributeClass_ struct {
 
 func (c *attributeClass_) Make(
 	name string,
-	parameter ParameterLike,
-	abstraction AbstractionLike,
+	optionalParameter ParameterLike,
+	optionalAbstraction AbstractionLike,
 ) AttributeLike {
 	// Validate the arguments.
 	switch {
 	case isUndefined(name):
 		panic("The name attribute is required for each Attribute.")
-	case isUndefined(parameter):
-		panic("The parameter attribute is required for each Attribute.")
-	case isUndefined(abstraction):
-		panic("The abstraction attribute is required for each Attribute.")
 	default:
 		return &attribute_{
 			// Initialize instance attributes.
 			class_: c,
 			name_: name,
-			parameter_: parameter,
-			abstraction_: abstraction,
+			optionalParameter_: optionalParameter,
+			optionalAbstraction_: optionalAbstraction,
 		}
 	}
 }
@@ -70,8 +66,6 @@ type attribute_ struct {
 	name_ string
 	optionalParameter_ ParameterLike
 	optionalAbstraction_ AbstractionLike
-	parameter_ ParameterLike
-	abstraction_ AbstractionLike
 }
 
 // Attributes

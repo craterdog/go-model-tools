@@ -38,15 +38,13 @@ type functionClass_ struct {
 
 func (c *functionClass_) Make(
 	name string,
-	parameters ParametersLike,
+	optionalParameters ParametersLike,
 	result ResultLike,
 ) FunctionLike {
 	// Validate the arguments.
 	switch {
 	case isUndefined(name):
 		panic("The name attribute is required for each Function.")
-	case isUndefined(parameters):
-		panic("The parameters attribute is required for each Function.")
 	case isUndefined(result):
 		panic("The result attribute is required for each Function.")
 	default:
@@ -54,7 +52,7 @@ func (c *functionClass_) Make(
 			// Initialize instance attributes.
 			class_: c,
 			name_: name,
-			parameters_: parameters,
+			optionalParameters_: optionalParameters,
 			result_: result,
 		}
 	}
@@ -70,7 +68,6 @@ type function_ struct {
 	name_ string
 	optionalParameters_ ParametersLike
 	result_ ResultLike
-	parameters_ ParametersLike
 }
 
 // Attributes

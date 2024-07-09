@@ -39,7 +39,7 @@ type typeClass_ struct {
 func (c *typeClass_) Make(
 	declaration DeclarationLike,
 	abstraction AbstractionLike,
-	enumeration EnumerationLike,
+	optionalEnumeration EnumerationLike,
 ) TypeLike {
 	// Validate the arguments.
 	switch {
@@ -47,15 +47,13 @@ func (c *typeClass_) Make(
 		panic("The declaration attribute is required for each Type.")
 	case isUndefined(abstraction):
 		panic("The abstraction attribute is required for each Type.")
-	case isUndefined(enumeration):
-		panic("The enumeration attribute is required for each Type.")
 	default:
 		return &type_{
 			// Initialize instance attributes.
 			class_: c,
 			declaration_: declaration,
 			abstraction_: abstraction,
-			enumeration_: enumeration,
+			optionalEnumeration_: optionalEnumeration,
 		}
 	}
 }
@@ -70,7 +68,6 @@ type type_ struct {
 	declaration_ DeclarationLike
 	abstraction_ AbstractionLike
 	optionalEnumeration_ EnumerationLike
-	enumeration_ EnumerationLike
 }
 
 // Attributes

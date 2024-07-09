@@ -38,15 +38,13 @@ type constructorClass_ struct {
 
 func (c *constructorClass_) Make(
 	name string,
-	parameters ParametersLike,
+	optionalParameters ParametersLike,
 	abstraction AbstractionLike,
 ) ConstructorLike {
 	// Validate the arguments.
 	switch {
 	case isUndefined(name):
 		panic("The name attribute is required for each Constructor.")
-	case isUndefined(parameters):
-		panic("The parameters attribute is required for each Constructor.")
 	case isUndefined(abstraction):
 		panic("The abstraction attribute is required for each Constructor.")
 	default:
@@ -54,7 +52,7 @@ func (c *constructorClass_) Make(
 			// Initialize instance attributes.
 			class_: c,
 			name_: name,
-			parameters_: parameters,
+			optionalParameters_: optionalParameters,
 			abstraction_: abstraction,
 		}
 	}
@@ -70,7 +68,6 @@ type constructor_ struct {
 	name_ string
 	optionalParameters_ ParametersLike
 	abstraction_ AbstractionLike
-	parameters_ ParametersLike
 }
 
 // Attributes

@@ -39,8 +39,8 @@ type classClass_ struct {
 func (c *classClass_) Make(
 	declaration DeclarationLike,
 	constructors ConstructorsLike,
-	constants ConstantsLike,
-	functions FunctionsLike,
+	optionalConstants ConstantsLike,
+	optionalFunctions FunctionsLike,
 ) ClassLike {
 	// Validate the arguments.
 	switch {
@@ -48,18 +48,14 @@ func (c *classClass_) Make(
 		panic("The declaration attribute is required for each Class.")
 	case isUndefined(constructors):
 		panic("The constructors attribute is required for each Class.")
-	case isUndefined(constants):
-		panic("The constants attribute is required for each Class.")
-	case isUndefined(functions):
-		panic("The functions attribute is required for each Class.")
 	default:
 		return &class_{
 			// Initialize instance attributes.
 			class_: c,
 			declaration_: declaration,
 			constructors_: constructors,
-			constants_: constants,
-			functions_: functions,
+			optionalConstants_: optionalConstants,
+			optionalFunctions_: optionalFunctions,
 		}
 	}
 }
@@ -75,8 +71,6 @@ type class_ struct {
 	constructors_ ConstructorsLike
 	optionalConstants_ ConstantsLike
 	optionalFunctions_ FunctionsLike
-	constants_ ConstantsLike
-	functions_ FunctionsLike
 }
 
 // Attributes

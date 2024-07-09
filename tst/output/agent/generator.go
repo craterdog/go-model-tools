@@ -113,4 +113,10 @@ func (v *generator_) GenerateClass(
 	return result_
 }
 
+func (v *generator_) GeneratePrivate(model ast.ModelLike) string {
+	var result_ string
+	// TBA - Implement the method.
+	return result_
+}
+
 // Private

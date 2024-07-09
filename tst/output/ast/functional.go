@@ -38,15 +38,13 @@ type functionalClass_ struct {
 
 func (c *functionalClass_) Make(
 	declaration DeclarationLike,
-	parameters ParametersLike,
+	optionalParameters ParametersLike,
 	result ResultLike,
 ) FunctionalLike {
 	// Validate the arguments.
 	switch {
 	case isUndefined(declaration):
 		panic("The declaration attribute is required for each Functional.")
-	case isUndefined(parameters):
-		panic("The parameters attribute is required for each Functional.")
 	case isUndefined(result):
 		panic("The result attribute is required for each Functional.")
 	default:
@@ -54,7 +52,7 @@ func (c *functionalClass_) Make(
 			// Initialize instance attributes.
 			class_: c,
 			declaration_: declaration,
-			parameters_: parameters,
+			optionalParameters_: optionalParameters,
 			result_: result,
 		}
 	}
@@ -70,7 +68,6 @@ type functional_ struct {
 	declaration_ DeclarationLike
 	optionalParameters_ ParametersLike
 	result_ ResultLike
-	parameters_ ParametersLike
 }
 
 // Attributes
