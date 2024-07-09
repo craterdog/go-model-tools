@@ -14,7 +14,6 @@ package collection
 
 import (
 	fmt "fmt"
-	ref "reflect"
 	syn "sync"
 )
 
@@ -75,9 +74,9 @@ func (c *associationClass_[K, V]) MakeWithAttributes(
 ) AssociationLike[K, V] {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(key):
+	case isUndefined(key):
 		panic("The key attribute is required for each Association.")
-	case c.isUndefined(value):
+	case isUndefined(value):
 		panic("The value attribute is required for each Association.")
 	default:
 		return &association_[K, V]{
@@ -93,23 +92,6 @@ func (c *associationClass_[K, V]) MakeWithAttributes(
 
 func (c *associationClass_[K, V]) Notation() NotationLike {
 	return c.notation_
-}
-
-// Private
-
-func (c *associationClass_[K, V]) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
 }
 
 // INSTANCE METHODS
@@ -141,7 +123,7 @@ func (v *association_[K, V]) GetValue() V {
 }
 
 func (v *association_[K, V]) SetValue(value V) {
-	if v.GetClass().(*associationClass_[K, V]).isUndefined(value) {
+	if isUndefined(value) {
 		panic("The value attribute cannot be nil.")
 	}
 	v.value_ = value

@@ -15,7 +15,6 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
-	ref "reflect"
 	syn "sync"
 )
 
@@ -79,7 +78,7 @@ func (c *stackClass_[V]) Make() StackLike[V] {
 func (c *stackClass_[V]) MakeWithCapacity(capacity uint) StackLike[V] {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(capacity):
+	case isUndefined(capacity):
 		panic("The capacity attribute is required for each Stack.")
 	default:
 		return &stack_[V]{
@@ -120,23 +119,6 @@ func (c *stackClass_[V]) Notation() NotationLike {
 
 func (c *stackClass_[V]) DefaultCapacity() uint {
 	return c.defaultCapacity_
-}
-
-// Private
-
-func (c *stackClass_[V]) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
 }
 
 // INSTANCE METHODS

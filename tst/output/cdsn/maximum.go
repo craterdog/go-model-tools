@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -43,7 +39,7 @@ type maximumClass_ struct {
 func (c *maximumClass_) Make(number string) MaximumLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(number):
+	case isUndefined(number):
 		panic("The number attribute is required for each Maximum.")
 	default:
 		return &maximum_{
@@ -51,23 +47,6 @@ func (c *maximumClass_) Make(number string) MaximumLike {
 			class_: c,
 			number_: number,
 		}
-	}
-}
-
-// Private
-
-func (c *maximumClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

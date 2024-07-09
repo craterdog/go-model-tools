@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -46,9 +42,9 @@ func (c *constrainedClass_) Make(
 ) ConstrainedLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(minimum):
+	case isUndefined(minimum):
 		panic("The minimum attribute is required for each Constrained.")
-	case c.isUndefined(maximum):
+	case isUndefined(maximum):
 		panic("The maximum attribute is required for each Constrained.")
 	default:
 		return &constrained_{
@@ -57,23 +53,6 @@ func (c *constrainedClass_) Make(
 			minimum_: minimum,
 			maximum_: maximum,
 		}
-	}
-}
-
-// Private
-
-func (c *constrainedClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

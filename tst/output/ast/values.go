@@ -14,7 +14,6 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
-	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -47,9 +46,9 @@ func (c *valuesClass_) Make(
 ) ValuesLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(value):
+	case isUndefined(value):
 		panic("The value attribute is required for each Values.")
-	case c.isUndefined(additionalValues):
+	case isUndefined(additionalValues):
 		panic("The additionalValues attribute is required for each Values.")
 	default:
 		return &values_{
@@ -58,23 +57,6 @@ func (c *valuesClass_) Make(
 			value_: value,
 			additionalValues_: additionalValues,
 		}
-	}
-}
-
-// Private
-
-func (c *valuesClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

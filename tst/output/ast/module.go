@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -46,9 +42,9 @@ func (c *moduleClass_) Make(
 ) ModuleLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(name):
+	case isUndefined(name):
 		panic("The name attribute is required for each Module.")
-	case c.isUndefined(path):
+	case isUndefined(path):
 		panic("The path attribute is required for each Module.")
 	default:
 		return &module_{
@@ -57,23 +53,6 @@ func (c *moduleClass_) Make(
 			name_: name,
 			path_: path,
 		}
-	}
-}
-
-// Private
-
-func (c *moduleClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

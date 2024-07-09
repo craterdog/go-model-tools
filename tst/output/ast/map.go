@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -43,7 +39,7 @@ type mapClass_ struct {
 func (c *mapClass_) Make(name string) MapLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(name):
+	case isUndefined(name):
 		panic("The name attribute is required for each Map.")
 	default:
 		return &map_{
@@ -51,23 +47,6 @@ func (c *mapClass_) Make(name string) MapLike {
 			class_: c,
 			name_: name,
 		}
-	}
-}
-
-// Private
-
-func (c *mapClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

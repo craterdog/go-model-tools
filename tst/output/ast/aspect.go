@@ -14,7 +14,6 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
-	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -47,9 +46,9 @@ func (c *aspectClass_) Make(
 ) AspectLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(declaration):
+	case isUndefined(declaration):
 		panic("The declaration attribute is required for each Aspect.")
-	case c.isUndefined(methods):
+	case isUndefined(methods):
 		panic("The methods attribute is required for each Aspect.")
 	default:
 		return &aspect_{
@@ -58,23 +57,6 @@ func (c *aspectClass_) Make(
 			declaration_: declaration,
 			methods_: methods,
 		}
-	}
-}
-
-// Private
-
-func (c *aspectClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

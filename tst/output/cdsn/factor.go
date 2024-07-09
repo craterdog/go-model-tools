@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -46,9 +42,9 @@ func (c *factorClass_) Make(
 ) FactorLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(predicate):
+	case isUndefined(predicate):
 		panic("The predicate attribute is required for each Factor.")
-	case c.isUndefined(cardinality):
+	case isUndefined(cardinality):
 		panic("The cardinality attribute is required for each Factor.")
 	default:
 		return &factor_{
@@ -57,23 +53,6 @@ func (c *factorClass_) Make(
 			predicate_: predicate,
 			cardinality_: cardinality,
 		}
-	}
-}
-
-// Private
-
-func (c *factorClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

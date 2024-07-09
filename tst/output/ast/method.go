@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -47,11 +43,11 @@ func (c *methodClass_) Make(
 ) MethodLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(name):
+	case isUndefined(name):
 		panic("The name attribute is required for each Method.")
-	case c.isUndefined(parameters):
+	case isUndefined(parameters):
 		panic("The parameters attribute is required for each Method.")
-	case c.isUndefined(result):
+	case isUndefined(result):
 		panic("The result attribute is required for each Method.")
 	default:
 		return &method_{
@@ -64,23 +60,6 @@ func (c *methodClass_) Make(
 	}
 }
 
-// Private
-
-func (c *methodClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -89,6 +68,8 @@ type method_ struct {
 	// Define instance attributes.
 	class_ MethodClassLike
 	name_ string
+	optionalParameters_ ParametersLike
+	optionalResult_ ResultLike
 	parameters_ ParametersLike
 	result_ ResultLike
 }
@@ -104,11 +85,11 @@ func (v *method_) GetName() string {
 }
 
 func (v *method_) GetOptionalParameters() ParametersLike {
-	return v.parameters_
+	return v.optionalParameters_
 }
 
 func (v *method_) GetOptionalResult() ResultLike {
-	return v.result_
+	return v.optionalResult_
 }
 
 // Private

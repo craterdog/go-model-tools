@@ -12,10 +12,6 @@
 
 package agent
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -48,13 +44,13 @@ func (c *tokenClass_) Make(
 ) TokenLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(line):
+	case isUndefined(line):
 		panic("The line attribute is required for each Token.")
-	case c.isUndefined(position):
+	case isUndefined(position):
 		panic("The position attribute is required for each Token.")
-	case c.isUndefined(type_):
+	case isUndefined(type_):
 		panic("The type_ attribute is required for each Token.")
-	case c.isUndefined(value):
+	case isUndefined(value):
 		panic("The value attribute is required for each Token.")
 	default:
 		return &token_{
@@ -65,23 +61,6 @@ func (c *tokenClass_) Make(
 			type_: type_,
 			value_: value,
 		}
-	}
-}
-
-// Private
-
-func (c *tokenClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

@@ -1,14 +1,14 @@
 echo "Compiling the following tools:"
 rm -rf ./bin
 mkdir -p ./bin/
-echo "	version"
+echo "    version"
 go build -o ./bin/ ./src/version
-echo "	initialize"
+echo "    initialize"
 go build -o ./bin/ ./src/initialize
-echo "	validate"
+echo "    validate"
 go build -o ./bin/ ./src/validate
-echo "	format"
+echo "    format"
 go build -o ./bin/ ./src/format
-echo "	generate"
+echo "    generate"
 go build -o ./bin/ ./src/generate
 echo "Done."

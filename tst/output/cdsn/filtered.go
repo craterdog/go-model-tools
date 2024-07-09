@@ -14,7 +14,6 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
-	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -47,9 +46,9 @@ func (c *filteredClass_) Make(
 ) FilteredLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(negation):
+	case isUndefined(negation):
 		panic("The negation attribute is required for each Filtered.")
-	case c.isUndefined(characters):
+	case isUndefined(characters):
 		panic("The characters attribute is required for each Filtered.")
 	default:
 		return &filtered_{
@@ -58,23 +57,6 @@ func (c *filteredClass_) Make(
 			negation_: negation,
 			characters_: characters,
 		}
-	}
-}
-
-// Private
-
-func (c *filteredClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

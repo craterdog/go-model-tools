@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -47,11 +43,11 @@ func (c *attributeClass_) Make(
 ) AttributeLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(name):
+	case isUndefined(name):
 		panic("The name attribute is required for each Attribute.")
-	case c.isUndefined(parameter):
+	case isUndefined(parameter):
 		panic("The parameter attribute is required for each Attribute.")
-	case c.isUndefined(abstraction):
+	case isUndefined(abstraction):
 		panic("The abstraction attribute is required for each Attribute.")
 	default:
 		return &attribute_{
@@ -64,23 +60,6 @@ func (c *attributeClass_) Make(
 	}
 }
 
-// Private
-
-func (c *attributeClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -89,6 +68,8 @@ type attribute_ struct {
 	// Define instance attributes.
 	class_ AttributeClassLike
 	name_ string
+	optionalParameter_ ParameterLike
+	optionalAbstraction_ AbstractionLike
 	parameter_ ParameterLike
 	abstraction_ AbstractionLike
 }
@@ -104,11 +85,11 @@ func (v *attribute_) GetName() string {
 }
 
 func (v *attribute_) GetOptionalParameter() ParameterLike {
-	return v.parameter_
+	return v.optionalParameter_
 }
 
 func (v *attribute_) GetOptionalAbstraction() AbstractionLike {
-	return v.abstraction_
+	return v.optionalAbstraction_
 }
 
 // Private

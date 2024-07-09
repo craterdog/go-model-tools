@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -52,21 +48,21 @@ func (c *modelClass_) Make(
 ) ModelLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(notice):
+	case isUndefined(notice):
 		panic("The notice attribute is required for each Model.")
-	case c.isUndefined(header):
+	case isUndefined(header):
 		panic("The header attribute is required for each Model.")
-	case c.isUndefined(imports):
+	case isUndefined(imports):
 		panic("The imports attribute is required for each Model.")
-	case c.isUndefined(types):
+	case isUndefined(types):
 		panic("The types attribute is required for each Model.")
-	case c.isUndefined(functionals):
+	case isUndefined(functionals):
 		panic("The functionals attribute is required for each Model.")
-	case c.isUndefined(classes):
+	case isUndefined(classes):
 		panic("The classes attribute is required for each Model.")
-	case c.isUndefined(instances):
+	case isUndefined(instances):
 		panic("The instances attribute is required for each Model.")
-	case c.isUndefined(aspects):
+	case isUndefined(aspects):
 		panic("The aspects attribute is required for each Model.")
 	default:
 		return &model_{
@@ -84,23 +80,6 @@ func (c *modelClass_) Make(
 	}
 }
 
-// Private
-
-func (c *modelClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -110,11 +89,15 @@ type model_ struct {
 	class_ ModelClassLike
 	notice_ NoticeLike
 	header_ HeaderLike
+	optionalImports_ ImportsLike
+	optionalTypes_ TypesLike
+	optionalFunctionals_ FunctionalsLike
+	classes_ ClassesLike
+	instances_ InstancesLike
+	optionalAspects_ AspectsLike
 	imports_ ImportsLike
 	types_ TypesLike
 	functionals_ FunctionalsLike
-	classes_ ClassesLike
-	instances_ InstancesLike
 	aspects_ AspectsLike
 }
 
@@ -133,15 +116,15 @@ func (v *model_) GetHeader() HeaderLike {
 }
 
 func (v *model_) GetOptionalImports() ImportsLike {
-	return v.imports_
+	return v.optionalImports_
 }
 
 func (v *model_) GetOptionalTypes() TypesLike {
-	return v.types_
+	return v.optionalTypes_
 }
 
 func (v *model_) GetOptionalFunctionals() FunctionalsLike {
-	return v.functionals_
+	return v.optionalFunctionals_
 }
 
 func (v *model_) GetClasses() ClassesLike {
@@ -153,7 +136,7 @@ func (v *model_) GetInstances() InstancesLike {
 }
 
 func (v *model_) GetOptionalAspects() AspectsLike {
-	return v.aspects_
+	return v.optionalAspects_
 }
 
 // Private

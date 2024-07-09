@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -48,13 +44,13 @@ func (c *abstractionClass_) Make(
 ) AbstractionLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(prefix):
+	case isUndefined(prefix):
 		panic("The prefix attribute is required for each Abstraction.")
-	case c.isUndefined(alias):
+	case isUndefined(alias):
 		panic("The alias attribute is required for each Abstraction.")
-	case c.isUndefined(name):
+	case isUndefined(name):
 		panic("The name attribute is required for each Abstraction.")
-	case c.isUndefined(genericArguments):
+	case isUndefined(genericArguments):
 		panic("The genericArguments attribute is required for each Abstraction.")
 	default:
 		return &abstraction_{
@@ -68,23 +64,6 @@ func (c *abstractionClass_) Make(
 	}
 }
 
-// Private
-
-func (c *abstractionClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -92,9 +71,12 @@ func (c *abstractionClass_) isUndefined(value any) bool {
 type abstraction_ struct {
 	// Define instance attributes.
 	class_ AbstractionClassLike
+	optionalPrefix_ PrefixLike
+	optionalAlias_ AliasLike
+	name_ string
+	optionalGenericArguments_ GenericArgumentsLike
 	prefix_ PrefixLike
 	alias_ AliasLike
-	name_ string
 	genericArguments_ GenericArgumentsLike
 }
 
@@ -105,11 +87,11 @@ func (v *abstraction_) GetClass() AbstractionClassLike {
 }
 
 func (v *abstraction_) GetOptionalPrefix() PrefixLike {
-	return v.prefix_
+	return v.optionalPrefix_
 }
 
 func (v *abstraction_) GetOptionalAlias() AliasLike {
-	return v.alias_
+	return v.optionalAlias_
 }
 
 func (v *abstraction_) GetName() string {
@@ -117,7 +99,7 @@ func (v *abstraction_) GetName() string {
 }
 
 func (v *abstraction_) GetOptionalGenericArguments() GenericArgumentsLike {
-	return v.genericArguments_
+	return v.optionalGenericArguments_
 }
 
 // Private

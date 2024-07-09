@@ -14,7 +14,6 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
-	ref "reflect"
 )
 
 // CLASS ACCESS
@@ -47,9 +46,9 @@ func (c *typesClass_) Make(
 ) TypesLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(note):
+	case isUndefined(note):
 		panic("The note attribute is required for each Types.")
-	case c.isUndefined(types):
+	case isUndefined(types):
 		panic("The types attribute is required for each Types.")
 	default:
 		return &types_{
@@ -58,23 +57,6 @@ func (c *typesClass_) Make(
 			note_: note,
 			types_: types,
 		}
-	}
-}
-
-// Private
-
-func (c *typesClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

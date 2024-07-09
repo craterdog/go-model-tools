@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -43,7 +39,7 @@ type headerClass_ struct {
 func (c *headerClass_) Make(comment string) HeaderLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(comment):
+	case isUndefined(comment):
 		panic("The comment attribute is required for each Header.")
 	default:
 		return &header_{
@@ -51,23 +47,6 @@ func (c *headerClass_) Make(comment string) HeaderLike {
 			class_: c,
 			comment_: comment,
 		}
-	}
-}
-
-// Private
-
-func (c *headerClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

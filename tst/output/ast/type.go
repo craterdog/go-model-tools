@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -47,11 +43,11 @@ func (c *typeClass_) Make(
 ) TypeLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(declaration):
+	case isUndefined(declaration):
 		panic("The declaration attribute is required for each Type.")
-	case c.isUndefined(abstraction):
+	case isUndefined(abstraction):
 		panic("The abstraction attribute is required for each Type.")
-	case c.isUndefined(enumeration):
+	case isUndefined(enumeration):
 		panic("The enumeration attribute is required for each Type.")
 	default:
 		return &type_{
@@ -64,23 +60,6 @@ func (c *typeClass_) Make(
 	}
 }
 
-// Private
-
-func (c *typeClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -90,6 +69,7 @@ type type_ struct {
 	class_ TypeClassLike
 	declaration_ DeclarationLike
 	abstraction_ AbstractionLike
+	optionalEnumeration_ EnumerationLike
 	enumeration_ EnumerationLike
 }
 
@@ -108,7 +88,7 @@ func (v *type_) GetAbstraction() AbstractionLike {
 }
 
 func (v *type_) GetOptionalEnumeration() EnumerationLike {
-	return v.enumeration_
+	return v.optionalEnumeration_
 }
 
 // Private

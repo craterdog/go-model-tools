@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -48,13 +44,13 @@ func (c *lexigramClass_) Make(
 ) LexigramLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(comment):
+	case isUndefined(comment):
 		panic("The comment attribute is required for each Lexigram.")
-	case c.isUndefined(lowercase):
+	case isUndefined(lowercase):
 		panic("The lowercase attribute is required for each Lexigram.")
-	case c.isUndefined(pattern):
+	case isUndefined(pattern):
 		panic("The pattern attribute is required for each Lexigram.")
-	case c.isUndefined(note):
+	case isUndefined(note):
 		panic("The note attribute is required for each Lexigram.")
 	default:
 		return &lexigram_{
@@ -65,23 +61,6 @@ func (c *lexigramClass_) Make(
 			pattern_: pattern,
 			note_: note,
 		}
-	}
-}
-
-// Private
-
-func (c *lexigramClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

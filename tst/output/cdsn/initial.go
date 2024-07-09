@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -43,7 +39,7 @@ type initialClass_ struct {
 func (c *initialClass_) Make(rune_ string) InitialLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(rune_):
+	case isUndefined(rune_):
 		panic("The rune_ attribute is required for each Initial.")
 	default:
 		return &initial_{
@@ -51,23 +47,6 @@ func (c *initialClass_) Make(rune_ string) InitialLike {
 			class_: c,
 			rune_: rune_,
 		}
-	}
-}
-
-// Private
-
-func (c *initialClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

@@ -12,10 +12,6 @@
 
 package complex
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -49,11 +45,11 @@ func (c *complexClass_) Make(
 ) ComplexLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(realPart):
+	case isUndefined(realPart):
 		panic("The realPart attribute is required for each Complex.")
-	case c.isUndefined(imaginaryPart):
+	case isUndefined(imaginaryPart):
 		panic("The imaginaryPart attribute is required for each Complex.")
-	case c.isUndefined(form):
+	case isUndefined(form):
 		panic("The form attribute is required for each Complex.")
 	default:
 		return &complex_{
@@ -146,23 +142,6 @@ func (c *complexClass_) Norm(
 	return result_
 }
 
-// Private
-
-func (c *complexClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -194,7 +173,7 @@ func (v *complex_) GetForm() Form {
 }
 
 func (v *complex_) SetForm(form Form) {
-	if v.GetClass().(*complexClass_).isUndefined(form) {
+	if isUndefined(form) {
 		panic("The form attribute cannot be nil.")
 	}
 	v.form_ = form

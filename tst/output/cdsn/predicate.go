@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -43,7 +39,7 @@ type predicateClass_ struct {
 func (c *predicateClass_) Make(any_ any) PredicateLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(any_):
+	case isUndefined(any_):
 		panic("The any_ attribute is required for each Predicate.")
 	default:
 		return &predicate_{
@@ -51,23 +47,6 @@ func (c *predicateClass_) Make(any_ any) PredicateLike {
 			class_: c,
 			any_: any_,
 		}
-	}
-}
-
-// Private
-
-func (c *predicateClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 

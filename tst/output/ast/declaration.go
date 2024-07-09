@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -47,11 +43,11 @@ func (c *declarationClass_) Make(
 ) DeclarationLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(comment):
+	case isUndefined(comment):
 		panic("The comment attribute is required for each Declaration.")
-	case c.isUndefined(name):
+	case isUndefined(name):
 		panic("The name attribute is required for each Declaration.")
-	case c.isUndefined(genericParameters):
+	case isUndefined(genericParameters):
 		panic("The genericParameters attribute is required for each Declaration.")
 	default:
 		return &declaration_{
@@ -64,23 +60,6 @@ func (c *declarationClass_) Make(
 	}
 }
 
-// Private
-
-func (c *declarationClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -90,6 +69,7 @@ type declaration_ struct {
 	class_ DeclarationClassLike
 	comment_ string
 	name_ string
+	optionalGenericParameters_ GenericParametersLike
 	genericParameters_ GenericParametersLike
 }
 
@@ -108,7 +88,7 @@ func (v *declaration_) GetName() string {
 }
 
 func (v *declaration_) GetOptionalGenericParameters() GenericParametersLike {
-	return v.genericParameters_
+	return v.optionalGenericParameters_
 }
 
 // Private

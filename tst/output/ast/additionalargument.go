@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	ref "reflect"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -43,7 +39,7 @@ type additionalArgumentClass_ struct {
 func (c *additionalArgumentClass_) Make(argument ArgumentLike) AdditionalArgumentLike {
 	// Validate the arguments.
 	switch {
-	case c.isUndefined(argument):
+	case isUndefined(argument):
 		panic("The argument attribute is required for each AdditionalArgument.")
 	default:
 		return &additionalArgument_{
@@ -51,23 +47,6 @@ func (c *additionalArgumentClass_) Make(argument ArgumentLike) AdditionalArgumen
 			class_: c,
 			argument_: argument,
 		}
-	}
-}
-
-// Private
-
-func (c *additionalArgumentClass_) isUndefined(value any) bool {
-	switch actual := value.(type) {
-	case string:
-		return len(actual) > 0
-	default:
-		var meta = ref.ValueOf(actual)
-		return (meta.Kind() == ref.Ptr ||
-			meta.Kind() == ref.Interface ||
-			meta.Kind() == ref.Slice ||
-			meta.Kind() == ref.Map ||
-			meta.Kind() == ref.Chan ||
-			meta.Kind() == ref.Func) && meta.IsNil()
 	}
 }
 
