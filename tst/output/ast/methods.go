@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -46,9 +47,9 @@ func (c *methodsClass_) Make(
 ) MethodsLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(note):
+	case mod.IsUndefined(note):
 		panic("The note attribute is required for each Methods.")
-	case isUndefined(methods):
+	case mod.IsUndefined(methods):
 		panic("The methods attribute is required for each Methods.")
 	default:
 		return &methods_{

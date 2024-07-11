@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -47,11 +48,11 @@ func (c *syntaxClass_) Make(
 ) SyntaxLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(headers):
+	case mod.IsUndefined(headers):
 		panic("The headers attribute is required for each Syntax.")
-	case isUndefined(rules):
+	case mod.IsUndefined(rules):
 		panic("The rules attribute is required for each Syntax.")
-	case isUndefined(lexigrams):
+	case mod.IsUndefined(lexigrams):
 		panic("The lexigrams attribute is required for each Syntax.")
 	default:
 		return &syntax_{

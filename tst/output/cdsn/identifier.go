@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -39,7 +43,7 @@ type identifierClass_ struct {
 func (c *identifierClass_) Make(any_ any) IdentifierLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(any_):
+	case mod.IsUndefined(any_):
 		panic("The any_ attribute is required for each Identifier.")
 	default:
 		return &identifier_{

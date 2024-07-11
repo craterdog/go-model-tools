@@ -12,6 +12,10 @@
 
 package complex
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -45,11 +49,11 @@ func (c *complexClass_) Make(
 ) ComplexLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(realPart):
+	case mod.IsUndefined(realPart):
 		panic("The realPart attribute is required for each Complex.")
-	case isUndefined(imaginaryPart):
+	case mod.IsUndefined(imaginaryPart):
 		panic("The imaginaryPart attribute is required for each Complex.")
-	case isUndefined(form):
+	case mod.IsUndefined(form):
 		panic("The form attribute is required for each Complex.")
 	default:
 		return &complex_{
@@ -173,7 +177,7 @@ func (v *complex_) GetForm() Form {
 }
 
 func (v *complex_) SetForm(form Form) {
-	if isUndefined(form) {
+	if mod.IsUndefined(form) {
 		panic("The form attribute cannot be nil.")
 	}
 	v.form_ = form

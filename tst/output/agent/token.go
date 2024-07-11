@@ -12,6 +12,10 @@
 
 package agent
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -44,13 +48,13 @@ func (c *tokenClass_) Make(
 ) TokenLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(line):
+	case mod.IsUndefined(line):
 		panic("The line attribute is required for each Token.")
-	case isUndefined(position):
+	case mod.IsUndefined(position):
 		panic("The position attribute is required for each Token.")
-	case isUndefined(type_):
+	case mod.IsUndefined(type_):
 		panic("The type_ attribute is required for each Token.")
-	case isUndefined(value):
+	case mod.IsUndefined(value):
 		panic("The value attribute is required for each Token.")
 	default:
 		return &token_{

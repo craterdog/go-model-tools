@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -42,9 +46,9 @@ func (c *lineClass_) Make(
 ) LineLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(identifier):
+	case mod.IsUndefined(identifier):
 		panic("The identifier attribute is required for each Line.")
-	case isUndefined(note):
+	case mod.IsUndefined(note):
 		panic("The note attribute is required for each Line.")
 	default:
 		return &line_{

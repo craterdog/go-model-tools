@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -42,9 +46,9 @@ func (c *constrainedClass_) Make(
 ) ConstrainedLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(minimum):
+	case mod.IsUndefined(minimum):
 		panic("The minimum attribute is required for each Constrained.")
-	case isUndefined(maximum):
+	case mod.IsUndefined(maximum):
 		panic("The maximum attribute is required for each Constrained.")
 	default:
 		return &constrained_{

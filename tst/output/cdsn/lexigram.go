@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -44,13 +48,13 @@ func (c *lexigramClass_) Make(
 ) LexigramLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(comment):
+	case mod.IsUndefined(comment):
 		panic("The comment attribute is required for each Lexigram.")
-	case isUndefined(lowercase):
+	case mod.IsUndefined(lowercase):
 		panic("The lowercase attribute is required for each Lexigram.")
-	case isUndefined(pattern):
+	case mod.IsUndefined(pattern):
 		panic("The pattern attribute is required for each Lexigram.")
-	case isUndefined(note):
+	case mod.IsUndefined(note):
 		panic("The note attribute is required for each Lexigram.")
 	default:
 		return &lexigram_{

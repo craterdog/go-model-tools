@@ -71,8 +71,6 @@ bin/generate $output/catalog/
 echo
 
 echo "Running lint on the generated files:"
-rm $output/angle/Private.go
-rm $output/array/Private.go
 golangci-lint run
 echo
 

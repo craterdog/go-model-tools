@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -39,7 +43,7 @@ type characterClass_ struct {
 func (c *characterClass_) Make(any_ any) CharacterLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(any_):
+	case mod.IsUndefined(any_):
 		panic("The any_ attribute is required for each Character.")
 	default:
 		return &character_{

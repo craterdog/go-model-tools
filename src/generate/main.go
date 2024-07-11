@@ -31,29 +31,7 @@ func main() {
 	}
 	var model = parseModel(directory)
 	validateModel(model)
-	generatePrivate(directory, model)
 	generateClasses(directory, model)
-}
-
-func generatePrivate(
-	directory string,
-	model mod.ModelLike,
-) {
-	var generator = mod.Generator()
-	var source = generator.GeneratePrivate(model)
-	var bytes = []byte(source)
-	var filename = directory + "Private.go"
-	if pathExists(filename) {
-		fmt.Printf(
-			"The %v file exists, so skipping it...\n",
-			filename,
-		)
-		return
-	}
-	var err = osx.WriteFile(filename, bytes, 0644)
-	if err != nil {
-		panic(err)
-	}
 }
 
 func generateClasses(

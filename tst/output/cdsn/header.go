@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -39,7 +43,7 @@ type headerClass_ struct {
 func (c *headerClass_) Make(comment string) HeaderLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(comment):
+	case mod.IsUndefined(comment):
 		panic("The comment attribute is required for each Header.")
 	default:
 		return &header_{

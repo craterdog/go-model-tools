@@ -15,6 +15,7 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
+	mod "github.com/craterdog/go-collection-framework/v4"
 	syn "sync"
 )
 
@@ -77,7 +78,7 @@ func (c *setClass_[V]) Make() SetLike[V] {
 func (c *setClass_[V]) MakeWithCollator(collator age.CollatorLike[V]) SetLike[V] {
 	// Validate the arguments.
 	switch {
-	case isUndefined(collator):
+	case mod.IsUndefined(collator):
 		panic("The collator attribute is required for each Set.")
 	default:
 		return &set_[V]{

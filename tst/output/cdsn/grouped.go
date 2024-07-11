@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -39,7 +43,7 @@ type groupedClass_ struct {
 func (c *groupedClass_) Make(pattern PatternLike) GroupedLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(pattern):
+	case mod.IsUndefined(pattern):
 		panic("The pattern attribute is required for each Grouped.")
 	default:
 		return &grouped_{

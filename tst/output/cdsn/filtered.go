@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -46,9 +47,9 @@ func (c *filteredClass_) Make(
 ) FilteredLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(negation):
+	case mod.IsUndefined(negation):
 		panic("The negation attribute is required for each Filtered.")
-	case isUndefined(characters):
+	case mod.IsUndefined(characters):
 		panic("The characters attribute is required for each Filtered.")
 	default:
 		return &filtered_{

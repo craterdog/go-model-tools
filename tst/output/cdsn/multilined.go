@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -43,7 +44,7 @@ type multilinedClass_ struct {
 func (c *multilinedClass_) Make(lines col.ListLike[LineLike]) MultilinedLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(lines):
+	case mod.IsUndefined(lines):
 		panic("The lines attribute is required for each Multilined.")
 	default:
 		return &multilined_{

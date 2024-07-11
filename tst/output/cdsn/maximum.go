@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -39,7 +43,7 @@ type maximumClass_ struct {
 func (c *maximumClass_) Make(number string) MaximumLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(number):
+	case mod.IsUndefined(number):
 		panic("The number attribute is required for each Maximum.")
 	default:
 		return &maximum_{

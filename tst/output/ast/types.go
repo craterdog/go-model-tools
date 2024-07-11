@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -46,9 +47,9 @@ func (c *typesClass_) Make(
 ) TypesLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(note):
+	case mod.IsUndefined(note):
 		panic("The note attribute is required for each Types.")
-	case isUndefined(types):
+	case mod.IsUndefined(types):
 		panic("The types attribute is required for each Types.")
 	default:
 		return &types_{

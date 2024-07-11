@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -39,7 +43,7 @@ type predicateClass_ struct {
 func (c *predicateClass_) Make(any_ any) PredicateLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(any_):
+	case mod.IsUndefined(any_):
 		panic("The any_ attribute is required for each Predicate.")
 	default:
 		return &predicate_{

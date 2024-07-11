@@ -14,6 +14,7 @@ package agent
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -46,9 +47,9 @@ func (c *scannerClass_) Make(
 ) ScannerLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(source):
+	case mod.IsUndefined(source):
 		panic("The source attribute is required for each Scanner.")
-	case isUndefined(tokens):
+	case mod.IsUndefined(tokens):
 		panic("The tokens attribute is required for each Scanner.")
 	default:
 		return &scanner_{

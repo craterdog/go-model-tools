@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -42,9 +46,9 @@ func (c *factorClass_) Make(
 ) FactorLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(predicate):
+	case mod.IsUndefined(predicate):
 		panic("The predicate attribute is required for each Factor.")
-	case isUndefined(cardinality):
+	case mod.IsUndefined(cardinality):
 		panic("The cardinality attribute is required for each Factor.")
 	default:
 		return &factor_{

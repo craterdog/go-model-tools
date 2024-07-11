@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -46,9 +47,9 @@ func (c *patternClass_) Make(
 ) PatternLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(parts):
+	case mod.IsUndefined(parts):
 		panic("The parts attribute is required for each Pattern.")
-	case isUndefined(alternatives):
+	case mod.IsUndefined(alternatives):
 		panic("The alternatives attribute is required for each Pattern.")
 	default:
 		return &pattern_{

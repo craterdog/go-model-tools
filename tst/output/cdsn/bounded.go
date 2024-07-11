@@ -12,6 +12,10 @@
 
 package ast
 
+import (
+	mod "github.com/craterdog/go-collection-framework/v4"
+)
+
 // CLASS ACCESS
 
 // Reference
@@ -42,9 +46,9 @@ func (c *boundedClass_) Make(
 ) BoundedLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(initial):
+	case mod.IsUndefined(initial):
 		panic("The initial attribute is required for each Bounded.")
-	case isUndefined(extent):
+	case mod.IsUndefined(extent):
 		panic("The extent attribute is required for each Bounded.")
 	default:
 		return &bounded_{

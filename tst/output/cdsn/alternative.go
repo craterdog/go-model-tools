@@ -14,6 +14,7 @@ package ast
 
 import (
 	col "github.com/craterdog/go-collection-framework/v4/collection"
+	mod "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -43,7 +44,7 @@ type alternativeClass_ struct {
 func (c *alternativeClass_) Make(parts col.ListLike[PartLike]) AlternativeLike {
 	// Validate the arguments.
 	switch {
-	case isUndefined(parts):
+	case mod.IsUndefined(parts):
 		panic("The parts attribute is required for each Alternative.")
 	default:
 		return &alternative_{
