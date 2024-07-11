@@ -42,8 +42,8 @@ type patternClass_ struct {
 // Constructors
 
 func (c *patternClass_) Make(
-	parts col.ListLike[PartLike],
-	alternatives col.ListLike[AlternativeLike],
+	parts col.Sequential[PartLike],
+	alternatives col.Sequential[AlternativeLike],
 ) PatternLike {
 	// Validate the arguments.
 	switch {
@@ -68,8 +68,8 @@ func (c *patternClass_) Make(
 type pattern_ struct {
 	// Define instance attributes.
 	class_ PatternClassLike
-	parts_ col.ListLike[PartLike]
-	alternatives_ col.ListLike[AlternativeLike]
+	parts_ col.Sequential[PartLike]
+	alternatives_ col.Sequential[AlternativeLike]
 }
 
 // Attributes
@@ -78,11 +78,11 @@ func (v *pattern_) GetClass() PatternClassLike {
 	return v.class_
 }
 
-func (v *pattern_) GetParts() col.ListLike[PartLike] {
+func (v *pattern_) GetParts() col.Sequential[PartLike] {
 	return v.parts_
 }
 
-func (v *pattern_) GetAlternatives() col.ListLike[AlternativeLike] {
+func (v *pattern_) GetAlternatives() col.Sequential[AlternativeLike] {
 	return v.alternatives_
 }
 

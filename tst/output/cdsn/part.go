@@ -42,20 +42,18 @@ type partClass_ struct {
 
 func (c *partClass_) Make(
 	element ElementLike,
-	cardinality CardinalityLike,
+	optionalCardinality CardinalityLike,
 ) PartLike {
 	// Validate the arguments.
 	switch {
 	case mod.IsUndefined(element):
 		panic("The element attribute is required for each Part.")
-	case mod.IsUndefined(cardinality):
-		panic("The cardinality attribute is required for each Part.")
 	default:
 		return &part_{
 			// Initialize instance attributes.
 			class_: c,
 			element_: element,
-			cardinality_: cardinality,
+			optionalCardinality_: optionalCardinality,
 		}
 	}
 }
@@ -68,7 +66,7 @@ type part_ struct {
 	// Define instance attributes.
 	class_ PartClassLike
 	element_ ElementLike
-	cardinality_ CardinalityLike
+	optionalCardinality_ CardinalityLike
 }
 
 // Attributes
@@ -81,8 +79,8 @@ func (v *part_) GetElement() ElementLike {
 	return v.element_
 }
 
-func (v *part_) GetCardinality() CardinalityLike {
-	return v.cardinality_
+func (v *part_) GetOptionalCardinality() CardinalityLike {
+	return v.optionalCardinality_
 }
 
 // Private

@@ -12,10 +12,6 @@
 
 package ast
 
-import (
-	mod "github.com/craterdog/go-collection-framework/v4"
-)
-
 // CLASS ACCESS
 
 // Reference
@@ -40,16 +36,14 @@ type maximumClass_ struct {
 
 // Constructors
 
-func (c *maximumClass_) Make(number string) MaximumLike {
+func (c *maximumClass_) Make(optionalNumber string) MaximumLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(number):
-		panic("The number attribute is required for each Maximum.")
 	default:
 		return &maximum_{
 			// Initialize instance attributes.
 			class_: c,
-			number_: number,
+			optionalNumber_: optionalNumber,
 		}
 	}
 }
@@ -61,7 +55,7 @@ func (c *maximumClass_) Make(number string) MaximumLike {
 type maximum_ struct {
 	// Define instance attributes.
 	class_ MaximumClassLike
-	number_ string
+	optionalNumber_ string
 }
 
 // Attributes
@@ -70,8 +64,8 @@ func (v *maximum_) GetClass() MaximumClassLike {
 	return v.class_
 }
 
-func (v *maximum_) GetNumber() string {
-	return v.number_
+func (v *maximum_) GetOptionalNumber() string {
+	return v.optionalNumber_
 }
 
 // Private

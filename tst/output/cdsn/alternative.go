@@ -41,7 +41,7 @@ type alternativeClass_ struct {
 
 // Constructors
 
-func (c *alternativeClass_) Make(parts col.ListLike[PartLike]) AlternativeLike {
+func (c *alternativeClass_) Make(parts col.Sequential[PartLike]) AlternativeLike {
 	// Validate the arguments.
 	switch {
 	case mod.IsUndefined(parts):
@@ -62,7 +62,7 @@ func (c *alternativeClass_) Make(parts col.ListLike[PartLike]) AlternativeLike {
 type alternative_ struct {
 	// Define instance attributes.
 	class_ AlternativeClassLike
-	parts_ col.ListLike[PartLike]
+	parts_ col.Sequential[PartLike]
 }
 
 // Attributes
@@ -71,7 +71,7 @@ func (v *alternative_) GetClass() AlternativeClassLike {
 	return v.class_
 }
 
-func (v *alternative_) GetParts() col.ListLike[PartLike] {
+func (v *alternative_) GetParts() col.Sequential[PartLike] {
 	return v.parts_
 }
 

@@ -42,20 +42,18 @@ type boundedClass_ struct {
 
 func (c *boundedClass_) Make(
 	initial InitialLike,
-	extent ExtentLike,
+	optionalExtent ExtentLike,
 ) BoundedLike {
 	// Validate the arguments.
 	switch {
 	case mod.IsUndefined(initial):
 		panic("The initial attribute is required for each Bounded.")
-	case mod.IsUndefined(extent):
-		panic("The extent attribute is required for each Bounded.")
 	default:
 		return &bounded_{
 			// Initialize instance attributes.
 			class_: c,
 			initial_: initial,
-			extent_: extent,
+			optionalExtent_: optionalExtent,
 		}
 	}
 }
@@ -68,7 +66,7 @@ type bounded_ struct {
 	// Define instance attributes.
 	class_ BoundedClassLike
 	initial_ InitialLike
-	extent_ ExtentLike
+	optionalExtent_ ExtentLike
 }
 
 // Attributes
@@ -81,8 +79,8 @@ func (v *bounded_) GetInitial() InitialLike {
 	return v.initial_
 }
 
-func (v *bounded_) GetExtent() ExtentLike {
-	return v.extent_
+func (v *bounded_) GetOptionalExtent() ExtentLike {
+	return v.optionalExtent_
 }
 
 // Private

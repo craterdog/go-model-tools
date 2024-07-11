@@ -42,9 +42,9 @@ type syntaxClass_ struct {
 // Constructors
 
 func (c *syntaxClass_) Make(
-	headers col.ListLike[HeaderLike],
-	rules col.ListLike[RuleLike],
-	lexigrams col.ListLike[LexigramLike],
+	headers col.Sequential[HeaderLike],
+	rules col.Sequential[RuleLike],
+	lexigrams col.Sequential[LexigramLike],
 ) SyntaxLike {
 	// Validate the arguments.
 	switch {
@@ -72,9 +72,9 @@ func (c *syntaxClass_) Make(
 type syntax_ struct {
 	// Define instance attributes.
 	class_ SyntaxClassLike
-	headers_ col.ListLike[HeaderLike]
-	rules_ col.ListLike[RuleLike]
-	lexigrams_ col.ListLike[LexigramLike]
+	headers_ col.Sequential[HeaderLike]
+	rules_ col.Sequential[RuleLike]
+	lexigrams_ col.Sequential[LexigramLike]
 }
 
 // Attributes
@@ -83,15 +83,15 @@ func (v *syntax_) GetClass() SyntaxClassLike {
 	return v.class_
 }
 
-func (v *syntax_) GetHeaders() col.ListLike[HeaderLike] {
+func (v *syntax_) GetHeaders() col.Sequential[HeaderLike] {
 	return v.headers_
 }
 
-func (v *syntax_) GetRules() col.ListLike[RuleLike] {
+func (v *syntax_) GetRules() col.Sequential[RuleLike] {
 	return v.rules_
 }
 
-func (v *syntax_) GetLexigrams() col.ListLike[LexigramLike] {
+func (v *syntax_) GetLexigrams() col.Sequential[LexigramLike] {
 	return v.lexigrams_
 }
 

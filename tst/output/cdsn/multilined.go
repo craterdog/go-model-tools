@@ -41,7 +41,7 @@ type multilinedClass_ struct {
 
 // Constructors
 
-func (c *multilinedClass_) Make(lines col.ListLike[LineLike]) MultilinedLike {
+func (c *multilinedClass_) Make(lines col.Sequential[LineLike]) MultilinedLike {
 	// Validate the arguments.
 	switch {
 	case mod.IsUndefined(lines):
@@ -62,7 +62,7 @@ func (c *multilinedClass_) Make(lines col.ListLike[LineLike]) MultilinedLike {
 type multilined_ struct {
 	// Define instance attributes.
 	class_ MultilinedClassLike
-	lines_ col.ListLike[LineLike]
+	lines_ col.Sequential[LineLike]
 }
 
 // Attributes
@@ -71,7 +71,7 @@ func (v *multilined_) GetClass() MultilinedClassLike {
 	return v.class_
 }
 
-func (v *multilined_) GetLines() col.ListLike[LineLike] {
+func (v *multilined_) GetLines() col.Sequential[LineLike] {
 	return v.lines_
 }
 

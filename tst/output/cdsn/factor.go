@@ -42,20 +42,18 @@ type factorClass_ struct {
 
 func (c *factorClass_) Make(
 	predicate PredicateLike,
-	cardinality CardinalityLike,
+	optionalCardinality CardinalityLike,
 ) FactorLike {
 	// Validate the arguments.
 	switch {
 	case mod.IsUndefined(predicate):
 		panic("The predicate attribute is required for each Factor.")
-	case mod.IsUndefined(cardinality):
-		panic("The cardinality attribute is required for each Factor.")
 	default:
 		return &factor_{
 			// Initialize instance attributes.
 			class_: c,
 			predicate_: predicate,
-			cardinality_: cardinality,
+			optionalCardinality_: optionalCardinality,
 		}
 	}
 }
@@ -68,7 +66,7 @@ type factor_ struct {
 	// Define instance attributes.
 	class_ FactorClassLike
 	predicate_ PredicateLike
-	cardinality_ CardinalityLike
+	optionalCardinality_ CardinalityLike
 }
 
 // Attributes
@@ -81,8 +79,8 @@ func (v *factor_) GetPredicate() PredicateLike {
 	return v.predicate_
 }
 
-func (v *factor_) GetCardinality() CardinalityLike {
-	return v.cardinality_
+func (v *factor_) GetOptionalCardinality() CardinalityLike {
+	return v.optionalCardinality_
 }
 
 // Private

@@ -41,14 +41,12 @@ type ruleClass_ struct {
 // Constructors
 
 func (c *ruleClass_) Make(
-	comment string,
+	optionalComment string,
 	uppercase string,
 	expression ExpressionLike,
 ) RuleLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(comment):
-		panic("The comment attribute is required for each Rule.")
 	case mod.IsUndefined(uppercase):
 		panic("The uppercase attribute is required for each Rule.")
 	case mod.IsUndefined(expression):
@@ -57,7 +55,7 @@ func (c *ruleClass_) Make(
 		return &rule_{
 			// Initialize instance attributes.
 			class_: c,
-			comment_: comment,
+			optionalComment_: optionalComment,
 			uppercase_: uppercase,
 			expression_: expression,
 		}
@@ -71,7 +69,7 @@ func (c *ruleClass_) Make(
 type rule_ struct {
 	// Define instance attributes.
 	class_ RuleClassLike
-	comment_ string
+	optionalComment_ string
 	uppercase_ string
 	expression_ ExpressionLike
 }
@@ -82,8 +80,8 @@ func (v *rule_) GetClass() RuleClassLike {
 	return v.class_
 }
 
-func (v *rule_) GetComment() string {
-	return v.comment_
+func (v *rule_) GetOptionalComment() string {
+	return v.optionalComment_
 }
 
 func (v *rule_) GetUppercase() string {

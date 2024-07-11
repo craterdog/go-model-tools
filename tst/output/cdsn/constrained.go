@@ -42,20 +42,18 @@ type constrainedClass_ struct {
 
 func (c *constrainedClass_) Make(
 	minimum MinimumLike,
-	maximum MaximumLike,
+	optionalMaximum MaximumLike,
 ) ConstrainedLike {
 	// Validate the arguments.
 	switch {
 	case mod.IsUndefined(minimum):
 		panic("The minimum attribute is required for each Constrained.")
-	case mod.IsUndefined(maximum):
-		panic("The maximum attribute is required for each Constrained.")
 	default:
 		return &constrained_{
 			// Initialize instance attributes.
 			class_: c,
 			minimum_: minimum,
-			maximum_: maximum,
+			optionalMaximum_: optionalMaximum,
 		}
 	}
 }
@@ -68,7 +66,7 @@ type constrained_ struct {
 	// Define instance attributes.
 	class_ ConstrainedClassLike
 	minimum_ MinimumLike
-	maximum_ MaximumLike
+	optionalMaximum_ MaximumLike
 }
 
 // Attributes
@@ -81,8 +79,8 @@ func (v *constrained_) GetMinimum() MinimumLike {
 	return v.minimum_
 }
 
-func (v *constrained_) GetMaximum() MaximumLike {
-	return v.maximum_
+func (v *constrained_) GetOptionalMaximum() MaximumLike {
+	return v.optionalMaximum_
 }
 
 // Private

@@ -41,29 +41,25 @@ type lexigramClass_ struct {
 // Constructors
 
 func (c *lexigramClass_) Make(
-	comment string,
+	optionalComment string,
 	lowercase string,
 	pattern PatternLike,
-	note string,
+	optionalNote string,
 ) LexigramLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(comment):
-		panic("The comment attribute is required for each Lexigram.")
 	case mod.IsUndefined(lowercase):
 		panic("The lowercase attribute is required for each Lexigram.")
 	case mod.IsUndefined(pattern):
 		panic("The pattern attribute is required for each Lexigram.")
-	case mod.IsUndefined(note):
-		panic("The note attribute is required for each Lexigram.")
 	default:
 		return &lexigram_{
 			// Initialize instance attributes.
 			class_: c,
-			comment_: comment,
+			optionalComment_: optionalComment,
 			lowercase_: lowercase,
 			pattern_: pattern,
-			note_: note,
+			optionalNote_: optionalNote,
 		}
 	}
 }
@@ -75,10 +71,10 @@ func (c *lexigramClass_) Make(
 type lexigram_ struct {
 	// Define instance attributes.
 	class_ LexigramClassLike
-	comment_ string
+	optionalComment_ string
 	lowercase_ string
 	pattern_ PatternLike
-	note_ string
+	optionalNote_ string
 }
 
 // Attributes
@@ -87,8 +83,8 @@ func (v *lexigram_) GetClass() LexigramClassLike {
 	return v.class_
 }
 
-func (v *lexigram_) GetComment() string {
-	return v.comment_
+func (v *lexigram_) GetOptionalComment() string {
+	return v.optionalComment_
 }
 
 func (v *lexigram_) GetLowercase() string {
@@ -99,8 +95,8 @@ func (v *lexigram_) GetPattern() PatternLike {
 	return v.pattern_
 }
 
-func (v *lexigram_) GetNote() string {
-	return v.note_
+func (v *lexigram_) GetOptionalNote() string {
+	return v.optionalNote_
 }
 
 // Private
