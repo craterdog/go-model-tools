@@ -13,7 +13,7 @@
 package ast
 
 import (
-	mod "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -47,9 +47,9 @@ func (c *ruleClass_) Make(
 ) RuleLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(uppercase):
+	case col.IsUndefined(uppercase):
 		panic("The uppercase attribute is required for each Rule.")
-	case mod.IsUndefined(expression):
+	case col.IsUndefined(expression):
 		panic("The expression attribute is required for each Rule.")
 	default:
 		return &rule_{

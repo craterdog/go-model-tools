@@ -13,8 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-	mod "github.com/craterdog/go-collection-framework/v4"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -42,17 +42,17 @@ type syntaxClass_ struct {
 // Constructors
 
 func (c *syntaxClass_) Make(
-	headers col.Sequential[HeaderLike],
-	rules col.Sequential[RuleLike],
-	lexigrams col.Sequential[LexigramLike],
+	headers abs.Sequential[HeaderLike],
+	rules abs.Sequential[RuleLike],
+	lexigrams abs.Sequential[LexigramLike],
 ) SyntaxLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(headers):
+	case col.IsUndefined(headers):
 		panic("The headers attribute is required for each Syntax.")
-	case mod.IsUndefined(rules):
+	case col.IsUndefined(rules):
 		panic("The rules attribute is required for each Syntax.")
-	case mod.IsUndefined(lexigrams):
+	case col.IsUndefined(lexigrams):
 		panic("The lexigrams attribute is required for each Syntax.")
 	default:
 		return &syntax_{
@@ -72,9 +72,9 @@ func (c *syntaxClass_) Make(
 type syntax_ struct {
 	// Define instance attributes.
 	class_ SyntaxClassLike
-	headers_ col.Sequential[HeaderLike]
-	rules_ col.Sequential[RuleLike]
-	lexigrams_ col.Sequential[LexigramLike]
+	headers_ abs.Sequential[HeaderLike]
+	rules_ abs.Sequential[RuleLike]
+	lexigrams_ abs.Sequential[LexigramLike]
 }
 
 // Attributes
@@ -83,15 +83,15 @@ func (v *syntax_) GetClass() SyntaxClassLike {
 	return v.class_
 }
 
-func (v *syntax_) GetHeaders() col.Sequential[HeaderLike] {
+func (v *syntax_) GetHeaders() abs.Sequential[HeaderLike] {
 	return v.headers_
 }
 
-func (v *syntax_) GetRules() col.Sequential[RuleLike] {
+func (v *syntax_) GetRules() abs.Sequential[RuleLike] {
 	return v.rules_
 }
 
-func (v *syntax_) GetLexigrams() col.Sequential[LexigramLike] {
+func (v *syntax_) GetLexigrams() abs.Sequential[LexigramLike] {
 	return v.lexigrams_
 }
 

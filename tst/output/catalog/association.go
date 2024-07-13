@@ -14,7 +14,7 @@ package catalog
 
 import (
 	fmt "fmt"
-	mod "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4"
 	syn "sync"
 )
 
@@ -74,9 +74,9 @@ func (c *associationClass_[K, V]) Make(
 ) AssociationLike[K, V] {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(key):
+	case col.IsUndefined(key):
 		panic("The key attribute is required for each Association.")
-	case mod.IsUndefined(value):
+	case col.IsUndefined(value):
 		panic("The value attribute is required for each Association.")
 	default:
 		return &association_[K, V]{
@@ -117,7 +117,7 @@ func (v *association_[K, V]) GetValue() V {
 }
 
 func (v *association_[K, V]) SetValue(value V) {
-	if mod.IsUndefined(value) {
+	if col.IsUndefined(value) {
 		panic("The value attribute cannot be nil.")
 	}
 	v.value_ = value

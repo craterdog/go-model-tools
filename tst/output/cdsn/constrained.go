@@ -13,7 +13,7 @@
 package ast
 
 import (
-	mod "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -46,7 +46,7 @@ func (c *constrainedClass_) Make(
 ) ConstrainedLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(minimum):
+	case col.IsUndefined(minimum):
 		panic("The minimum attribute is required for each Constrained.")
 	default:
 		return &constrained_{

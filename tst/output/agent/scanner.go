@@ -13,8 +13,8 @@
 package agent
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-	mod "github.com/craterdog/go-collection-framework/v4"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -43,13 +43,13 @@ type scannerClass_ struct {
 
 func (c *scannerClass_) Make(
 	source string,
-	tokens col.QueueLike[TokenLike],
+	tokens abs.QueueLike[TokenLike],
 ) ScannerLike {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(source):
+	case col.IsUndefined(source):
 		panic("The source attribute is required for each Scanner.")
-	case mod.IsUndefined(tokens):
+	case col.IsUndefined(tokens):
 		panic("The tokens attribute is required for each Scanner.")
 	default:
 		return &scanner_{
@@ -72,8 +72,8 @@ func (c *scannerClass_) FormatToken(token TokenLike) string {
 func (c *scannerClass_) MatchToken(
 	type_ TokenType,
 	text string,
-) col.ListLike[string] {
-	var result_ col.ListLike[string]
+) abs.ListLike[string] {
+	var result_ abs.ListLike[string]
 	// TBA - Implement the function.
 	return result_
 }
@@ -86,7 +86,7 @@ type scanner_ struct {
 	// Define instance attributes.
 	class_ ScannerClassLike
 	source_ string
-	tokens_ col.QueueLike[TokenLike]
+	tokens_ abs.QueueLike[TokenLike]
 }
 
 // Attributes

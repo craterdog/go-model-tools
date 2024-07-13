@@ -15,7 +15,7 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
-	mod "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4"
 	syn "sync"
 )
 
@@ -79,7 +79,7 @@ func (c *stackClass_[V]) Make() StackLike[V] {
 func (c *stackClass_[V]) MakeWithCapacity(capacity uint) StackLike[V] {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(capacity):
+	case col.IsUndefined(capacity):
 		panic("The capacity attribute is required for each Stack.")
 	default:
 		return &stack_[V]{

@@ -15,7 +15,7 @@ package collection
 import (
 	age "github.com/craterdog/go-collection-framework/v4/agent"
 	fmt "fmt"
-	mod "github.com/craterdog/go-collection-framework/v4"
+	col "github.com/craterdog/go-collection-framework/v4"
 	syn "sync"
 )
 
@@ -67,7 +67,7 @@ type arrayClass_[V any] struct {
 func (c *arrayClass_[V]) MakeWithSize(size uint) ArrayLike[V] {
 	// Validate the arguments.
 	switch {
-	case mod.IsUndefined(size):
+	case col.IsUndefined(size):
 		panic("The size attribute is required for each Array.")
 	default:
 		return &array_[V]{
