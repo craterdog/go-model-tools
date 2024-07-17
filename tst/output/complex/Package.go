@@ -19,7 +19,7 @@ here:
 
 Additional implementations of the concrete classes provided by this package can
 be developed and used seamlessly since the interface definitions only depend on
-other interfaces and primitive types—and the class implementations only depend
+other interfaces and intrinsic types—and the class implementations only depend
 on interfaces, not on each other.
 */
 package complex

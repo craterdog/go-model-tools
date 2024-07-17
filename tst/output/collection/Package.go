@@ -32,7 +32,7 @@ Conventions located here:
 
 Additional implementations of the classes provided by this package can be
 developed and used seamlessly since the interface definitions only depend on
-other interfaces and primitive types; and the class implementations only depend
+other interfaces and intrinsic types; and the class implementations only depend
 on interfaces, not on each other.
 */
 package collection
@@ -45,12 +45,12 @@ import (
 
 /*
 ArrayClassLike[V any] is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
+class constructors, constants and functions that must be supported by each
 concrete array-like class.
 */
 type ArrayClassLike[V any] interface {
 	// Constructors
-	MakeWithSize(size uint) ArrayLike[V]
+	Make(size uint) ArrayLike[V]
 	MakeFromArray(values []V) ArrayLike[V]
 	MakeFromSequence(values Sequential[V]) ArrayLike[V]
 
@@ -60,7 +60,7 @@ type ArrayClassLike[V any] interface {
 
 /*
 AssociationClassLike[K comparable, V any] is a class interface that defines
-the complete set of class constants, constructors and functions that must be
+the complete set of class constructors, constants and functions that must be
 supported by each concrete association-like class.
 */
 type AssociationClassLike[
@@ -68,7 +68,7 @@ type AssociationClassLike[
 	V any,
 ] interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		key K,
 		value V,
 	) AssociationLike[K, V]
@@ -79,7 +79,7 @@ type AssociationClassLike[
 
 /*
 CatalogClassLike[K comparable, V any] is a class interface that defines the
-complete set of class constants, constructors and functions that must be
+complete set of class constructors, constants and functions that must be
 supported by each concrete catalog-like class.
 
 The following functions are supported:
@@ -119,7 +119,7 @@ type CatalogClassLike[
 
 /*
 ListClassLike[V any] is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
+class constructors, constants and functions that must be supported by each
 concrete list-like class.
 
 The following functions are supported:
@@ -145,7 +145,7 @@ type ListClassLike[V any] interface {
 
 /*
 MapClassLike[K comparable, V any] is a class interface that defines the
-complete set of class constants, constructors and functions that must be
+complete set of class constructors, constants and functions that must be
 supported by each concrete map-like class.
 */
 type MapClassLike[
@@ -164,7 +164,7 @@ type MapClassLike[
 
 /*
 NotationClassLike is a class interface that defines the complete set of class
-constants, constructors and functions that must be supported by each concrete
+constructors, constants and functions that must be supported by each concrete
 notation-like class.
 */
 type NotationClassLike interface {
@@ -174,7 +174,7 @@ type NotationClassLike interface {
 
 /*
 QueueClassLike[V any] is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
+class constructors, constants and functions that must be supported by each
 concrete queue-like class.
 
 The following functions are supported:
@@ -230,7 +230,7 @@ type QueueClassLike[V any] interface {
 
 /*
 SetClassLike[V any] is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
+class constructors, constants and functions that must be supported by each
 concrete set-like class.
 
 The following functions are supported:
@@ -278,7 +278,7 @@ type SetClassLike[V any] interface {
 
 /*
 StackClassLike[V any] is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
+class constructors, constants and functions that must be supported by each
 concrete stack-like class.
 */
 type StackClassLike[V any] interface {
@@ -307,7 +307,7 @@ description of what this means in the Accessible interface definition).
 This type is parameterized as follows:
   - V is any type of value.
 
-This type essentially provides a higher level abstraction for the primitive Go
+This type essentially provides a higher level abstraction for the intrinsic Go
 array type.
 */
 type ArrayLike[V any] interface {
@@ -327,7 +327,7 @@ the complete set of instance attributes, abstractions and methods that must be
 supported by each instance of a concrete association-like class.
 
 This type is parameterized as follows:
-  - K is a primitive type of key.
+  - K is an intrinsic type of key.
   - V is any type of value.
 
 This type is used by catalog-like instances to maintain their associations.
@@ -349,7 +349,7 @@ complete set of instance attributes, abstractions and methods that must be
 supported by each instance of a concrete catalog-like class.
 
 This type is parameterized as follows:
-  - K is a primitive type of key.
+  - K is an intrinsic type of key.
   - V is any type of entity.
 
 A catalog-like class can use any association-like class key-value association.
@@ -399,12 +399,12 @@ type ListLike[V any] interface {
 MapLike[K comparable, V any] is an instance interface that defines the
 complete set of instance attributes, abstractions and methods that must be
 supported by each instance of a concrete map-like class.  A map-like class
-extends the primitive Go map type and maintains a sequence of key-value
-associations.  The order of the key-value associations in a primitive Go map is
+extends the intrinsic Go map type and maintains a sequence of key-value
+associations.  The order of the key-value associations in an intrinsic Go map is
 random, even for two Go maps containing the same key-value associations.
 
 This type is parameterized as follows:
-  - K is a primitive type of key.
+  - K is an intrinsic type of key.
   - V is any type of entity.
 
 A map-like class can use any association-like class key-value association.

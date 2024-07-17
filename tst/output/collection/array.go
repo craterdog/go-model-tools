@@ -64,7 +64,7 @@ type arrayClass_[V any] struct {
 
 // Constructors
 
-func (c *arrayClass_[V]) MakeWithSize(size uint) ArrayLike[V] {
+func (c *arrayClass_[V]) Make(size uint) ArrayLike[V] {
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(size):
