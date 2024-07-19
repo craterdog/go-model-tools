@@ -11,7 +11,9 @@
 */
 
 /*
-Package "ast" provides...
+Package "ast" provides the abstract syntax tree (AST) classes for this module.
+Each AST class manages the attributes associated with the rule definition found
+in the syntax grammar with the same rule name as the class.
 
 For detailed documentation on this package refer to the wiki:
   - https://github.com/craterdog/go-grammar-framework/wiki
@@ -51,7 +53,7 @@ concrete bounded-like class.
 type BoundedClassLike interface {
 	// Constructors
 	Make(
-		initial InitialLike,
+		rune_ string,
 		optionalExtent ExtentLike,
 	) BoundedLike
 }
@@ -84,9 +86,19 @@ concrete constrained-like class.
 type ConstrainedClassLike interface {
 	// Constructors
 	Make(
-		minimum MinimumLike,
-		optionalMaximum MaximumLike,
+		number string,
+		optionalLimit LimitLike,
 	) ConstrainedLike
+}
+
+/*
+DefinitionClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete definition-like class.
+*/
+type DefinitionClassLike interface {
+	// Constructors
+	Make(any_ any) DefinitionLike
 }
 
 /*
@@ -106,7 +118,12 @@ concrete expression-like class.
 */
 type ExpressionClassLike interface {
 	// Constructors
-	Make(any_ any) ExpressionLike
+	Make(
+		optionalComment string,
+		lowercase string,
+		pattern PatternLike,
+		optionalNote string,
+	) ExpressionLike
 }
 
 /*
@@ -176,16 +193,6 @@ type IdentifierClassLike interface {
 }
 
 /*
-InitialClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete initial-like class.
-*/
-type InitialClassLike interface {
-	// Constructors
-	Make(rune_ string) InitialLike
-}
-
-/*
 InlinedClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete inlined-like class.
@@ -199,18 +206,13 @@ type InlinedClassLike interface {
 }
 
 /*
-LexigramClassLike is a class interface that defines the complete set of
+LimitClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
-concrete lexigram-like class.
+concrete limit-like class.
 */
-type LexigramClassLike interface {
+type LimitClassLike interface {
 	// Constructors
-	Make(
-		optionalComment string,
-		lowercase string,
-		pattern PatternLike,
-		optionalNote string,
-	) LexigramLike
+	Make(optionalNumber string) LimitLike
 }
 
 /*
@@ -224,26 +226,6 @@ type LineClassLike interface {
 		identifier IdentifierLike,
 		optionalNote string,
 	) LineLike
-}
-
-/*
-MaximumClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete maximum-like class.
-*/
-type MaximumClassLike interface {
-	// Constructors
-	Make(optionalNumber string) MaximumLike
-}
-
-/*
-MinimumClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete minimum-like class.
-*/
-type MinimumClassLike interface {
-	// Constructors
-	Make(number string) MinimumLike
 }
 
 /*
@@ -302,8 +284,18 @@ type RuleClassLike interface {
 	Make(
 		optionalComment string,
 		uppercase string,
-		expression ExpressionLike,
+		definition DefinitionLike,
 	) RuleLike
+}
+
+/*
+StringClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete string-like class.
+*/
+type StringClassLike interface {
+	// Constructors
+	Make(any_ any) StringLike
 }
 
 /*
@@ -316,7 +308,7 @@ type SyntaxClassLike interface {
 	Make(
 		headers abs.Sequential[HeaderLike],
 		rules abs.Sequential[RuleLike],
-		lexigrams abs.Sequential[LexigramLike],
+		expressions abs.Sequential[ExpressionLike],
 	) SyntaxLike
 }
 
@@ -341,7 +333,7 @@ instance of a concrete bounded-like class.
 type BoundedLike interface {
 	// Attributes
 	GetClass() BoundedClassLike
-	GetInitial() InitialLike
+	GetRune() string
 	GetOptionalExtent() ExtentLike
 }
 
@@ -375,8 +367,19 @@ instance of a concrete constrained-like class.
 type ConstrainedLike interface {
 	// Attributes
 	GetClass() ConstrainedClassLike
-	GetMinimum() MinimumLike
-	GetOptionalMaximum() MaximumLike
+	GetNumber() string
+	GetOptionalLimit() LimitLike
+}
+
+/*
+DefinitionLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete definition-like class.
+*/
+type DefinitionLike interface {
+	// Attributes
+	GetClass() DefinitionClassLike
+	GetAny() any
 }
 
 /*
@@ -398,7 +401,10 @@ instance of a concrete expression-like class.
 type ExpressionLike interface {
 	// Attributes
 	GetClass() ExpressionClassLike
-	GetAny() any
+	GetOptionalComment() string
+	GetLowercase() string
+	GetPattern() PatternLike
+	GetOptionalNote() string
 }
 
 /*
@@ -470,17 +476,6 @@ type IdentifierLike interface {
 }
 
 /*
-InitialLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete initial-like class.
-*/
-type InitialLike interface {
-	// Attributes
-	GetClass() InitialClassLike
-	GetRune() string
-}
-
-/*
 InlinedLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete inlined-like class.
@@ -493,17 +488,14 @@ type InlinedLike interface {
 }
 
 /*
-LexigramLike is an instance interface that defines the complete set of
+LimitLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete lexigram-like class.
+instance of a concrete limit-like class.
 */
-type LexigramLike interface {
+type LimitLike interface {
 	// Attributes
-	GetClass() LexigramClassLike
-	GetOptionalComment() string
-	GetLowercase() string
-	GetPattern() PatternLike
-	GetOptionalNote() string
+	GetClass() LimitClassLike
+	GetOptionalNumber() string
 }
 
 /*
@@ -516,28 +508,6 @@ type LineLike interface {
 	GetClass() LineClassLike
 	GetIdentifier() IdentifierLike
 	GetOptionalNote() string
-}
-
-/*
-MaximumLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete maximum-like class.
-*/
-type MaximumLike interface {
-	// Attributes
-	GetClass() MaximumClassLike
-	GetOptionalNumber() string
-}
-
-/*
-MinimumLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete minimum-like class.
-*/
-type MinimumLike interface {
-	// Attributes
-	GetClass() MinimumClassLike
-	GetNumber() string
 }
 
 /*
@@ -596,7 +566,18 @@ type RuleLike interface {
 	GetClass() RuleClassLike
 	GetOptionalComment() string
 	GetUppercase() string
-	GetExpression() ExpressionLike
+	GetDefinition() DefinitionLike
+}
+
+/*
+StringLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete string-like class.
+*/
+type StringLike interface {
+	// Attributes
+	GetClass() StringClassLike
+	GetAny() any
 }
 
 /*
@@ -609,5 +590,5 @@ type SyntaxLike interface {
 	GetClass() SyntaxClassLike
 	GetHeaders() abs.Sequential[HeaderLike]
 	GetRules() abs.Sequential[RuleLike]
-	GetLexigrams() abs.Sequential[LexigramLike]
+	GetExpressions() abs.Sequential[ExpressionLike]
 }

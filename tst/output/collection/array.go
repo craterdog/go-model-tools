@@ -68,7 +68,7 @@ func (c *arrayClass_[V]) Make(size uint) ArrayLike[V] {
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(size):
-		panic("The size attribute is required for each Array.")
+		panic("The size attribute is required by this class.")
 	default:
 		return &array_[V]{
 			// Initialize instance attributes.

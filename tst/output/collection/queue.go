@@ -80,7 +80,7 @@ func (c *queueClass_[V]) MakeWithCapacity(capacity uint) QueueLike[V] {
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(capacity):
-		panic("The capacity attribute is required for each Queue.")
+		panic("The capacity attribute is required by this class.")
 	default:
 		return &queue_[V]{
 			// Initialize instance attributes.

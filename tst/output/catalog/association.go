@@ -75,9 +75,9 @@ func (c *associationClass_[K, V]) Make(
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(key):
-		panic("The key attribute is required for each Association.")
+		panic("The key attribute is required by this class.")
 	case col.IsUndefined(value):
-		panic("The value attribute is required for each Association.")
+		panic("The value attribute is required by this class.")
 	default:
 		return &association_[K, V]{
 			// Initialize instance attributes.

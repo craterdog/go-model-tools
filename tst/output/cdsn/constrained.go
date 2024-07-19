@@ -41,19 +41,19 @@ type constrainedClass_ struct {
 // Constructors
 
 func (c *constrainedClass_) Make(
-	minimum MinimumLike,
-	optionalMaximum MaximumLike,
+	number string,
+	optionalLimit LimitLike,
 ) ConstrainedLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(minimum):
-		panic("The minimum attribute is required for each Constrained.")
+	case col.IsUndefined(number):
+		panic("The number attribute is required by this class.")
 	default:
 		return &constrained_{
 			// Initialize instance attributes.
 			class_: c,
-			minimum_: minimum,
-			optionalMaximum_: optionalMaximum,
+			number_: number,
+			optionalLimit_: optionalLimit,
 		}
 	}
 }
@@ -65,8 +65,8 @@ func (c *constrainedClass_) Make(
 type constrained_ struct {
 	// Define instance attributes.
 	class_ ConstrainedClassLike
-	minimum_ MinimumLike
-	optionalMaximum_ MaximumLike
+	number_ string
+	optionalLimit_ LimitLike
 }
 
 // Attributes
@@ -75,12 +75,12 @@ func (v *constrained_) GetClass() ConstrainedClassLike {
 	return v.class_
 }
 
-func (v *constrained_) GetMinimum() MinimumLike {
-	return v.minimum_
+func (v *constrained_) GetNumber() string {
+	return v.number_
 }
 
-func (v *constrained_) GetOptionalMaximum() MaximumLike {
-	return v.optionalMaximum_
+func (v *constrained_) GetOptionalLimit() LimitLike {
+	return v.optionalLimit_
 }
 
 // Private

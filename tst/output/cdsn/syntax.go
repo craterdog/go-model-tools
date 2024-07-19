@@ -44,23 +44,23 @@ type syntaxClass_ struct {
 func (c *syntaxClass_) Make(
 	headers abs.Sequential[HeaderLike],
 	rules abs.Sequential[RuleLike],
-	lexigrams abs.Sequential[LexigramLike],
+	expressions abs.Sequential[ExpressionLike],
 ) SyntaxLike {
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(headers):
-		panic("The headers attribute is required for each Syntax.")
+		panic("The headers attribute is required by this class.")
 	case col.IsUndefined(rules):
-		panic("The rules attribute is required for each Syntax.")
-	case col.IsUndefined(lexigrams):
-		panic("The lexigrams attribute is required for each Syntax.")
+		panic("The rules attribute is required by this class.")
+	case col.IsUndefined(expressions):
+		panic("The expressions attribute is required by this class.")
 	default:
 		return &syntax_{
 			// Initialize instance attributes.
 			class_: c,
 			headers_: headers,
 			rules_: rules,
-			lexigrams_: lexigrams,
+			expressions_: expressions,
 		}
 	}
 }
@@ -74,7 +74,7 @@ type syntax_ struct {
 	class_ SyntaxClassLike
 	headers_ abs.Sequential[HeaderLike]
 	rules_ abs.Sequential[RuleLike]
-	lexigrams_ abs.Sequential[LexigramLike]
+	expressions_ abs.Sequential[ExpressionLike]
 }
 
 // Attributes
@@ -91,8 +91,8 @@ func (v *syntax_) GetRules() abs.Sequential[RuleLike] {
 	return v.rules_
 }
 
-func (v *syntax_) GetLexigrams() abs.Sequential[LexigramLike] {
-	return v.lexigrams_
+func (v *syntax_) GetExpressions() abs.Sequential[ExpressionLike] {
+	return v.expressions_
 }
 
 // Private

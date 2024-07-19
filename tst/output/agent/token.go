@@ -49,13 +49,13 @@ func (c *tokenClass_) Make(
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(line):
-		panic("The line attribute is required for each Token.")
+		panic("The line attribute is required by this class.")
 	case col.IsUndefined(position):
-		panic("The position attribute is required for each Token.")
+		panic("The position attribute is required by this class.")
 	case col.IsUndefined(type_):
-		panic("The type_ attribute is required for each Token.")
+		panic("The type attribute is required by this class.")
 	case col.IsUndefined(value):
-		panic("The value attribute is required for each Token.")
+		panic("The value attribute is required by this class.")
 	default:
 		return &token_{
 			// Initialize instance attributes.

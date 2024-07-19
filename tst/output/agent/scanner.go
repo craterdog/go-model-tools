@@ -48,9 +48,9 @@ func (c *scannerClass_) Make(
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(source):
-		panic("The source attribute is required for each Scanner.")
+		panic("The source attribute is required by this class.")
 	case col.IsUndefined(tokens):
-		panic("The tokens attribute is required for each Scanner.")
+		panic("The tokens attribute is required by this class.")
 	default:
 		return &scanner_{
 			// Initialize instance attributes.

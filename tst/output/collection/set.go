@@ -79,7 +79,7 @@ func (c *setClass_[V]) MakeWithCollator(collator age.CollatorLike[V]) SetLike[V]
 	// Validate the arguments.
 	switch {
 	case col.IsUndefined(collator):
-		panic("The collator attribute is required for each Set.")
+		panic("The collator attribute is required by this class.")
 	default:
 		return &set_[V]{
 			// Initialize instance attributes.

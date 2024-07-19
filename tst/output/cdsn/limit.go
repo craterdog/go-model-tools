@@ -16,31 +16,31 @@ package ast
 
 // Reference
 
-var maximumClass = &maximumClass_{
+var limitClass = &limitClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Maximum() MaximumClassLike {
-	return maximumClass
+func Limit() LimitClassLike {
+	return limitClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type maximumClass_ struct {
+type limitClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *maximumClass_) Make(optionalNumber string) MaximumLike {
+func (c *limitClass_) Make(optionalNumber string) LimitLike {
 	// Validate the arguments.
 	switch {
 	default:
-		return &maximum_{
+		return &limit_{
 			// Initialize instance attributes.
 			class_: c,
 			optionalNumber_: optionalNumber,
@@ -52,19 +52,19 @@ func (c *maximumClass_) Make(optionalNumber string) MaximumLike {
 
 // Target
 
-type maximum_ struct {
+type limit_ struct {
 	// Define instance attributes.
-	class_ MaximumClassLike
+	class_ LimitClassLike
 	optionalNumber_ string
 }
 
 // Attributes
 
-func (v *maximum_) GetClass() MaximumClassLike {
+func (v *limit_) GetClass() LimitClassLike {
 	return v.class_
 }
 
-func (v *maximum_) GetOptionalNumber() string {
+func (v *limit_) GetOptionalNumber() string {
 	return v.optionalNumber_
 }
 

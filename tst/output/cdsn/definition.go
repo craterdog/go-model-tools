@@ -20,36 +20,36 @@ import (
 
 // Reference
 
-var initialClass = &initialClass_{
+var definitionClass = &definitionClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Initial() InitialClassLike {
-	return initialClass
+func Definition() DefinitionClassLike {
+	return definitionClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type initialClass_ struct {
+type definitionClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *initialClass_) Make(rune_ string) InitialLike {
+func (c *definitionClass_) Make(any_ any) DefinitionLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(rune_):
-		panic("The rune_ attribute is required for each Initial.")
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
 	default:
-		return &initial_{
+		return &definition_{
 			// Initialize instance attributes.
 			class_: c,
-			rune_: rune_,
+			any_: any_,
 		}
 	}
 }
@@ -58,20 +58,20 @@ func (c *initialClass_) Make(rune_ string) InitialLike {
 
 // Target
 
-type initial_ struct {
+type definition_ struct {
 	// Define instance attributes.
-	class_ InitialClassLike
-	rune_ string
+	class_ DefinitionClassLike
+	any_ any
 }
 
 // Attributes
 
-func (v *initial_) GetClass() InitialClassLike {
+func (v *definition_) GetClass() DefinitionClassLike {
 	return v.class_
 }
 
-func (v *initial_) GetRune() string {
-	return v.rune_
+func (v *definition_) GetAny() any {
+	return v.any_
 }
 
 // Private

@@ -20,46 +20,36 @@ import (
 
 // Reference
 
-var lexigramClass = &lexigramClass_{
+var stringClass = &stringClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Lexigram() LexigramClassLike {
-	return lexigramClass
+func String() StringClassLike {
+	return stringClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type lexigramClass_ struct {
+type stringClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *lexigramClass_) Make(
-	optionalComment string,
-	lowercase string,
-	pattern PatternLike,
-	optionalNote string,
-) LexigramLike {
+func (c *stringClass_) Make(any_ any) StringLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(lowercase):
-		panic("The lowercase attribute is required for each Lexigram.")
-	case col.IsUndefined(pattern):
-		panic("The pattern attribute is required for each Lexigram.")
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
 	default:
-		return &lexigram_{
+		return &string_{
 			// Initialize instance attributes.
 			class_: c,
-			optionalComment_: optionalComment,
-			lowercase_: lowercase,
-			pattern_: pattern,
-			optionalNote_: optionalNote,
+			any_: any_,
 		}
 	}
 }
@@ -68,35 +58,20 @@ func (c *lexigramClass_) Make(
 
 // Target
 
-type lexigram_ struct {
+type string_ struct {
 	// Define instance attributes.
-	class_ LexigramClassLike
-	optionalComment_ string
-	lowercase_ string
-	pattern_ PatternLike
-	optionalNote_ string
+	class_ StringClassLike
+	any_ any
 }
 
 // Attributes
 
-func (v *lexigram_) GetClass() LexigramClassLike {
+func (v *string_) GetClass() StringClassLike {
 	return v.class_
 }
 
-func (v *lexigram_) GetOptionalComment() string {
-	return v.optionalComment_
-}
-
-func (v *lexigram_) GetLowercase() string {
-	return v.lowercase_
-}
-
-func (v *lexigram_) GetPattern() PatternLike {
-	return v.pattern_
-}
-
-func (v *lexigram_) GetOptionalNote() string {
-	return v.optionalNote_
+func (v *string_) GetAny() any {
+	return v.any_
 }
 
 // Private
