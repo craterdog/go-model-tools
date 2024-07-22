@@ -10,60 +10,43 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4"
+	ast "github.com/craterdog/go-model-framework/v4/ast"
 )
 
 // CLASS ACCESS
 
 // Reference
 
-var tokenClass = &tokenClass_{
+var validatorClass = &validatorClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Token() TokenClassLike {
-	return tokenClass
+func Validator() ValidatorClassLike {
+	return validatorClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type tokenClass_ struct {
+type validatorClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *tokenClass_) Make(
-	line int,
-	position int,
-	type_ TokenType,
-	value string,
-) TokenLike {
+func (c *validatorClass_) Make() ValidatorLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(line):
-		panic("The line attribute is required by this class.")
-	case col.IsUndefined(position):
-		panic("The position attribute is required by this class.")
-	case col.IsUndefined(type_):
-		panic("The type attribute is required by this class.")
-	case col.IsUndefined(value):
-		panic("The value attribute is required by this class.")
 	default:
-		return &token_{
+		return &validator_{
 			// Initialize instance attributes.
 			class_: c,
-			line_: line,
-			position_: position,
-			type_: type_,
-			value_: value,
 		}
 	}
 }
@@ -72,35 +55,21 @@ func (c *tokenClass_) Make(
 
 // Target
 
-type token_ struct {
+type validator_ struct {
 	// Define instance attributes.
-	class_ TokenClassLike
-	line_ int
-	position_ int
-	type_ TokenType
-	value_ string
+	class_ ValidatorClassLike
 }
 
 // Attributes
 
-func (v *token_) GetClass() TokenClassLike {
+func (v *validator_) GetClass() ValidatorClassLike {
 	return v.class_
 }
 
-func (v *token_) GetLine() int {
-	return v.line_
-}
+// Public
 
-func (v *token_) GetPosition() int {
-	return v.position_
-}
-
-func (v *token_) GetType() TokenType {
-	return v.type_
-}
-
-func (v *token_) GetValue() string {
-	return v.value_
+func (v *validator_) ValidateModel(model ast.ModelLike) {
+	// TBA - Implement the method.
 }
 
 // Private

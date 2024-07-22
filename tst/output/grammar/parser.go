@@ -10,7 +10,7 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
 	ast "github.com/craterdog/go-model-framework/v4/ast"

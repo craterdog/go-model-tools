@@ -10,10 +10,9 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
-	abs "github.com/craterdog/go-collection-framework/v4/collection"
 	col "github.com/craterdog/go-collection-framework/v4"
 )
 
@@ -21,78 +20,87 @@ import (
 
 // Reference
 
-var scannerClass = &scannerClass_{
+var tokenClass = &tokenClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Scanner() ScannerClassLike {
-	return scannerClass
+func Token() TokenClassLike {
+	return tokenClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type scannerClass_ struct {
+type tokenClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *scannerClass_) Make(
-	source string,
-	tokens abs.QueueLike[TokenLike],
-) ScannerLike {
+func (c *tokenClass_) Make(
+	line int,
+	position int,
+	type_ TokenType,
+	value string,
+) TokenLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(source):
-		panic("The source attribute is required by this class.")
-	case col.IsUndefined(tokens):
-		panic("The tokens attribute is required by this class.")
+	case col.IsUndefined(line):
+		panic("The line attribute is required by this class.")
+	case col.IsUndefined(position):
+		panic("The position attribute is required by this class.")
+	case col.IsUndefined(type_):
+		panic("The type attribute is required by this class.")
+	case col.IsUndefined(value):
+		panic("The value attribute is required by this class.")
 	default:
-		return &scanner_{
+		return &token_{
 			// Initialize instance attributes.
 			class_: c,
-			source_: source,
-			tokens_: tokens,
+			line_: line,
+			position_: position,
+			type_: type_,
+			value_: value,
 		}
 	}
-}
-
-// Functions
-
-func (c *scannerClass_) FormatToken(token TokenLike) string {
-	var result_ string
-	// TBA - Implement the function.
-	return result_
-}
-
-func (c *scannerClass_) MatchToken(
-	type_ TokenType,
-	text string,
-) abs.ListLike[string] {
-	var result_ abs.ListLike[string]
-	// TBA - Implement the function.
-	return result_
 }
 
 // INSTANCE METHODS
 
 // Target
 
-type scanner_ struct {
+type token_ struct {
 	// Define instance attributes.
-	class_ ScannerClassLike
-	source_ string
-	tokens_ abs.QueueLike[TokenLike]
+	class_ TokenClassLike
+	line_ int
+	position_ int
+	type_ TokenType
+	value_ string
 }
 
 // Attributes
 
-func (v *scanner_) GetClass() ScannerClassLike {
+func (v *token_) GetClass() TokenClassLike {
 	return v.class_
+}
+
+func (v *token_) GetLine() int {
+	return v.line_
+}
+
+func (v *token_) GetPosition() int {
+	return v.position_
+}
+
+func (v *token_) GetType() TokenType {
+	return v.type_
+}
+
+func (v *token_) GetValue() string {
+	return v.value_
 }
 
 // Private

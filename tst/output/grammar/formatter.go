@@ -10,7 +10,7 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
 	ast "github.com/craterdog/go-model-framework/v4/ast"
@@ -58,7 +58,7 @@ func (c *formatterClass_) Make() FormatterLike {
 type formatter_ struct {
 	// Define instance attributes.
 	class_ FormatterClassLike
-	depth_ int
+	depth_ uint
 }
 
 // Attributes
@@ -67,7 +67,7 @@ func (v *formatter_) GetClass() FormatterClassLike {
 	return v.class_
 }
 
-func (v *formatter_) GetDepth() int {
+func (v *formatter_) GetDepth() uint {
 	return v.depth_
 }
 

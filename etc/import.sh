@@ -7,8 +7,8 @@ echo
 echo "Importing the new example class models:"
 echo "    ast.gcmn"
 cp ../go-model-framework/v4/ast/Package.go $input/ast.gcmn
-echo "    agent.gcmn"
-cp ../go-model-framework/v4/agent/Package.go $input/agent.gcmn
+echo "    grammar.gcmn"
+cp ../go-model-framework/v4/grammar/Package.go $input/grammar.gcmn
 echo "    collection.gcmn"
 cp ../go-collection-framework/v4/collection/Package.go $input/collection.gcmn
 echo "    cdsn.gcmn"

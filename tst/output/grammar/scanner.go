@@ -10,9 +10,10 @@
 ................................................................................
 */
 
-package ast
+package grammar
 
 import (
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
 	col "github.com/craterdog/go-collection-framework/v4"
 )
 
@@ -20,58 +21,84 @@ import (
 
 // Reference
 
-var resultClass = &resultClass_{
+var scannerClass = &scannerClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Result() ResultClassLike {
-	return resultClass
+func Scanner() ScannerClassLike {
+	return scannerClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type resultClass_ struct {
+type scannerClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *resultClass_) Make(any_ any) ResultLike {
+func (c *scannerClass_) Make(
+	source string,
+	tokens abs.QueueLike[TokenLike],
+) ScannerLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(any_):
-		panic("The any attribute is required by this class.")
+	case col.IsUndefined(source):
+		panic("The source attribute is required by this class.")
+	case col.IsUndefined(tokens):
+		panic("The tokens attribute is required by this class.")
 	default:
-		return &result_{
+		return &scanner_{
 			// Initialize instance attributes.
 			class_: c,
-			any_: any_,
+			source_: source,
+			tokens_: tokens,
 		}
 	}
+}
+
+// Functions
+
+func (c *scannerClass_) AsString(type_ TokenType) string {
+	var result_ string
+	// TBA - Implement the function.
+	return result_
+}
+
+func (c *scannerClass_) FormatToken(token TokenLike) string {
+	var result_ string
+	// TBA - Implement the function.
+	return result_
+}
+
+func (c *scannerClass_) MatchToken(
+	type_ TokenType,
+	text string,
+) abs.ListLike[string] {
+	var result_ abs.ListLike[string]
+	// TBA - Implement the function.
+	return result_
 }
 
 // INSTANCE METHODS
 
 // Target
 
-type result_ struct {
+type scanner_ struct {
 	// Define instance attributes.
-	class_ ResultClassLike
-	any_ any
+	class_ ScannerClassLike
+	source_ string
+	tokens_ abs.QueueLike[TokenLike]
 }
 
 // Attributes
 
-func (v *result_) GetClass() ResultClassLike {
+func (v *scanner_) GetClass() ScannerClassLike {
 	return v.class_
-}
-
-func (v *result_) GetAny() any {
-	return v.any_
 }
 
 // Private
